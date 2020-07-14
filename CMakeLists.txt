@@ -49,17 +49,6 @@ target_include_directories(epigraph SYSTEM PUBLIC ${TARGET_INCLUDE_SYS})
 set(DEBUG_OPTIONS -Wall -Wextra -Wpedantic)
 set(RELEASE_OPTIONS -O2)
 
-if (CMAKE_COMPILER_IS_GNUCXX)
-    option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
-
-    if(ENABLE_COVERAGE)
-        message("Epigraph: Code coverage is enabled.")
-        list(APPEND DEBUG_OPTIONS --coverage -O0)
-    endif()
-
-    target_link_libraries(epigraph --coverage)
-endif()
-
 target_link_libraries(epigraph 
     Eigen3::Eigen 
     osqp 
@@ -69,10 +58,30 @@ target_link_libraries(epigraph
 
 # ==== Testing ====
 find_package(Catch2)
-if(Catch2_FOUND)
+option(ENABLE_TESTING "Build tests. Requires Catch2 and fmt to be installed." FALSE)
+if(Catch2_FOUND AND ENABLE_TESTING)
     include_directories(epigraph tests)
     add_executable(run_tests tests/run_tests.cpp)
     target_link_libraries(run_tests epigraph)
+    message("Epigraph: Testing is enabled.")
+
+    find_package(fmt REQUIRED)
+    if (${fmt_FOUND})
+    message(STATUS "Epigraph: Found fmt.")
+    target_link_libraries(run_tests fmt::fmt)
+    endif()
+
+    # Coverage
+    if (CMAKE_COMPILER_IS_GNUCXX)
+        option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+    endif()
+
+    if(ENABLE_COVERAGE)
+        message("Epigraph: Code coverage is enabled.")
+        list(APPEND DEBUG_OPTIONS --coverage -O0)
+    endif()
+
+    target_link_libraries(epigraph --coverage)
 endif()
 # ====
 
