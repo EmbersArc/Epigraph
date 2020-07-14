@@ -1,0 +1,36 @@
+language: cpp
+os: linux
+dist: bionic
+
+compiler:
+  - gcc
+  # - clang
+
+before_install:
+  # Latest Catch2
+  - git clone https://github.com/catchorg/Catch2.git Catch2
+  - cmake -BCatch2/build -HCatch2 -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF
+  - sudo env "PATH=$PATH" cmake --build Catch2/build --target install
+
+  # Latest Eigen
+  - git clone https://gitlab.com/libeigen/eigen.git Eigen
+  - cmake -BEigen/build -HEigen -DBUILD_TESTING=OFF
+  - sudo env "PATH=$PATH" cmake --build Eigen/build --target install
+
+  # Latest FMT
+  - git clone https://github.com/fmtlib/fmt fmt
+  - cmake -Bfmt/build -Hfmt -DFMT_TEST=OFF -DFMT_DOC=OFF -DBUILD_SHARED_LIBS=TRUE
+  - sudo env "PATH=$PATH" cmake --build fmt/build --target install
+
+script:
+  - cmake -H. -Bbuild -DENABLE_COVERAGE:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug
+  - cmake --build build --config Debug --target run_tests -- -j$(nproc)
+
+  - ./build/run_tests
+
+after_success:
+  - pyenv global 3.6
+  - pip install --user codecov
+  - codecov
+  - ls build/CMakeFiles/run_tests.dir/tests/
+  - bash <(curl -s https://codecov.io/bash)

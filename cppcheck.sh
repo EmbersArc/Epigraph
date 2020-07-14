@@ -1,0 +1,1 @@
+clear && cppcheck src solvers/wrappers/src -I include -I solvers/wrappers/include --enable=all --inconclusive --language=c++ --suppress=useStlAlgorithm --suppress=unusedFunction

@@ -1,0 +1,9 @@
+[submodule "solvers/osqp"]
+	path = solvers/osqp
+	url = https://github.com/oxfordcontrol/osqp
+[submodule "solvers/ecos"]
+	path = solvers/ecos
+	url = https://github.com/embotech/ecos
+[submodule "solvers/eicos"]
+	path = solvers/eicos
+	url = https://github.com/EmbersArc/EiCOS
