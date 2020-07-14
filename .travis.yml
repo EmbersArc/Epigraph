@@ -23,7 +23,7 @@ before_install:
   - sudo env "PATH=$PATH" cmake --build fmt/build --target install
 
 script:
-  - cmake -H. -Bbuild -DENABLE_COVERAGE:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug
+  - cmake -H. -Bbuild -DENABLE_COVERAGE:BOOL=TRUE -DENABLE_TESTING:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug
   - cmake --build build --config Debug --target run_tests -- -j$(nproc)
 
   - ./build/run_tests
