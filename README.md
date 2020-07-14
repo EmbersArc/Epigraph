@@ -132,4 +132,4 @@ int main()
     fmt::print("Solution 2:\n {}\n", eval(x));
 }
 ```
-See the [tests](Epigraph/blob/master/tests) for more examples.
+See the [tests](tests) for more examples.
