@@ -4,9 +4,9 @@
 
 <p align="center">
 <a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Version-0.1-red.svg" /></a>
+    <img src="https://img.shields.io/badge/Version-0.1-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Status-Alpha-red.svg" /></a>
+    <img src="https://img.shields.io/badge/Status-Beta-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
 <a href="https://lbesson.mit-license.org/" alt="">
@@ -22,6 +22,7 @@ A modern C++ interface to formulate and solve linear, quadratic and second order
 ## Dependencies
 
 * [Eigen](http://eigen.tuxfamily.org)
+* [fmt](https://github.com/fmtlib/fmt) (optional, only for tests)
 
 ## Supported Solvers
 
@@ -40,14 +41,21 @@ The solvers are included as submodules and don't need any additional setup.
 * Automatically clean up the problem and remove unused variables
 * Print the problem formulation and solver data for inspection
 
+## Usage
+
+### Download
+```
+git clone --recurse-submodules https://github.com/EmbersArc/Epigraph
+```
+
 ### CMake
 To use Epigraph with a cmake project, simply include the subdirectory and link the library.
 ```
-add_subdirectory(epigraph)
+add_subdirectory(Epigraph)
 target_link_libraries(my_library epigraph)
 ```
 
-## Example
+### Example
 
 ```cpp
 #include "epigraph.hpp"
@@ -124,3 +132,4 @@ int main()
     fmt::print("Solution 2:\n {}\n", eval(x));
 }
 ```
+See the [tests](Epigraph/blob/master/tests) for more examples.
