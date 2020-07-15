@@ -7,6 +7,7 @@ TEST_CASE("Scalar")
 {
     {
         VectorX x = var("x", 2);
+        REQUIRE_THROWS(sqrt(x(0) * x(1)));
         REQUIRE_NOTHROW(x.dot(x) + x.dot(x));
         REQUIRE_THROWS(x.norm() + x.norm());
         REQUIRE_THROWS(x.norm() + x.dot(x));
@@ -93,5 +94,10 @@ TEST_CASE("Scalar")
         d2 = 3.;
 
         REQUIRE(eval(p1 * p2) == d1 * d2);
+    }
+
+    {
+        Variable variable("x");
+        REQUIRE_THROWS(variable.getProblemIndex());
     }
 }

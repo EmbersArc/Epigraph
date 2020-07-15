@@ -114,5 +114,9 @@ TEST_CASE("Parameter")
         REQUIRE_FALSE(p0 * p1 == p1 * p2);
         REQUIRE_FALSE(p2 + p1 == p2 * p1);
         REQUIRE_FALSE(p2 == p1 * p2);
+        REQUIRE(sqrt(p2 * p1) == sqrt(p1 * p2));
+        REQUIRE_FALSE(sqrt(p1 * p1) == sqrt(p1 * p2));
+        REQUIRE(sqrt(p1 / p1) == sqrt(p1 / p1));
+        REQUIRE_FALSE(sqrt(p2 / p1) == sqrt(p1 / p2));
     }
 }

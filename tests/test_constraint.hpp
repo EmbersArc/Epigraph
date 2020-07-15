@@ -70,4 +70,11 @@ TEST_CASE("Constraint")
         REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
         REQUIRE(op.getOptimalValue() == Approx(solver.getInfo().pcost));
     }
+    { // Invalid constraints
+        VectorX x = var("x", 3);
+        REQUIRE_THROWS(lessThan(x(0), x.norm()));
+        REQUIRE_THROWS(lessThan(x.squaredNorm(), x(0)));
+        REQUIRE_THROWS(box(x(0), x.squaredNorm(), x(1)));
+        REQUIRE_THROWS(equalTo(x, x.squaredNorm()));
+    }
 }

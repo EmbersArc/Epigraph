@@ -73,4 +73,14 @@ TEST_CASE("Simple Problems")
         REQUIRE(x_sol(1) == Approx(x_eval(1)).margin(1e-7));
         REQUIRE(optval_eval == Approx(optval_sol).margin(1e-7));
     }
+    { // Invalid problem
+        OptimizationProblem op;
+        VectorX x = var("x", 2);
+
+        op.addCostTerm(x(0) * x(1));
+
+        auto construct = [&op]() { eicos::EiCOSSolver solver(op); };
+
+        REQUIRE_THROWS(construct());
+    }
 }
