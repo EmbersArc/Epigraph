@@ -41,7 +41,15 @@ TEST_CASE("Parameter")
         REQUIRE((p3 * p1).getValue() == 3.);
         REQUIRE((p1 * p3).getValue() == 3.);
         REQUIRE((p2 * p3).getValue() == 6.);
-        REQUIRE((p1 * p3).getValue() == 3.);
+
+        // Division
+        REQUIRE((p0 / p1).getValue() == 0.);
+        REQUIRE_THROWS((p1 / p0).getValue());
+        REQUIRE((p0 / p2).getValue() == 0.);
+        REQUIRE_THROWS((p2 / p0).getValue());
+        REQUIRE((p3 / p1).getValue() == 3.);
+        REQUIRE((p1 / p3).getValue() == 1. / 3.);
+        REQUIRE((p2 / p3).getValue() == 2. / 3.);
 
         // Square root
         REQUIRE((sqrt(p0).getValue()) == 0.);
@@ -85,7 +93,13 @@ TEST_CASE("Parameter")
         REQUIRE((p3 * p1).getValue() == 3.);
         REQUIRE((p1 * p3).getValue() == 3.);
         REQUIRE((p2 * p3).getValue() == 6.);
-        REQUIRE((p1 * p3).getValue() == 3.);
+
+        // Division
+        REQUIRE((p0 / p1).getValue() == 0.);
+        REQUIRE((p0 / p2).getValue() == 0.);
+        REQUIRE((p3 / p1).getValue() == 3.);
+        REQUIRE((p1 / p3).getValue() == 1. / 3.);
+        REQUIRE((p2 / p3).getValue() == 2. / 3.);
 
         // Square root
         REQUIRE((sqrt(p0).getValue()) == 0.);
