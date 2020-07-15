@@ -106,6 +106,12 @@ namespace cvx
         return *this;
     }
 
+    Term &Term::operator/=(const Parameter &param)
+    {
+        this->parameter /= param;
+        return *this;
+    }
+
     Term operator*(const Parameter &parameter, const Variable &variable)
     {
         Term term;
@@ -155,6 +161,33 @@ namespace cvx
 
         this->constant += other.constant;
 
+        return *this;
+    }
+
+    Affine &Affine::operator-=(const Affine &other)
+    {
+        *this += -other;
+
+        return *this;
+    }
+
+    Affine &Affine::operator*=(const Parameter &param)
+    {
+        this->constant *= param;
+        for (Term &term : this->terms)
+        {
+            term *= param;
+        }
+        return *this;
+    }
+
+    Affine &Affine::operator/=(const Parameter &param)
+    {
+        this->constant /= param;
+        for (Term &term : this->terms)
+        {
+            term /= param;
+        }
         return *this;
     }
 
@@ -384,7 +417,48 @@ namespace cvx
             throw std::runtime_error("Subtraction is not supported for higher-order terms.");
         }
 
-        this->affine += -other.affine;
+        this->affine -= other.affine;
+
+        return *this;
+    }
+
+    Scalar &Scalar::operator*=(const Scalar &other)
+    {
+        if (this->getOrder() == 2 or other.getOrder() == 2)
+        {
+            // TODO: Maybe allow scaling sums of squares, but not norms for performance reasons
+            throw std::runtime_error("Factors in a multiplication have to be constant or linear.");
+        }
+
+        if (this->affine.isFirstOrder() and other.affine.isFirstOrder())
+        {
+            this->products.emplace_back(this->affine, other.affine);
+            this->affine = Affine();
+        }
+        else if (this->affine.isConstant())
+        {
+            this->affine = this->affine.constant * other.affine;
+        }
+        else if (other.affine.isConstant())
+        {
+            this->affine *= other.affine.constant;
+        }
+
+        return *this;
+    }
+
+    Scalar &Scalar::operator/=(const Scalar &other)
+    {
+        if (this->getOrder() == 2)
+        {
+            throw std::runtime_error("The dividend has to be constant or linear.");
+        }
+        if (other.getOrder() > 0)
+        {
+            throw std::runtime_error("The divisor has to be constant.");
+        }
+
+        this->affine /= other.affine.constant;
 
         return *this;
     }
@@ -414,26 +488,18 @@ namespace cvx
 
     Scalar operator*(const Scalar &lhs, const Scalar &rhs)
     {
-        if (lhs.getOrder() == 2 or rhs.getOrder() == 2)
-        {
-            // TODO: Maybe allow scaling sums of squares, but not norms for performance reasons
-            throw std::runtime_error("Factors must be constant or linear.");
-        }
+        Scalar result = lhs;
 
-        Scalar result;
+        result *= rhs;
 
-        if (lhs.affine.isFirstOrder() and rhs.affine.isFirstOrder())
-        {
-            result.products.emplace_back(lhs.affine, rhs.affine);
-        }
-        else if (lhs.affine.isConstant())
-        {
-            result.affine = lhs.affine.constant * rhs.affine;
-        }
-        else if (rhs.affine.isConstant())
-        {
-            result.affine = rhs.affine.constant * lhs.affine;
-        }
+        return result;
+    }
+
+    Scalar operator/(const Scalar &lhs, const Scalar &rhs)
+    {
+        Scalar result = lhs;
+
+        result /= rhs;
 
         return result;
     }
@@ -503,7 +569,7 @@ namespace cvx
     // Parameter and Variable creation
     Scalar var(const std::string &name)
     {
-        return Variable(name, 0, 0, VariableSource::Type::Scalar);
+        return Variable(name);
     }
 
     VectorX var(const std::string &name, size_t rows)
@@ -512,7 +578,7 @@ namespace cvx
 
         for (size_t row = 0; row < rows; row++)
         {
-            variables(row) = Variable(name, row, 0, VariableSource::Type::Vector);
+            variables(row) = Variable(name, row);
         }
         return variables;
     }
@@ -525,7 +591,7 @@ namespace cvx
         {
             for (size_t col = 0; col < cols; col++)
             {
-                variables(row, col) = Variable(name, row, col, VariableSource::Type::Matrix);
+                variables(row, col) = Variable(name, row, col);
             }
         }
         return variables;

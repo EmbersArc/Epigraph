@@ -50,6 +50,7 @@ namespace cvx
 
         bool operator==(const Term &other) const;
         Term &operator*=(const Parameter &param);
+        Term &operator/=(const Parameter &param);
 
         operator Affine() const;
 
@@ -68,6 +69,9 @@ namespace cvx
         friend std::ostream &operator<<(std::ostream &os, const Affine &affine);
         double evaluate() const;
         Affine &operator+=(const Affine &other);
+        Affine &operator-=(const Affine &other);
+        Affine &operator*=(const Parameter &param);
+        Affine &operator/=(const Parameter &param);
         // Affine operator+(const Affine &other) const;
         Affine operator-(const Affine &other) const;
         Affine operator-() const;
@@ -108,10 +112,13 @@ namespace cvx
 
         Scalar &operator+=(const Scalar &other);
         Scalar &operator-=(const Scalar &other);
+        Scalar &operator*=(const Scalar &other);
+        Scalar &operator/=(const Scalar &other);
         Scalar operator-() const;
         friend Scalar operator+(const Scalar &lhs, const Scalar &rhs);
         friend Scalar operator-(const Scalar &lhs, const Scalar &rhs);
         friend Scalar operator*(const Scalar &lhs, const Scalar &rhs);
+        friend Scalar operator/(const Scalar &lhs, const Scalar &rhs);
 
         bool operator==(const cvx::Scalar &other) const;
 

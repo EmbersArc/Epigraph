@@ -9,6 +9,7 @@ namespace cvx
     {
         Add,
         Mul,
+        Div,
         Sqrt,
     };
 
@@ -87,8 +88,10 @@ namespace cvx
         Parameter operator-(const Parameter &other) const;
         Parameter operator-() const;
         Parameter operator*(const Parameter &other) const;
+        Parameter operator/(const Parameter &other) const;
         Parameter &operator+=(const Parameter &other);
         Parameter &operator*=(const Parameter &other);
+        Parameter &operator/=(const Parameter &other);
         explicit operator Affine() const;
         explicit operator Scalar() const;
         explicit operator double() const;

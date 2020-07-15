@@ -7,12 +7,14 @@ TEST_CASE("Scalar")
 {
     {
         VectorX x = var("x", 2);
+        REQUIRE_NOTHROW(x.dot(x) + x.dot(x));
         REQUIRE_THROWS(x.norm() + x.norm());
         REQUIRE_THROWS(x.norm() + x.dot(x));
         REQUIRE_THROWS(x.dot(x) + x.norm());
-        REQUIRE_NOTHROW(x.dot(x) + x.dot(x));
         REQUIRE_THROWS(x.dot(x) - x.dot(x));
         REQUIRE_THROWS(x.dot(x) * x.dot(x));
+        REQUIRE_THROWS(x(0) / x.sum());
+        REQUIRE_THROWS(x.squaredNorm() / par(2.));
         REQUIRE_THROWS(sqrt(x.sum()));
 
         auto test_stream = std::ostringstream();
@@ -75,6 +77,7 @@ TEST_CASE("Scalar")
         REQUIRE(eval(x.norm() + x.sum()) == Approx(x_sol.norm() + x_sol.sum()));
         REQUIRE(eval(x(0) * x(1)) == Approx(x_sol(0) * x_sol(1)));
         REQUIRE(x(0) * x(1) == x(1) * x(0));
+        REQUIRE(eval(x(0) / par(2.)) == Approx(x_sol(0) / 2.));
     }
 
     { // Dynamic parameters
