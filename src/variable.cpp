@@ -4,12 +4,27 @@
 
 namespace cvx
 {
-    Variable::Variable(const std::string &name, size_t row, size_t col, VariableSource::Type type)
+    Variable::Variable(const std::string &name)
+    {
+        this->source = std::make_shared<VariableSource>();
+        this->source->name = name;
+        this->source->type = VariableSource::Type::Scalar;
+    }
+
+    Variable::Variable(const std::string &name, size_t row)
+    {
+        this->source = std::make_shared<VariableSource>();
+        this->source->index = {row, 0};
+        this->source->name = name;
+        this->source->type = VariableSource::Type::Vector;
+    }
+
+    Variable::Variable(const std::string &name, size_t row, size_t col)
     {
         this->source = std::make_shared<VariableSource>();
         this->source->index = {row, col};
         this->source->name = name;
-        this->source->type = type;
+        this->source->type = VariableSource::Type::Matrix;
     }
 
     bool Variable::operator==(const Variable &other) const

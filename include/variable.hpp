@@ -31,7 +31,9 @@ namespace cvx
     {
     public:
         Variable() = default;
-        Variable(const std::string &name, size_t row, size_t col, VariableSource::Type type);
+        Variable(const std::string &name);
+        Variable(const std::string &name, size_t row);
+        Variable(const std::string &name, size_t row, size_t col);
 
         bool operator==(const Variable &other) const;
 
