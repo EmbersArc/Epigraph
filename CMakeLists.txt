@@ -36,13 +36,7 @@ if(ENABLE_OSQP)
   add_subdirectory(solvers/osqp)
   target_link_libraries(epigraph osqp)
   add_compile_definitions(ENABLE_OSQP)
-endif()
-
-# EiCOS
-if(ENABLE_EICOS)
-  add_subdirectory(solvers/eicos)
-  target_link_libraries(epigraph eicos)
-  add_compile_definitions(ENABLE_EICOS)
+  message("Epigraph: OSQP enabled.")
 endif()
 
 # ECOS
@@ -53,6 +47,15 @@ if(ENABLE_ECOS)
   target_link_libraries(epigraph
                         ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos/libecos.so)
   add_compile_definitions(ENABLE_ECOS)
+  message("Epigraph: ECOS enabled.")
+endif()
+
+# EiCOS
+if(ENABLE_EICOS)
+  add_subdirectory(solvers/eicos)
+  target_link_libraries(epigraph eicos)
+  add_compile_definitions(ENABLE_EICOS)
+  message("Epigraph: EiCOS enabled.")
 endif()
 
 target_include_directories(epigraph PUBLIC ${TARGET_INCLUDE})
