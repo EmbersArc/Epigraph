@@ -2,9 +2,10 @@
 
 #include "qpWrapperBase.hpp"
 
+#include "osqp/include/osqp.h"
+
 namespace cvx::osqp
 {
-#include "osqp/include/osqp.h"
 
     class OSQPSolver final : public QPWrapperBase
     {

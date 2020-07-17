@@ -26,14 +26,14 @@ A modern C++ interface to formulate and solve linear, quadratic and second order
 
 ## Supported Solvers
 
-The solvers are included as submodules and don't need any additional setup.
+The solvers are included as submodules for convenience. Note that some solvers have more restrictive licenses which automatically override the Epigraph license when activated. Pass the listed argument to cmake during configuration to enable the solvers.
 
 ### QP 
-* [OSQP](https://github.com/oxfordcontrol/osqp)
+* [OSQP](https://github.com/oxfordcontrol/osqp) `-DENABLE_OSQP=TRUE`. Apache-2.0 License.
 
 ### SOCP
-* [ECOS](https://github.com/embotech/ecos)
-* [EiCOS](https://github.com/embersarc/eicos)
+* [ECOS](https://github.com/embotech/ecos) `-DENABLE_ECOS=TRUE`. GPLv3 License.
+* [EiCOS](https://github.com/embersarc/eicos) `-DENABLE_EICOS=TRUE`. MIT License.
 
 ## Features
 * Flexible and intuitive way to formulate LPs, QPs and SOCPs
@@ -95,6 +95,7 @@ int main()
     OptimizationProblem qp;
 
     // Declare variables
+    // Use var(name) for scalar, var(name, rows) for vectors and var(name, rows, cols) for matrices
     VectorX x = var("x", n);
 
     // Available constraint types are equalTo(), lessThan(), greaterThan() and box()

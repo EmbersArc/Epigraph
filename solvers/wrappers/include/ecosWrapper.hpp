@@ -2,13 +2,14 @@
 
 #include "socpWrapperBase.hpp"
 
-namespace cvx::ecos
-{
 #define DCTRLC = 1
 #define DLONG
 #define LDL_LONG
 #include "ecos/include/ecos.h"
 #define ECOS_UNSOLVED (-10)
+
+namespace cvx::ecos
+{
     static_assert(std::is_same_v<idxint, SuiteSparse_long> and std::is_same_v<idxint, long>,
                   "Definitions of idxint are not consistent."
                   "Make sure ECOS is compiled with USE_LONG = 1.");

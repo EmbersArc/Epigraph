@@ -76,7 +76,7 @@ namespace cvx::osqp
         return *workspace->info;
     }
 
-    osqp::c_int OSQPSolver::getExitCode() const
+    c_int OSQPSolver::getExitCode() const
     {
         return exitflag;
     }
