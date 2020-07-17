@@ -25,7 +25,12 @@ namespace cvx::osqp
 
         osqp_set_default_settings(&settings);
 
-        osqp_setup(&workspace, &data, &settings);
+        exitflag = osqp_setup(&workspace, &data, &settings);
+
+        if (exitflag != 0)
+        {
+            throw std::runtime_error("OSQP failed to set up the problem.");
+        }
     }
 
     void OSQPSolver::update()

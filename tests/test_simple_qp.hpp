@@ -16,17 +16,17 @@ TEST_CASE("Simple QP 1")
     A << 1, 1, 1, 0, 0, 1;
 
     // Formulate QP.
-    cvx::OptimizationProblem qp;
+    OptimizationProblem qp;
 
-    cvx::VectorX x = cvx::var("x", 2);
+    VectorX x = var("x", 2);
 
-    qp.addConstraint(cvx::box(cvx::par(l), cvx::par(A) * x, cvx::par(u)));
+    qp.addConstraint(box(par(l), par(A) * x, par(u)));
 
-    qp.addCostTerm(x.transpose() * cvx::par(P) * x);
-    qp.addCostTerm(cvx::par(q).transpose() * x);
+    qp.addCostTerm(x.transpose() * par(P) * x);
+    qp.addCostTerm(par(q).transpose() * x);
 
     // Create and initialize the solver instance.
-    cvx::osqp::OSQPSolver solver(qp);
+    osqp::OSQPSolver solver(qp);
     solver.setAlpha(1.0);
 
     // Solve the problem and show solver output.
@@ -34,8 +34,6 @@ TEST_CASE("Simple QP 1")
 
     fmt::print("{}", qp);
     fmt::print("{}", solver);
-
-    REQUIRE(solver.isConvex());
 
     Eigen::VectorXd x_val = eval(x);
     Eigen::Vector2d x_sol(0.3, 0.7);
@@ -55,19 +53,17 @@ TEST_CASE("Simple QP 1")
 
 TEST_CASE("Simple QP 2")
 {
-    cvx::OptimizationProblem qp;
+    OptimizationProblem qp;
 
-    cvx::VectorX x = cvx::var("x", 3);
+    VectorX x = var("x", 3);
     qp.addConstraint(equalTo(x.sum(), 1.));
     qp.addConstraint(box(-1., x, 1.));
     qp.addCostTerm((2. + x(1)) * x(1) + (1. + x(0)) * x(0) + (1. + x(0)) * x(1) + x(2) * (2. + x(2)) + x(2) * x(2));
 
-    cvx::osqp::OSQPSolver solver(qp);
+    osqp::OSQPSolver solver(qp);
 
     fmt::print("{}\n", qp);
     fmt::print("{}\n", solver);
-
-    REQUIRE(solver.isConvex());
 
     solver.solve(true);
 
@@ -78,22 +74,20 @@ TEST_CASE("Simple QP 2")
 
 TEST_CASE("Non-convex QP")
 {
-    cvx::OptimizationProblem qp;
+    OptimizationProblem qp;
 
-    cvx::VectorX x = cvx::var("x", 3);
+    VectorX x = var("x", 3);
 
     qp.addConstraint(equalTo(x.sum(), 1.));
     qp.addConstraint(box(-1., x, 1.));
 
     Eigen::Matrix3d M;
+    M.setZero();
     M.diagonal() << -3, -2, -1;
 
     qp.addCostTerm(x.transpose() * par(M) * x);
 
-    cvx::osqp::OSQPSolver solver(qp);
-
     fmt::print("{}\n", qp);
-    fmt::print("{}\n", solver);
 
-    REQUIRE_FALSE(solver.isConvex());
+    REQUIRE_THROWS(osqp::OSQPSolver(qp));
 }

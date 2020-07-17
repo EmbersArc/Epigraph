@@ -79,8 +79,6 @@ TEST_CASE("Simple Problems")
 
         op.addCostTerm(x(0) * x(1));
 
-        auto construct = [&op]() { eicos::EiCOSSolver solver(op); };
-
-        REQUIRE_THROWS(construct());
+        REQUIRE_THROWS(eicos::EiCOSSolver(op));
     }
 }

@@ -162,6 +162,10 @@ namespace cvx
         A_params.resize(l_coeffs.size(), getNumVariables());
         P_params.resize(getNumVariables(), getNumVariables());
 
+        // TODO: Not sure if reliable
+        // A_coeffs.erase(std::remove_if(A_coeffs.begin(), A_coeffs.end(), [](const Eigen::Triplet<Parameter> &triplet) { return triplet.value().isZero(); }), A_coeffs.end());
+        // P_coeffs.erase(std::remove_if(P_coeffs.begin(), P_coeffs.end(), [](const Eigen::Triplet<Parameter> &triplet) { return triplet.value().isZero(); }), P_coeffs.end());
+
         A_params.setFromTriplets(A_coeffs.begin(), A_coeffs.end());
         P_params.setFromTriplets(P_coeffs.begin(), P_coeffs.end());
 
@@ -220,8 +224,15 @@ namespace cvx
 
     bool QPWrapperBase::isConvex() const
     {
-        Eigen::LLT<Eigen::MatrixXd> llt(eval(P_params));
-        return not(llt.info() == Eigen::NumericalIssue);
+        if (P_params.nonZeros() == 0)
+        {
+            return true;
+        }
+        else
+        {
+            Eigen::LLT<Eigen::MatrixXd> llt(eval(P_params));
+            return llt.info() != Eigen::NumericalIssue;
+        }
     }
 
 } // namespace cvx

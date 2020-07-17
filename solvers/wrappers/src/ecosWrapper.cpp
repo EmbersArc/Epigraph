@@ -33,7 +33,7 @@ namespace cvx::ecos
 
         if (work == nullptr)
         {
-            throw std::runtime_error("Could not set up problem.");
+            throw std::runtime_error("ECOS failed to set up problem.");
         }
     }
 
