@@ -49,8 +49,11 @@ git clone --recurse-submodules https://github.com/EmbersArc/Epigraph
 ```
 
 ### CMake
-To use Epigraph with a cmake project, simply include the subdirectory and link the library.
+To use Epigraph with a cmake project, simply enable the desired solvers, include the subdirectory and link the library.
 ```
+# set(ENABLE_OSQP TRUE)
+# set(ENABLE_ECOS TRUE)
+# set(ENABLE_EICOS TRUE)
 add_subdirectory(Epigraph)
 target_link_libraries(my_library epigraph)
 ```
