@@ -132,11 +132,8 @@ namespace cvx
             {
                 for (Term &term2 : product.secondTerm().terms)
                 {
-                    // Only relevant when both variables are constrained. Otherwise, one can be zero.
-                    if (not term1.variable.isLinkedToProblem() or not term2.variable.isLinkedToProblem())
-                    {
-                        continue;
-                    }
+                    addVariable(term1.variable);
+                    addVariable(term2.variable);
 
                     const std::pair<size_t, size_t> sorted = std::minmax(term1.variable.getProblemIndex(),
                                                                          term2.variable.getProblemIndex());
@@ -160,20 +157,16 @@ namespace cvx
             {
                 for (Term &term : product.secondTerm().terms)
                 {
-                    if (term.variable.isLinkedToProblem())
-                    {
-                        q_params(term.variable.getProblemIndex()) += product.firstTerm().constant * term.parameter;
-                    }
+                    addVariable(term.variable);
+                    q_params(term.variable.getProblemIndex()) += product.firstTerm().constant * term.parameter;
                 }
             }
             if (not product.secondTerm().constant.isZero())
             {
                 for (Term &term : product.firstTerm().terms)
                 {
-                    if (term.variable.isLinkedToProblem())
-                    {
-                        q_params(term.variable.getProblemIndex()) += product.secondTerm().constant * term.parameter;
-                    }
+                    addVariable(term.variable);
+                    q_params(term.variable.getProblemIndex()) += product.secondTerm().constant * term.parameter;
                 }
             }
         }
@@ -209,6 +202,7 @@ namespace cvx
         {
             variable.linkToProblem(&solution, n_variables);
             n_variables++;
+            q_params.resize(n_variables);
         }
     }
 

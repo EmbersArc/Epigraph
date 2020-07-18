@@ -132,13 +132,10 @@ namespace cvx
             throw std::runtime_error("SOCP cost functions must be linear.");
         }
 
-        c_params.resize(n_variables);
-        c_params.setZero();
-
         for (Term &term : problem.costFunction.affine.terms)
         {
-            if (term.variable.isLinkedToProblem())
-                c_params(term.variable.getProblemIndex()) += term.parameter;
+            addVariable(term.variable);
+            c_params(term.variable.getProblemIndex()) += term.parameter;
         }
 
         // Fill matrices and vectors
@@ -165,6 +162,7 @@ namespace cvx
         {
             variable.linkToProblem(&solution, n_variables);
             n_variables++;
+            c_params.resize(n_variables);
         }
     }
 
