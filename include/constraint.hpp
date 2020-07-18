@@ -137,8 +137,7 @@ namespace cvx
         std::vector<Constraint> constraints;
 
         // If they are both matrices then the dimensions have to match
-        if (not(lhs.rows() == rhs.rows()) or
-            not(lhs.cols() == rhs.cols()))
+        if (lhs.rows() != rhs.rows() or lhs.cols() != rhs.cols())
         {
             throw std::runtime_error("Invalid dimensions in constraint.");
         }
@@ -223,8 +222,8 @@ namespace cvx
 
         std::vector<Constraint> constraints;
 
-        if (not(lhs.rows() == rhs.rows()) or
-            not(lhs.cols() == rhs.cols()))
+        if ((lhs.rows() != rhs.rows()) or
+            (lhs.cols() != rhs.cols()))
         {
             throw std::runtime_error("Invalid dimensions in constraint.");
         }
@@ -313,8 +312,8 @@ namespace cvx
         static_assert(std::is_same_v<typename Eigen::MatrixBase<DerivedMiddle>::Scalar, Scalar>);
         static_assert(std::is_same_v<typename Eigen::MatrixBase<DerivedUpper>::Scalar, Scalar>);
 
-        if (not(lower.rows() == middle.rows() and middle.rows() == upper.rows()) or
-            not(lower.cols() == middle.cols() and middle.cols() == upper.cols()))
+        if (lower.rows() != middle.rows() or middle.rows() != upper.rows() or
+            lower.cols() != middle.cols() or middle.cols() != upper.cols())
         {
             throw std::runtime_error("Invalid dimensions in constraint.");
         }

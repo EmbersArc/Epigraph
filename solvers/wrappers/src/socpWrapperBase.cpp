@@ -10,9 +10,15 @@ namespace cvx
         std::vector<int> cone_dimensions;
 
         // Build equality constraint parameters (b - A * x == 0)
-        for (EqualityConstraint &c : problem.equality_constraints)
+        for (EqualityConstraint &constraint : problem.equality_constraints)
         {
-            for (Term &term : c.affine.terms)
+            constraint.affine.cleanUp();
+            if (constraint.affine.isConstant())
+            {
+                continue;
+            }
+
+            for (Term &term : constraint.affine.terms)
             {
                 addVariable(term.variable);
                 A_coeffs.emplace_back(b_coeffs.size(),
@@ -20,12 +26,18 @@ namespace cvx
                                       term.parameter);
             }
 
-            b_coeffs.push_back(c.affine.constant);
+            b_coeffs.push_back(constraint.affine.constant);
         }
 
         // Build positive constraint parameters
         for (PositiveConstraint &constraint : problem.positive_constraints)
         {
+            constraint.affine.cleanUp();
+            if (constraint.affine.isConstant())
+            {
+                continue;
+            }
+
             for (Term &term : constraint.affine.terms)
             {
                 addVariable(term.variable);
@@ -43,44 +55,44 @@ namespace cvx
             // lower <= middle <= upper
 
             // 0 <= middle - lower
-            for (Term &term : constraint.middle.terms)
+            Affine middle_m_lower = constraint.middle - constraint.lower;
+            middle_m_lower.cleanUp();
+
+            if (middle_m_lower.isFirstOrder())
             {
-                addVariable(term.variable);
-                G_coeffs.emplace_back(h_coeffs.size(),
-                                      term.variable.getProblemIndex(),
-                                      term.parameter);
+                for (Term &term : middle_m_lower.terms)
+                {
+                    addVariable(term.variable);
+                    G_coeffs.emplace_back(h_coeffs.size(),
+                                          term.variable.getProblemIndex(),
+                                          term.parameter);
+                }
+                h_coeffs.push_back(middle_m_lower.constant);
             }
-            for (Term &term : constraint.lower.terms)
-            {
-                addVariable(term.variable);
-                G_coeffs.emplace_back(h_coeffs.size(),
-                                      term.variable.getProblemIndex(),
-                                      -term.parameter);
-            }
-            h_coeffs.push_back(constraint.middle.constant - constraint.lower.constant);
 
             // 0 <= upper - middle
-            for (Term &term : constraint.upper.terms)
+            Affine upper_m_middle = constraint.upper - constraint.middle;
+            upper_m_middle.cleanUp();
+
+            if (upper_m_middle.isFirstOrder())
             {
-                addVariable(term.variable);
-                G_coeffs.emplace_back(h_coeffs.size(),
-                                      term.variable.getProblemIndex(),
-                                      term.parameter);
+                for (Term &term : upper_m_middle.terms)
+                {
+                    addVariable(term.variable);
+                    G_coeffs.emplace_back(h_coeffs.size(),
+                                          term.variable.getProblemIndex(),
+                                          term.parameter);
+                }
+                h_coeffs.push_back(upper_m_middle.constant);
             }
-            for (Term &term : constraint.middle.terms)
-            {
-                addVariable(term.variable);
-                G_coeffs.emplace_back(h_coeffs.size(),
-                                      term.variable.getProblemIndex(),
-                                      -term.parameter);
-            }
-            h_coeffs.push_back(constraint.upper.constant - constraint.middle.constant);
         }
 
         // Build second order cone constraint parameters
         for (SecondOrderConeConstraint &constraint : problem.second_order_cone_constraints)
         {
             // Affine part
+            constraint.affine.cleanUp();
+
             for (Term &term : constraint.affine.terms)
             {
                 addVariable(term.variable);
@@ -93,6 +105,13 @@ namespace cvx
             // Norm part
             for (Affine &affine : constraint.norm)
             {
+                affine.cleanUp();
+
+                if (affine.isZero())
+                {
+                    continue;
+                }
+
                 for (Term &term : affine.terms)
                 {
                     addVariable(term.variable);
@@ -107,6 +126,7 @@ namespace cvx
         }
 
         // Build cost function
+        problem.costFunction.affine.cleanUp();
         if (problem.costFunction.getOrder() != 1)
         {
             throw std::runtime_error("SOCP cost functions must be linear.");

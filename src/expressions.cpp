@@ -241,6 +241,31 @@ namespace cvx
         return affine;
     }
 
+    void Affine::cleanUp()
+    {
+        std::vector<Term> new_terms;
+        for (const Term &term : this->terms)
+        {
+            auto same_variable = [&term](const Term &t) { return t.variable == term.variable; };
+
+            auto found_term = std::find_if(new_terms.begin(), new_terms.end(), same_variable);
+
+            if (found_term != new_terms.end())
+            {
+                found_term->parameter += term.parameter;
+            }
+            else
+            {
+                new_terms.push_back(term);
+            }
+        }
+
+        auto parameter_is_zero = [](const Term &t) { return t.parameter.isZero(); };
+        new_terms.erase(std::remove_if(new_terms.begin(), new_terms.end(), parameter_is_zero), new_terms.end());
+
+        this->terms = new_terms;
+    }
+
     // Product
 
     Product::Product(const Affine &term)

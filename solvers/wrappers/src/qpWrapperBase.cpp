@@ -13,6 +13,12 @@ namespace cvx
         // Build equality constraint parameters
         for (EqualityConstraint &constraint : problem.equality_constraints)
         {
+            constraint.affine.cleanUp();
+            if (constraint.affine.isConstant())
+            {
+                continue;
+            }
+
             for (Term &term : constraint.affine.terms)
             {
                 addVariable(term.variable);
@@ -27,6 +33,12 @@ namespace cvx
         // Build positive constraint parameters
         for (PositiveConstraint &constraint : problem.positive_constraints)
         {
+            constraint.affine.cleanUp();
+            if (constraint.affine.isConstant())
+            {
+                continue;
+            }
+
             for (Term &term : constraint.affine.terms)
             {
                 addVariable(term.variable);
@@ -44,6 +56,12 @@ namespace cvx
             if (constraint.lower.isConstant() and constraint.upper.isConstant())
             {
                 // lower <= middle <= upper
+                constraint.middle.cleanUp();
+                if (constraint.middle.isConstant())
+                {
+                    continue;
+                }
+
                 for (Term &term : constraint.middle.terms)
                 {
                     addVariable(term.variable);
@@ -57,45 +75,43 @@ namespace cvx
             else
             {
                 // c_lower - c_middle <= middle - lower <= inf
-                for (Term &term : constraint.middle.terms)
+                Affine middle_m_lower = constraint.middle - constraint.lower;
+                middle_m_lower.cleanUp();
+
+                if (middle_m_lower.isFirstOrder())
                 {
-                    addVariable(term.variable);
-                    A_coeffs.emplace_back(u_coeffs.size(),
-                                          term.variable.getProblemIndex(),
-                                          term.parameter);
+                    for (Term &term : middle_m_lower.terms)
+                    {
+                        addVariable(term.variable);
+                        A_coeffs.emplace_back(u_coeffs.size(),
+                                              term.variable.getProblemIndex(),
+                                              term.parameter);
+                    }
+                    l_coeffs.push_back(constraint.lower.constant - constraint.middle.constant);
+                    u_coeffs.push_back(Parameter(std::numeric_limits<double>::max()));
                 }
-                for (Term &term : constraint.lower.terms)
-                {
-                    addVariable(term.variable);
-                    A_coeffs.emplace_back(u_coeffs.size(),
-                                          term.variable.getProblemIndex(),
-                                          -term.parameter);
-                }
-                l_coeffs.push_back(constraint.lower.constant - constraint.middle.constant);
-                u_coeffs.push_back(Parameter(std::numeric_limits<double>::max()));
 
                 // c_middle - c_upper <= upper - middle <= inf
-                for (Term &term : constraint.upper.terms)
+                Affine upper_m_middle = constraint.upper - constraint.middle;
+                upper_m_middle.cleanUp();
+
+                if (upper_m_middle.isFirstOrder())
                 {
-                    addVariable(term.variable);
-                    A_coeffs.emplace_back(u_coeffs.size(),
-                                          term.variable.getProblemIndex(),
-                                          term.parameter);
+                    for (Term &term : upper_m_middle.terms)
+                    {
+                        addVariable(term.variable);
+                        A_coeffs.emplace_back(u_coeffs.size(),
+                                              term.variable.getProblemIndex(),
+                                              term.parameter);
+                    }
+                    l_coeffs.push_back(constraint.middle.constant - constraint.upper.constant);
+                    u_coeffs.push_back(Parameter(std::numeric_limits<double>::max()));
                 }
-                for (Term &term : constraint.middle.terms)
-                {
-                    addVariable(term.variable);
-                    A_coeffs.emplace_back(u_coeffs.size(),
-                                          term.variable.getProblemIndex(),
-                                          -term.parameter);
-                }
-                l_coeffs.push_back(constraint.middle.constant - constraint.upper.constant);
-                u_coeffs.push_back(Parameter(std::numeric_limits<double>::max()));
             }
         }
 
         // Build cost function
-        if (problem.costFunction.isNorm())
+        if (problem.costFunction.getOrder() == 0 or problem.costFunction.isNorm())
         {
             throw std::runtime_error("QP cost functions must be linear or quadratic.");
         }
@@ -117,19 +133,25 @@ namespace cvx
                 for (Term &term2 : product.secondTerm().terms)
                 {
                     // Only relevant when both variables are constrained. Otherwise, one can be zero.
-                    if (term1.variable.isLinkedToProblem() and term2.variable.isLinkedToProblem())
+                    if (not term1.variable.isLinkedToProblem() or not term2.variable.isLinkedToProblem())
                     {
-                        const std::pair<size_t, size_t> sorted = std::minmax(term1.variable.getProblemIndex(),
-                                                                             term2.variable.getProblemIndex());
-
-                        Parameter param = term1.parameter * term2.parameter;
-                        if (sorted.first == sorted.second)
-                            param *= Parameter(2.);
-
-                        P_coeffs.emplace_back(sorted.first,
-                                              sorted.second,
-                                              param);
+                        continue;
                     }
+
+                    const std::pair<size_t, size_t> sorted = std::minmax(term1.variable.getProblemIndex(),
+                                                                         term2.variable.getProblemIndex());
+
+                    Parameter param = term1.parameter * term2.parameter;
+
+                    // Explicitly double diagonal elements
+                    if (sorted.first == sorted.second)
+                    {
+                        param *= Parameter(2.);
+                    }
+
+                    P_coeffs.emplace_back(sorted.first,
+                                          sorted.second,
+                                          param);
                 }
             }
 
@@ -161,10 +183,6 @@ namespace cvx
         // Fill matrices and vectors
         A_params.resize(l_coeffs.size(), getNumVariables());
         P_params.resize(getNumVariables(), getNumVariables());
-
-        // TODO: Not sure if reliable
-        // A_coeffs.erase(std::remove_if(A_coeffs.begin(), A_coeffs.end(), [](const Eigen::Triplet<Parameter> &triplet) { return triplet.value().isZero(); }), A_coeffs.end());
-        // P_coeffs.erase(std::remove_if(P_coeffs.begin(), P_coeffs.end(), [](const Eigen::Triplet<Parameter> &triplet) { return triplet.value().isZero(); }), P_coeffs.end());
 
         A_params.setFromTriplets(A_coeffs.begin(), A_coeffs.end());
         P_params.setFromTriplets(P_coeffs.begin(), P_coeffs.end());

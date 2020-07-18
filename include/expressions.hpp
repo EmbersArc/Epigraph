@@ -76,6 +76,8 @@ namespace cvx
         Affine operator-(const Affine &other) const;
         Affine operator-() const;
 
+        void cleanUp();
+
         bool isZero() const;
         bool isConstant() const;
         bool isFirstOrder() const;
