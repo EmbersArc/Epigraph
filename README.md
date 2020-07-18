@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Version-0.2-orange.svg" /></a>
+    <img src="https://img.shields.io/badge/Version-0.2.1-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
     <img src="https://img.shields.io/badge/Status-Beta-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
@@ -137,3 +137,22 @@ int main()
 }
 ```
 See the [tests](tests) for more examples.
+
+### Problem Formulation
+The following terms may be passed to the contraint functions:
+
+| Function | Allowed expressions |
+| --- | --- |
+| `equalTo()`|`Affine == Affine` |
+| `lessThan()`| `Affine <= Affine` or `Norm2 + Affine <= Affine` (SOCP) |
+| `greaterThan()`| `Affine >= Affine` or `Affine >= Norm2 + Affine` (SOCP) |
+| `box()`| `Affine <= Affine <= Affine` |
+| `addCostTerm()`| `Affine` (SOCP) or `QuadForm + Affine` (QP) |
+
+With the following expressions:
+
+| Expression | Example |
+| --- | --- |
+| Affine | p1 * x1 + p2 * x2 + ... + c |
+| Norm2 | (Affine1^2  + Affine2^2 + ...)^(1/2) |
+| QuadForm | x' * P * x where P is Hermitian |
