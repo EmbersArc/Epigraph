@@ -20,10 +20,12 @@ namespace cvx
             Vector,
             Matrix,
         };
+
+        // The pointer gets deleted with the problem.
         std::vector<double> *solution_ptr = nullptr;
         size_t solution_idx = 0;
         std::string name;
-        std::pair<size_t, size_t> index;
+        std::pair<size_t, size_t> index = {0, 0};
         Type type;
     };
 
@@ -41,6 +43,7 @@ namespace cvx
         void linkToProblem(std::vector<double> *solution_ptr, size_t solution_idx);
         double getSolution() const;
         size_t getProblemIndex() const;
+        void unlink();
 
         friend std::ostream &operator<<(std::ostream &os,
                                         const Variable &variable);

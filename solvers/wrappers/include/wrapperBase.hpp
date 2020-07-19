@@ -16,6 +16,8 @@ namespace cvx
         virtual std::string getResultString() const = 0;
         size_t getNumVariables() const;
 
+        ~WrapperBase();
+
     protected:
         using MatrixXp = Eigen::Matrix<Parameter, Eigen::Dynamic, Eigen::Dynamic>;
         using VectorXp = Eigen::Matrix<Parameter, Eigen::Dynamic, 1>;

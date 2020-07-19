@@ -39,36 +39,25 @@ TEST_CASE("Constraint")
         op.addCostTerm(par(Eigen::VectorXd::Random(6).cwiseAbs()).dot(x));
 
         fmt::print("{}\n", op);
+        {
+            osqp::OSQPSolver solver(op);
 
-        osqp::OSQPSolver solver(op);
+            solver.solve(true);
 
-        solver.solve(true);
+            REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
+            REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
+            REQUIRE(op.getOptimalValue() == Approx(solver.getInfo().obj_val));
+        }
 
-        REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
-        REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
-        REQUIRE(op.getOptimalValue() == Approx(solver.getInfo().obj_val));
-    }
-    { // Test box constraint with multiple variables
-        VectorX x = var("x", 6);
-        Scalar lhs = x(0) + x(1) + 1.;
-        Scalar mid = x(2) + x(3);
-        Scalar rhs = x(4) + x(5) + 1.;
+        {
+            eicos::EiCOSSolver solver(op);
 
-        OptimizationProblem op;
+            solver.solve(true);
 
-        op.addConstraint(greaterThan(x, 0.));
-        op.addConstraint(box(lhs, mid, rhs));
-        op.addCostTerm(par(Eigen::VectorXd::Random(6).cwiseAbs()).dot(x));
-
-        fmt::print("{}\n", op);
-
-        eicos::EiCOSSolver solver(op);
-
-        solver.solve(true);
-
-        REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
-        REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
-        REQUIRE(op.getOptimalValue() == Approx(solver.getInfo().pcost));
+            REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
+            REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
+            REQUIRE(op.getOptimalValue() == Approx(solver.getInfo().pcost));
+        }
     }
     { // Invalid constraints
         VectorX x = var("x", 3);

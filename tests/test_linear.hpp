@@ -13,13 +13,13 @@ TEST_CASE("Linear")
     b << 2.17495142, -0.07902089, -2.93864432, 1.93790752, 0.57842629, 2.57175626, 0.67612818, 1.88614126, 3.3688581, 2.75695134, -0.63273236, 3.38791401, -0.31286018, -0.46582275, 3.89352826;
     c << 5.9159385, -0.38653276, -1.58376908, -3.45614976, -4.00186624, 2.30939272, 0.4855809, -2.76450383, -4.55428255, -1.02779359;
 
+    OptimizationProblem op;
+    VectorX x = var("x", n);
+    op.addConstraint(lessThan(par(A) * x, par(b)));
+    op.addCostTerm(par(c).dot(x));
+
     // ! Fails right now, waiting for fix
     // {
-    //     OptimizationProblem op;
-    //     VectorX x = var("x", n);
-    //     op.addConstraint(lessThan(par(A) * x, par(b)));
-    //     op.addCostTerm(par(c).dot(x));
-
     //     ecos::ECOSSolver solver(op);
 
     //     solver.solve(true);
@@ -36,11 +36,6 @@ TEST_CASE("Linear")
     //     REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-7));
     // }
     {
-        OptimizationProblem op;
-        VectorX x = var("x", n);
-        op.addConstraint(lessThan(par(A) * x, par(b)));
-        op.addCostTerm(par(c).dot(x));
-
         eicos::EiCOSSolver solver(op);
 
         solver.solve(true);
@@ -57,11 +52,6 @@ TEST_CASE("Linear")
         REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-7));
     }
     {
-        OptimizationProblem op;
-        VectorX x = var("x", n);
-        op.addConstraint(lessThan(par(A) * x, par(b)));
-        op.addCostTerm(par(c).dot(x));
-
         osqp::OSQPSolver solver(op);
         solver.setEpsAbs(1e-5);
         solver.setEpsRel(1e-5);

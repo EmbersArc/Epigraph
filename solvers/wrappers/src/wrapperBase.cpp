@@ -8,4 +8,12 @@ namespace cvx
         return variables.size();
     }
 
+    WrapperBase::~WrapperBase()
+    {
+        for (Variable &var : variables)
+        {
+            var.unlink();
+        }
+    }
+
 } // namespace cvx

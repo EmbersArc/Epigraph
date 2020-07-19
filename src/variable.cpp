@@ -27,6 +27,12 @@ namespace cvx
         this->source->type = VariableSource::Type::Matrix;
     }
 
+    void Variable::unlink()
+    {
+        this->source->solution_ptr = nullptr;
+        this->source->solution_idx = 0;
+    }
+
     bool Variable::operator==(const Variable &other) const
     {
         return this->source == other.source;
