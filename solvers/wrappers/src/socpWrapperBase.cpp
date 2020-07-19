@@ -139,8 +139,8 @@ namespace cvx
         }
 
         // Fill matrices and vectors
-        A_params.resize(b_coeffs.size(), n_variables);
-        G_params.resize(h_coeffs.size(), n_variables);
+        A_params.resize(b_coeffs.size(), getNumVariables());
+        G_params.resize(h_coeffs.size(), getNumVariables());
 
         A_params.setFromTriplets(A_coeffs.begin(), A_coeffs.end());
         G_params.setFromTriplets(G_coeffs.begin(), G_coeffs.end());
@@ -148,21 +148,16 @@ namespace cvx
         h_params = Eigen::Map<VectorXp>(h_coeffs.data(), h_coeffs.size());
         soc_dims = Eigen::Map<Eigen::VectorXi>(cone_dimensions.data(), cone_dimensions.size());
 
-        solution.resize(n_variables);
-    }
-
-    size_t SOCPWrapperBase::getNumVariables() const
-    {
-        return n_variables;
+        solution.resize(getNumVariables());
     }
 
     void SOCPWrapperBase::addVariable(Variable &variable)
     {
         if (not variable.isLinkedToProblem())
         {
-            variable.linkToProblem(&solution, n_variables);
-            n_variables++;
-            c_params.resize(n_variables);
+            variable.linkToProblem(&solution, getNumVariables());
+            variables.push_back(variable);
+            c_params.resize(getNumVariables());
         }
     }
 

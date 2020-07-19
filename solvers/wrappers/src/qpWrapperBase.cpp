@@ -117,8 +117,6 @@ namespace cvx
         }
 
         // Linear part
-        q_params.resize(n_variables);
-        q_params.setZero();
         for (Term &term : problem.costFunction.affine.terms)
         {
             if (term.variable.isLinkedToProblem())
@@ -183,12 +181,7 @@ namespace cvx
         l_params = Eigen::Map<VectorXp>(l_coeffs.data(), l_coeffs.size());
         u_params = Eigen::Map<VectorXp>(u_coeffs.data(), u_coeffs.size());
 
-        solution.resize(n_variables);
-    }
-
-    size_t QPWrapperBase::getNumVariables() const
-    {
-        return n_variables;
+        solution.resize(getNumVariables());
     }
 
     size_t QPWrapperBase::getNumInequalityConstraints() const
@@ -200,9 +193,9 @@ namespace cvx
     {
         if (not variable.isLinkedToProblem())
         {
-            variable.linkToProblem(&solution, n_variables);
-            n_variables++;
-            q_params.resize(n_variables);
+            variable.linkToProblem(&solution, getNumVariables());
+            variables.push_back(variable);
+            q_params.resize(getNumVariables());
         }
     }
 
