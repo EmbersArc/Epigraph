@@ -622,14 +622,14 @@ namespace cvx
         return variables;
     }
 
-    Scalar par(double m)
+    Scalar par(double p)
     {
-        return Scalar(m);
+        return Scalar(p);
     }
 
-    Scalar dynpar(double &m)
+    Scalar dynpar(double &p)
     {
-        return Scalar(&m);
+        return Scalar(&p);
     }
 
     double eval(const Scalar &s)
