@@ -7,14 +7,18 @@ find_package(Eigen3 REQUIRED NO_MODULE)
 
 set(TARGET_INCLUDE include solvers/wrappers/include)
 
-set(SOCP_SOURCES
+set(EPIGRAPH_SOURCES
     src/parameter.cpp
     src/variable.cpp
     src/expressions.cpp
     src/constraint.cpp
     src/problem.cpp
+
+    solvers/wrappers/src/wrapperBase.cpp
+
     solvers/wrappers/src/socpWrapperBase.cpp
     solvers/wrappers/src/qpWrapperBase.cpp
+
     solvers/wrappers/src/osqpWrapper.cpp
     solvers/wrappers/src/ecosWrapper.cpp
     solvers/wrappers/src/eicosWrapper.cpp)
@@ -27,7 +31,7 @@ option(ENABLE_OSQP "Enable OSQP solver support. Apache-2.0 License." FALSE)
 option(ENABLE_ECOS "Enable ECOS solver support. GPLv3 License." FALSE)
 option(ENABLE_EiCOS "Enable EiCOS solver support. MIT License." FALSE)
 
-add_library(epigraph SHARED ${SOCP_SOURCES})
+add_library(epigraph SHARED ${EPIGRAPH_SOURCES})
 
 set(TARGET_INCLUDE_SYS solvers)
 
@@ -83,6 +87,7 @@ if(Catch2_FOUND AND ENABLE_TESTING)
   target_link_libraries(run_tests epigraph)
   message("Epigraph: Testing is enabled.")
 
+  # fmt
   find_package(fmt REQUIRED)
   if(${fmt_FOUND})
     message(STATUS "Epigraph: Found fmt.")
