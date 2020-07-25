@@ -97,17 +97,14 @@ if(Catch2_FOUND AND ENABLE_TESTING)
   # Coverage
   if(CMAKE_COMPILER_IS_GNUCXX)
     option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+    if(ENABLE_COVERAGE)
+      message("Epigraph: Code coverage is enabled.")
+      list(APPEND DEBUG_OPTIONS --coverage -O0)
+      target_link_libraries(epigraph --coverage)
+    endif()
   endif()
-
-  if(ENABLE_COVERAGE)
-    message("Epigraph: Code coverage is enabled.")
-    list(APPEND DEBUG_OPTIONS --coverage -O0)
-  endif()
-
-  target_link_libraries(epigraph --coverage)
 endif()
 # ====
 
 target_compile_options(epigraph PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_OPTIONS}>")
-target_compile_options(epigraph
-                       PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_OPTIONS}>")
+target_compile_options(epigraph PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_OPTIONS}>")
