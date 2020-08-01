@@ -5,6 +5,12 @@ namespace cvx::ecos
 
     ECOSSolver::ECOSSolver(OptimizationProblem &problem) : SOCPWrapperBase(problem)
     {
+        // ! Should get fixed soon
+        if (A_params.nonZeros() == 0 or G_params.nonZeros() == 0)
+        {
+            throw std::runtime_error("ECOS does not support problems without both equality and inequality constraints. This should be resolved soon, use EiCOS in the meantime.");
+        }
+
         update();
 
         cone_constraint_dimensions = soc_dims.cast<idxint>();
