@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Version-0.2.1-orange.svg" /></a>
+    <img src="https://img.shields.io/badge/Version-0.2.2-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
     <img src="https://img.shields.io/badge/Status-Beta-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
@@ -17,7 +17,13 @@
     <img src="https://codecov.io/gh/EmbersArc/Epigraph/branch/master/graph/badge.svg" /></a>
 </p>
 
-A modern C++ interface to formulate and solve linear, quadratic and second order cone problems. It makes use of Eigen types and operator overloading for straightforward problem formulation.
+Epigraph is a modern C++ interface to formulate and solve linear, quadratic and second order cone problems. It makes use of Eigen types and operator overloading for straightforward problem formulation.
+
+## Features
+* Flexible and intuitive way to formulate LPs, QPs and SOCPs
+* Dynamic parameters that can be changed without re-formulating the problem
+* Automatically clean up the problem and remove unused variables
+* Print the problem formulation and solver data for inspection
 
 ## Dependencies
 
@@ -34,12 +40,6 @@ The solvers are included as submodules for convenience. Note that some solvers h
 ### SOCP
 * [ECOS](https://github.com/embotech/ecos) `-DENABLE_ECOS=TRUE`. GPLv3 License.
 * [EiCOS](https://github.com/embersarc/eicos) `-DENABLE_EICOS=TRUE`. MIT License.
-
-## Features
-* Flexible and intuitive way to formulate LPs, QPs and SOCPs
-* Dynamic parameters that can be changed without re-formulating the problem
-* Automatically clean up the problem and remove unused variables
-* Print the problem formulation and solver data for inspection
 
 ## Usage
 
@@ -136,7 +136,7 @@ int main()
     fmt::print("Solution 2:\n {}\n", eval(x));
 }
 ```
-See the [tests](tests) for more examples.
+See the [tests](tests) for more examples, including the same problem in SOCP form.
 
 ### Problem Formulation
 The following terms may be passed to the contraint functions:
