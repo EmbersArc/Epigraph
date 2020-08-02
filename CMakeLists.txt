@@ -3,11 +3,10 @@ project(epigraph)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Eigen3 REQUIRED NO_MODULE)
-
-set(TARGET_INCLUDE include solvers/wrappers/include)
-
-set(EPIGRAPH_SOURCES
+add_library(epigraph SHARED ${EPIGRAPH_SOURCES})
+target_include_directories(epigraph PUBLIC include solvers/wrappers/include)
+target_include_directories(epigraph SYSTEM PUBLIC solvers)
+target_sources(epigraph PRIVATE
     src/parameter.cpp
     src/variable.cpp
     src/expressions.cpp
@@ -18,56 +17,60 @@ set(EPIGRAPH_SOURCES
 
     solvers/wrappers/src/socpWrapperBase.cpp
     solvers/wrappers/src/qpWrapperBase.cpp
-
-    solvers/wrappers/src/osqpWrapper.cpp
-    solvers/wrappers/src/ecosWrapper.cpp
-    solvers/wrappers/src/eicosWrapper.cpp)
+)
 
 # ==== Solvers ====
 # Make sure the repository is cloned with --recurse-submodules.
 
 # Note that enabling certain solvers automatically alters the license.
-option(ENABLE_OSQP "Enable OSQP solver support. Apache-2.0 License." FALSE)
-option(ENABLE_ECOS "Enable ECOS solver support. GPLv3 License." FALSE)
-option(ENABLE_EiCOS "Enable EiCOS solver support. MIT License." FALSE)
+# Set ENABLE_OSQP to TRUE to enable OSQP solver support. Apache-2.0 License.
+# Set ENABLE_ECOS to TRUE to enable ECOS solver support. GPLv3 License.
+# Set ENABLE_EICOS to TRUE to enable EiCOS solver support. MIT License.
 
-add_library(epigraph SHARED ${EPIGRAPH_SOURCES})
-
-set(TARGET_INCLUDE_SYS solvers)
+if(NOT ENABLE_OSQP AND NOT ENABLE_ECOS AND NOT ENABLE_EICOS)
+  message(FATAL_ERROR "Epigraph: No solvers enabled. Set the appropriate variables for the desired solvers and re-run cmake.")
+endif()
 
 # OSQP
 if(ENABLE_OSQP)
+  target_sources(epigraph PRIVATE solvers/wrappers/src/osqpWrapper.cpp)
+  target_compile_definitions(epigraph PUBLIC ENABLE_OSQP)
   add_subdirectory(solvers/osqp)
   target_link_libraries(epigraph osqp)
-  add_compile_definitions(ENABLE_OSQP)
   message("Epigraph: OSQP enabled.")
+else()
+  message("Epigraph: OSQP disabled.")
 endif()
 
 # ECOS
 if(ENABLE_ECOS)
+  target_sources(epigraph PRIVATE solvers/wrappers/src/ecosWrapper.cpp)
+  target_compile_definitions(epigraph PUBLIC ENABLE_ECOS)
   execute_process(COMMAND make shared
                   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos)
-  list(APPEND TARGET_INCLUDE_SYS solvers/ecos/external/SuiteSparse_config)
+  target_include_directories(epigraph SYSTEM PRIVATE solvers/ecos/external/SuiteSparse_config)
   target_link_libraries(epigraph
-                        ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos/libecos.so)
-  add_compile_definitions(ENABLE_ECOS)
+        ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos/libecos.so)
   message("Epigraph: ECOS enabled.")
+else()
+  message("Epigraph: ECOS disabled.")
 endif()
 
 # EiCOS
 if(ENABLE_EICOS)
+  target_sources(epigraph PRIVATE solvers/wrappers/src/eicosWrapper.cpp)
+  target_compile_definitions(epigraph PUBLIC ENABLE_EICOS)
   add_subdirectory(solvers/eicos)
   target_link_libraries(epigraph eicos)
-  add_compile_definitions(ENABLE_EICOS)
   message("Epigraph: EiCOS enabled.")
+else()
+  message("Epigraph: EiCOS disabled.")
 endif()
-
-target_include_directories(epigraph PUBLIC ${TARGET_INCLUDE})
-target_include_directories(epigraph SYSTEM PUBLIC ${TARGET_INCLUDE_SYS})
 
 set(DEBUG_OPTIONS -Wall -Wextra -Wpedantic)
 set(RELEASE_OPTIONS -O2)
 
+find_package(Eigen3 REQUIRED NO_MODULE)
 target_link_libraries(epigraph Eigen3::Eigen)
 
 # ==== Testing ====
