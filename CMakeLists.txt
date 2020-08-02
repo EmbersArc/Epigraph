@@ -48,7 +48,7 @@ if(ENABLE_ECOS)
   target_compile_definitions(epigraph PUBLIC ENABLE_ECOS)
   execute_process(COMMAND make shared
                   WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos)
-  target_include_directories(epigraph SYSTEM PRIVATE solvers/ecos/external/SuiteSparse_config)
+  target_include_directories(epigraph SYSTEM PUBLIC solvers/ecos/external/SuiteSparse_config)
   target_link_libraries(epigraph
         ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos/libecos.so)
   message("Epigraph: ECOS enabled.")
