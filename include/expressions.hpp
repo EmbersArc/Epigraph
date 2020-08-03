@@ -3,7 +3,7 @@
 #include "parameter.hpp"
 #include "variable.hpp"
 
-#include <Eigen/Core>
+#include <Eigen/Sparse>
 
 namespace Eigen
 {
@@ -163,42 +163,6 @@ namespace cvx
     using VectorX = Eigen::Matrix<cvx::Scalar, Eigen::Dynamic, 1>;
 
     /**
-     * @brief Creates a single variable.
-     * 
-     * @warning Do not share variables between different problems
-     * 
-     * @param name The name of the variable
-     * @return Scalar The variable
-     */
-    Scalar var(const std::string &name);
-
-    /**
-     * @brief Creates a vector of variables.
-     * 
-     * @warning Do not share variables between different problems
-     * 
-     * @param name The name of the variable
-     * @param rows The number of elements in the vector
-     * @return VectorX The vector of variables
-     */
-    VectorX var(const std::string &name,
-                size_t rows);
-
-    /**
-     * @brief Creates a matrix of variables.
-     * 
-     * @warning Do not share variables between different problems
-     * 
-     * @param name The name of the variable
-     * @param rows The number of rows of the matrix
-     * @param cols The number of columns in the matrix
-     * @return MatrixX The matrix of variables
-     */
-    MatrixX var(const std::string &name,
-                size_t rows,
-                size_t cols);
-
-    /**
      * @brief Creates a constant parameter.
      * 
      * @param p The value of the parameter
@@ -232,6 +196,19 @@ namespace cvx
     }
 
     /**
+     * @brief Creates a constant parameter from a sparse Eigen type.
+     * 
+     * @tparam Derived 
+     * @param m A sparse Eigen type containing problem parameters
+     * @return auto A sparse Eigen type with cvx::Scalar as scalar type
+     */
+    template <typename Derived>
+    inline auto par(const Eigen::SparseMatrixBase<Derived> &m)
+    {
+        return m.template cast<Scalar>().eval();
+    }
+
+    /**
      * @brief Creates a dynamic parameter from a dense Eigen type.
      * 
      * @details Internally store pointers to the original values.
@@ -254,6 +231,31 @@ namespace cvx
                 result.coeffRef(row, col) = dynpar(m.coeffRef(row, col));
             }
         }
+
+        return result;
+    }
+
+    /**
+     * @brief Creates a dynamic parameter from a sparse Eigen type.
+     * 
+     * @details Internally store pointers to the original values.
+     * 
+     * @warning Do not delete the source before the parameter is no longer required.
+     * 
+     * @tparam T 
+     * @param m A sparse Eigen type containing problem parameters
+     * @return auto A sparse Eigen type with cvx::Scalar as scalar type
+     */
+    template <typename T>
+    auto dynpar(Eigen::SparseMatrix<T> &m)
+    {
+        auto result = m.template cast<Scalar>().eval();
+
+        for (int k = 0; k < result.outerSize(); k++)
+            for (Eigen::SparseMatrix<Scalar>::InnerIterator it(result, k); it; ++it)
+            {
+                it.valueRef() = dynpar(m.valuePtr()[it.index()]);
+            }
 
         return result;
     }
