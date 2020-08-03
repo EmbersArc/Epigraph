@@ -14,7 +14,7 @@ namespace cvx
     {
     public:
         /**
-         * @brief Creates and returns a single variable.
+         * @brief Creates and returns a variable.
          * 
          * @param name The name of the variable
          * @return Scalar The variable
@@ -45,7 +45,7 @@ namespace cvx
 
         /**
          * @brief Add a single constraint to the problem.
-         * 
+         * found
          * @param constraint The constraint created by equalTo(), lessThan(), greaterThan() or box()
          */
         void addConstraint(const Constraint &constraint);
@@ -65,13 +65,27 @@ namespace cvx
         void addCostTerm(const Scalar &term);
 
         /**
-         * @brief Get a variable that exists in the problem.
+         * @brief Get a scalar variable that exists in the problem.
          * 
          * @param name The name of the variable
-         * @param var The retured variable
+         * @param var The retured scalar variable
          */
         void getVariable(const std::string &name, Scalar &var);
+
+        /**
+         * @brief Get a vector variable that exists in the problem.
+         * 
+         * @param name The name of the variable
+         * @param var The retured vector variable
+         */
         void getVariable(const std::string &name, VectorX &var);
+
+        /**
+         * @brief Get a matrix variable that exists in the problem.
+         * 
+         * @param name The name of the variable
+         * @param var The retured matrix variable
+         */
         void getVariable(const std::string &name, MatrixX &var);
 
         /**
@@ -96,11 +110,15 @@ namespace cvx
 
     private:
         Scalar costFunction;
+
         std::vector<EqualityConstraint> equality_constraints;
         std::vector<PositiveConstraint> positive_constraints;
         std::vector<BoxConstraint> box_constraints;
         std::vector<SecondOrderConeConstraint> second_order_cone_constraints;
-        std::map<std::string, Variable> variables;
+
+        std::map<std::string, Scalar> scalar_variables;
+        std::map<std::string, VectorX> vector_variables;
+        std::map<std::string, MatrixX> matrix_variables;
     };
 
 } // namespace cvx

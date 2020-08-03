@@ -33,7 +33,7 @@ TEST_CASE("Portfolio QP")
     // Formulate QP.
     OptimizationProblem qp;
 
-    VectorX x = var("x", n);
+    VectorX x = qp.addVariable("x", n);
 
     qp.addConstraint(greaterThan(x, 0.));
     qp.addConstraint(equalTo(x.sum(), 1.));

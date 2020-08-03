@@ -4,7 +4,7 @@ TEST_CASE("Simple Problems")
 {
     {
         OptimizationProblem op;
-        VectorX x = var("x", 2);
+        VectorX x = op.addVariable("x", 2);
 
         REQUIRE(eval(x(0)) == 0.);
         REQUIRE(eval(x(1)) == 0.);
@@ -29,7 +29,7 @@ TEST_CASE("Simple Problems")
     }
     {
         OptimizationProblem op;
-        VectorX x = var("x", 2);
+        VectorX x = op.addVariable("x", 2);
 
         op.addConstraint(greaterThan(x, 1.));
         op.addConstraint(lessThan(sqrt(x(0) * x(0) + x(1) * x(1) + par(2.)), 5.));
@@ -51,7 +51,7 @@ TEST_CASE("Simple Problems")
     }
     { // Testing the edge case with (p1 * x1) * (p2 * x1)
         OptimizationProblem op;
-        VectorX x = var("x", 2);
+        VectorX x = op.addVariable("x", 2);
 
         op.addConstraint(greaterThan(x, 1.));
         Scalar lhs = sqrt((par(2.) * x(0)) * (par(3.) * x(0)) + x(1) * x(1));
@@ -75,7 +75,7 @@ TEST_CASE("Simple Problems")
     }
     { // Invalid problem
         OptimizationProblem op;
-        VectorX x = var("x", 2);
+        VectorX x = op.addVariable("x", 2);
 
         op.addCostTerm(x(0) * x(1));
 
@@ -174,7 +174,7 @@ TEST_CASE("Least Squares")
     {
         OptimizationProblem qp;
 
-        VectorX x = var("x", 15);
+        VectorX x = qp.addVariable("x", 15);
 
         qp.addCostTerm((par(A) * x - par(b)).squaredNorm());
 
@@ -187,8 +187,8 @@ TEST_CASE("Least Squares")
     {
         OptimizationProblem qp;
 
-        VectorX x = var("x", 15);
-        Scalar s = var("s");
+        VectorX x = qp.addVariable("x", 15);
+        Scalar s = qp.addVariable("s");
 
         // Since norms are equivalent
         qp.addConstraint(lessThan((par(A) * x - par(b)).norm(), s));

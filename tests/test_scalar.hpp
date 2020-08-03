@@ -6,7 +6,8 @@ using namespace cvx;
 TEST_CASE("Scalar")
 {
     {
-        VectorX x = var("x", 2);
+        OptimizationProblem op;
+        VectorX x = op.addVariable("x", 2);
         REQUIRE_THROWS(sqrt(x(0) * x(1)));
         REQUIRE_NOTHROW(x.dot(x) + x.dot(x));
         REQUIRE_THROWS(x.norm() + x.norm());
@@ -41,9 +42,10 @@ TEST_CASE("Scalar")
     }
 
     {
-        Scalar scalar = var("s");
-        VectorX vector = var("v", 2);
-        MatrixX matrix = var("m", 2, 2);
+        OptimizationProblem op;
+        Scalar scalar = op.addVariable("s");
+        VectorX vector = op.addVariable("v", 2);
+        MatrixX matrix = op.addVariable("m", 2, 2);
 
         auto test_stream = std::ostringstream();
         test_stream << scalar;
@@ -59,9 +61,8 @@ TEST_CASE("Scalar")
     }
 
     {
-        VectorX x = var("x", 3);
-
         OptimizationProblem op;
+        VectorX x = op.addVariable("x", 3);
 
         op.addCostTerm(x.sum());
         op.addConstraint(greaterThan(x, par(Eigen::Vector3d(1., 2., 3.))));
@@ -99,5 +100,32 @@ TEST_CASE("Scalar")
     {
         Variable variable("x");
         REQUIRE_THROWS(variable.getProblemIndex());
+    }
+
+    {
+        OptimizationProblem op;
+        Scalar scalar = op.addVariable("scalar");
+        VectorX vector = op.addVariable("vector", 5);
+        MatrixX matrix = op.addVariable("matrix", 5, 5);
+
+        REQUIRE_THROWS(op.addVariable("scalar"));
+        REQUIRE_THROWS(op.addVariable("vector", 5));
+        REQUIRE_THROWS(op.addVariable("matrix", 5, 5));
+
+        Scalar scalar_returned;
+        VectorX vector_returned;
+        MatrixX matrix_returned;
+
+        op.getVariable("scalar", scalar_returned);
+        op.getVariable("vector", vector_returned);
+        op.getVariable("matrix", matrix_returned);
+
+        REQUIRE(scalar == scalar_returned);
+        REQUIRE(vector == vector_returned);
+        REQUIRE(matrix == matrix_returned);
+
+        REQUIRE_THROWS(op.getVariable("imaginary_scalar", scalar_returned));
+        REQUIRE_THROWS(op.getVariable("imaginary_vector", vector_returned));
+        REQUIRE_THROWS(op.getVariable("imaginary_matrix", matrix_returned));
     }
 }

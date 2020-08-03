@@ -33,11 +33,11 @@ TEST_CASE("Portfolio SOCP")
     // Formulate SOCP.
     OptimizationProblem socp;
 
-    VectorX x = var("x", n);
-    Scalar t = var("t");
-    Scalar s = var("s");
-    Scalar u = var("u");
-    Scalar v = var("v");
+    VectorX x = socp.addVariable("x", n);
+    Scalar t = socp.addVariable("t");
+    Scalar s = socp.addVariable("s");
+    Scalar u = socp.addVariable("u");
+    Scalar v = socp.addVariable("v");
 
     socp.addConstraint(greaterThan(x, 0.));
     socp.addConstraint(equalTo(x.sum(), 1.));

@@ -99,7 +99,7 @@ int main()
 
     // Declare variables
     // Use var(name) for scalar, var(name, rows) for vectors and var(name, rows, cols) for matrices
-    VectorX x = var("x", n);
+    VectorX x = op.addVariable("x", n);
 
     // Available constraint types are equalTo(), lessThan(), greaterThan() and box()
     qp.addConstraint(greaterThan(x, 0.));
