@@ -591,37 +591,6 @@ namespace cvx
         return scalar;
     }
 
-    // Parameter and Variable creation
-    Scalar var(const std::string &name)
-    {
-        return Variable(name);
-    }
-
-    VectorX var(const std::string &name, size_t rows)
-    {
-        VectorX variables(rows);
-
-        for (size_t row = 0; row < rows; row++)
-        {
-            variables(row) = Variable(name, row);
-        }
-        return variables;
-    }
-
-    MatrixX var(const std::string &name, size_t rows, size_t cols)
-    {
-        MatrixX variables(rows, cols);
-
-        for (size_t row = 0; row < rows; row++)
-        {
-            for (size_t col = 0; col < cols; col++)
-            {
-                variables(row, col) = Variable(name, row, col);
-            }
-        }
-        return variables;
-    }
-
     Scalar par(double p)
     {
         return Scalar(p);
