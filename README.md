@@ -97,8 +97,10 @@ int main()
     // Formulate QP.
     OptimizationProblem qp;
 
-    // Declare variables
-    // Use var(name) for scalar, var(name, rows) for vectors and var(name, rows, cols) for matrices
+    // Declare variables with...
+    // addVariable(name) for scalars,
+    // addVariable(name, rows) for vectors and
+    // addVariable(name, rows, cols) for matrices.
     VectorX x = op.addVariable("x", n);
 
     // Available constraint types are equalTo(), lessThan(), greaterThan() and box()
