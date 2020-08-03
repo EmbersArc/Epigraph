@@ -38,12 +38,12 @@ namespace cvx
         return this->source == other.source;
     }
 
-    bool Variable::isLinkedToProblem() const
+    bool Variable::isLinkedToSolver() const
     {
         return source->solution_ptr != nullptr;
     }
 
-    void Variable::linkToProblem(std::vector<double> *solution_ptr, size_t solution_idx)
+    void Variable::linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx)
     {
         source->solution_ptr = solution_ptr;
         source->solution_idx = solution_idx;
@@ -51,9 +51,9 @@ namespace cvx
 
     double Variable::getSolution() const
     {
-        if (not this->isLinkedToProblem())
+        if (not this->isLinkedToSolver())
         {
-            // Don't throw error here since variables might indeed be unused.
+            // Don't throw here since variables might indeed be unused.
             return 0.;
         }
         else
@@ -64,7 +64,7 @@ namespace cvx
 
     size_t Variable::getProblemIndex() const
     {
-        if (not this->isLinkedToProblem())
+        if (not this->isLinkedToSolver())
         {
             throw std::runtime_error("Variable must be linked to a problem first!");
         }
@@ -87,7 +87,7 @@ namespace cvx
 
             os << "]";
         }
-        if (variable.isLinkedToProblem())
+        if (variable.isLinkedToSolver())
             os << "@(" << variable.source->solution_idx << ")";
 
         return os;

@@ -3,7 +3,9 @@ using namespace cvx;
 TEST_CASE("Constraint")
 {
     {
-        VectorX x = var("x", 2);
+        OptimizationProblem op;
+
+        VectorX x = op.addVariable("x", 2);
 
         auto test_stream = std::ostringstream();
         test_stream << equalTo(x.sum(), 1.);
@@ -27,12 +29,12 @@ TEST_CASE("Constraint")
     }
 
     { // Test box constraint with multiple variables
-        VectorX x = var("x", 6);
+        OptimizationProblem op;
+
+        VectorX x = op.addVariable("x", 6);
         Scalar lhs = x(0) + x(1) + 1.;
         Scalar mid = x(2) + x(3);
         Scalar rhs = x(4) + x(5) + 1.;
-
-        OptimizationProblem op;
 
         op.addConstraint(greaterThan(x, 0.));
         op.addConstraint(box(lhs, mid, rhs));
@@ -60,7 +62,9 @@ TEST_CASE("Constraint")
         }
     }
     { // Invalid constraints
-        VectorX x = var("x", 3);
+        OptimizationProblem op;
+        VectorX x = op.addVariable("x", 3);
+
         REQUIRE_THROWS(lessThan(x(0), x.norm()));
         REQUIRE_THROWS(lessThan(x.squaredNorm(), x(0)));
         REQUIRE_THROWS(box(x(0), x.squaredNorm(), x(1)));

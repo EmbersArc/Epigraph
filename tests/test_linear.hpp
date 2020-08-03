@@ -14,7 +14,7 @@ TEST_CASE("Linear")
     c << 5.9159385, -0.38653276, -1.58376908, -3.45614976, -4.00186624, 2.30939272, 0.4855809, -2.76450383, -4.55428255, -1.02779359;
 
     OptimizationProblem op;
-    VectorX x = var("x", n);
+    VectorX x = op.addVariable("x", n);
     op.addConstraint(lessThan(par(A) * x, par(b)));
     op.addCostTerm(par(c).dot(x));
 

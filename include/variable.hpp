@@ -39,8 +39,8 @@ namespace cvx
 
         bool operator==(const Variable &other) const;
 
-        bool isLinkedToProblem() const;
-        void linkToProblem(std::vector<double> *solution_ptr, size_t solution_idx);
+        bool isLinkedToSolver() const;
+        void linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx);
         double getSolution() const;
         size_t getProblemIndex() const;
         void unlink();

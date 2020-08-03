@@ -119,7 +119,7 @@ namespace cvx
         // Linear part
         for (Term &term : problem.costFunction.affine.terms)
         {
-            if (term.variable.isLinkedToProblem())
+            if (term.variable.isLinkedToSolver())
                 q_params(term.variable.getProblemIndex()) += term.parameter;
         }
 
@@ -191,9 +191,9 @@ namespace cvx
 
     void QPWrapperBase::addVariable(Variable &variable)
     {
-        if (not variable.isLinkedToProblem())
+        if (not variable.isLinkedToSolver())
         {
-            variable.linkToProblem(&solution, getNumVariables());
+            variable.linkToSolver(&solution, getNumVariables());
             variables.push_back(variable);
             q_params.resize(getNumVariables());
         }

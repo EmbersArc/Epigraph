@@ -17,8 +17,8 @@ TEST_CASE("MPC QP")
     OptimizationProblem qp;
 
     // Create variables
-    MatrixX x = var("x", 2, T + 1);
-    MatrixX u = var("u", 1, T);
+    MatrixX x = qp.addVariable("x", 2, T + 1);
+    MatrixX u = qp.addVariable("u", 1, T);
 
     // Dynamics
     for (size_t t = 0; t < T; t++)

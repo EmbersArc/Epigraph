@@ -51,7 +51,7 @@ TEST_CASE("Simple SOCP")
     OptimizationProblem socp;
 
     // Add variables. Those can be scalars, vectors or matrices.
-    VectorX x = var("x", n);
+    VectorX x = socp.addVariable("x", n);
 
     // Add constraints.
     // SOCP

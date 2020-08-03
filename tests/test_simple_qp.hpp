@@ -18,7 +18,7 @@ TEST_CASE("Simple QP 1")
     // Formulate QP.
     OptimizationProblem qp;
 
-    VectorX x = var("x", 2);
+    VectorX x = qp.addVariable("x", 2);
 
     qp.addConstraint(box(par(l), par(A) * x, par(u)));
 
@@ -55,7 +55,7 @@ TEST_CASE("Simple QP 2")
 {
     OptimizationProblem qp;
 
-    VectorX x = var("x", 3);
+    VectorX x = qp.addVariable("x", 3);
     qp.addConstraint(equalTo(x.sum(), 1.));
     qp.addConstraint(box(-1., x, 1.));
     qp.addCostTerm((2. + x(1)) * x(1) + (1. + x(0)) * x(0) + (1. + x(0)) * x(1) + x(2) * (2. + x(2)) + x(2) * x(2));
@@ -182,7 +182,7 @@ TEST_CASE("Simple QP 3")
 
     OptimizationProblem op;
 
-    VectorX x = var("x", n);
+    VectorX x = op.addVariable("x", n);
 
     op.addConstraint(lessThan(par(G) * x, par(h)));
     op.addConstraint(equalTo(par(A) * x, par(b)));
@@ -205,7 +205,7 @@ TEST_CASE("Non-convex QP")
 {
     OptimizationProblem qp;
 
-    VectorX x = var("x", 3);
+    VectorX x = qp.addVariable("x", 3);
 
     qp.addConstraint(equalTo(x.sum(), 1.));
     qp.addConstraint(box(-1., x, 1.));
