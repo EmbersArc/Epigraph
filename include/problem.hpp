@@ -2,6 +2,8 @@
 
 #include "constraint.hpp"
 
+#include <map>
+
 namespace cvx
 {
 
@@ -11,6 +13,36 @@ namespace cvx
     class OptimizationProblem
     {
     public:
+        /**
+         * @brief Creates and returns a single variable.
+         * 
+         * @param name The name of the variable
+         * @return Scalar The variable
+         */
+        Scalar addVariable(const std::string &name);
+
+        /**
+         * @brief Creates and returns a vector of variables.
+         * 
+         * @param name The name of the variable
+         * @param rows The number of elements in the vector
+         * @return VectorX The vector of variables
+         */
+        VectorX addVariable(const std::string &name,
+                            size_t rows);
+
+        /**
+         * @brief Creates and returns a matrix of variables.
+         * 
+         * @param name The name of the variable
+         * @param rows The number of rows of the matrix
+         * @param cols The number of columns in the matrix
+         * @return MatrixX The matrix of variables
+         */
+        MatrixX addVariable(const std::string &name,
+                            size_t rows,
+                            size_t cols);
+
         /**
          * @brief Add a single constraint to the problem.
          * 
@@ -31,6 +63,16 @@ namespace cvx
          * @param term A scalar cost term
          */
         void addCostTerm(const Scalar &term);
+
+        /**
+         * @brief Get a variable that exists in the problem.
+         * 
+         * @param name The name of the variable
+         * @param var The retured variable
+         */
+        void getVariable(const std::string &name, Scalar &var);
+        void getVariable(const std::string &name, VectorX &var);
+        void getVariable(const std::string &name, MatrixX &var);
 
         /**
          * @brief Returns the evaluated cost function. Only call this after the problem has been solved.
@@ -58,6 +100,7 @@ namespace cvx
         std::vector<PositiveConstraint> positive_constraints;
         std::vector<BoxConstraint> box_constraints;
         std::vector<SecondOrderConeConstraint> second_order_cone_constraints;
+        std::map<std::string, Variable> variables;
     };
 
 } // namespace cvx
