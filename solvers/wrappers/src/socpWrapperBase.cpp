@@ -153,9 +153,9 @@ namespace cvx
 
     void SOCPWrapperBase::addVariable(Variable &variable)
     {
-        if (not variable.isLinkedToProblem())
+        if (not variable.isLinkedToSolver())
         {
-            variable.linkToProblem(&solution, getNumVariables());
+            variable.linkToSolver(&solution, getNumVariables());
             variables.push_back(variable);
             c_params.resize(getNumVariables());
         }
