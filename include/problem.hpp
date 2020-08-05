@@ -65,6 +65,30 @@ namespace cvx
         void addCostTerm(const Scalar &term);
 
         /**
+         * @brief Get the value of a scalar variable.
+         * 
+         * @param name The name of the variable
+         * @param var The value stored in the variable
+         */
+        void getVariableValue(const std::string &name, double &var);
+
+        /**
+         * @brief Get the value of a vector variable.
+         * 
+         * @param name The name of the variable
+         * @param var The value stored in the variable
+         */
+        void getVariableValue(const std::string &name, Eigen::VectorXd &var);
+
+        /**
+         * @brief Get the value of a matrix variable.
+         * 
+         * @param name The name of the variable
+         * @param var The value stored in the variable
+         */
+        void getVariableValue(const std::string &name, Eigen::MatrixXd &var);
+
+        /**
          * @brief Get a scalar variable that exists in the problem.
          * 
          * @param name The name of the variable

@@ -70,7 +70,10 @@ TEST_CASE("Portfolio QP")
 
     fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
     {
-        const Eigen::VectorXd x_eval = eval(x);
+        Eigen::VectorXd x_eval;
+        qp.getVariableValue("x", x_eval);
+        REQUIRE(x_eval == eval(x));
+
         Eigen::VectorXd x_sol(n);
         x_sol << 4.38579051e-01, 3.04375987e-23, 2.00025310e-01, 1.17002001e-01, 2.44393639e-01;
         fmt::print("Solution 2:\n {}\n", x_eval);

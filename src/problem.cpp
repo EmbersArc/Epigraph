@@ -6,7 +6,7 @@ namespace cvx
     {
         if (scalar_variables.find(name) != scalar_variables.end())
         {
-            std::string error_message = "Could not add scalar variable '" + name + "' since it already exists.";
+            const std::string error_message = "Could not add scalar variable '" + name + "' since it already exists.";
             throw std::runtime_error(error_message);
         }
 
@@ -22,7 +22,7 @@ namespace cvx
     {
         if (vector_variables.find(name) != vector_variables.end())
         {
-            std::string error_message = "Could not add vector variable '" + name + "' since it already exists.";
+            const std::string error_message = "Could not add vector variable '" + name + "' since it already exists.";
             throw std::runtime_error(error_message);
         }
 
@@ -42,7 +42,7 @@ namespace cvx
     {
         if (matrix_variables.find(name) != matrix_variables.end())
         {
-            std::string error_message = "Could not add matrix variable '" + name + "' since it already exists.";
+            const std::string error_message = "Could not add matrix variable '" + name + "' since it already exists.";
             throw std::runtime_error(error_message);
         }
 
@@ -92,6 +92,51 @@ namespace cvx
         this->costFunction += term;
     }
 
+    void OptimizationProblem::getVariableValue(const std::string &name, double &var)
+    {
+        auto found = scalar_variables.find(name);
+
+        if (found != scalar_variables.end())
+        {
+            var = eval(found->second);
+        }
+        else
+        {
+            const std::string error_message = "Could not find scalar variable '" + name + "'. Make sure it has been created first.";
+            throw std::runtime_error(error_message);
+        }
+    }
+
+    void OptimizationProblem::getVariableValue(const std::string &name, Eigen::VectorXd &var)
+    {
+        auto found = vector_variables.find(name);
+
+        if (found != vector_variables.end())
+        {
+            var = eval(found->second);
+        }
+        else
+        {
+            const std::string error_message = "Could not find vector variable '" + name + "'. Make sure it has been created first.";
+            throw std::runtime_error(error_message);
+        }
+    }
+
+    void OptimizationProblem::getVariableValue(const std::string &name, Eigen::MatrixXd &var)
+    {
+        auto found = matrix_variables.find(name);
+
+        if (found != matrix_variables.end())
+        {
+            var = eval(found->second);
+        }
+        else
+        {
+            const std::string error_message = "Could not find matrix variable '" + name + "'. Make sure it has been created first.";
+            throw std::runtime_error(error_message);
+        }
+    }
+
     void OptimizationProblem::getVariable(const std::string &name, Scalar &var)
     {
         auto found = scalar_variables.find(name);
@@ -102,7 +147,7 @@ namespace cvx
         }
         else
         {
-            std::string error_message = "Could not find scalar variable '" + name + "'. Make sure it has been created first.";
+            const std::string error_message = "Could not find scalar variable '" + name + "'. Make sure it has been created first.";
             throw std::runtime_error(error_message);
         }
     }
@@ -117,7 +162,7 @@ namespace cvx
         }
         else
         {
-            std::string error_message = "Could not find vector variable '" + name + "'. Make sure it has been created first.";
+            const std::string error_message = "Could not find vector variable '" + name + "'. Make sure it has been created first.";
             throw std::runtime_error(error_message);
         }
     }
@@ -132,7 +177,7 @@ namespace cvx
         }
         else
         {
-            std::string error_message = "Could not find matrix variable '" + name + "'. Make sure it has been created first.";
+            const std::string error_message = "Could not find matrix variable '" + name + "'. Make sure it has been created first.";
             throw std::runtime_error(error_message);
         }
     }

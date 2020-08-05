@@ -14,6 +14,8 @@
 
 #include "test_parameter.hpp"
 
+#include "test_variable.hpp"
+
 #include "test_scalar.hpp"
 
 #include "test_linear.hpp"

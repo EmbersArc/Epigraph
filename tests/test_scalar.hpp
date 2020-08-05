@@ -96,36 +96,4 @@ TEST_CASE("Scalar")
 
         REQUIRE(eval(p1 * p2) == d1 * d2);
     }
-
-    {
-        Variable variable("x");
-        REQUIRE_THROWS(variable.getProblemIndex());
-    }
-
-    {
-        OptimizationProblem op;
-        Scalar scalar = op.addVariable("scalar");
-        VectorX vector = op.addVariable("vector", 5);
-        MatrixX matrix = op.addVariable("matrix", 5, 5);
-
-        REQUIRE_THROWS(op.addVariable("scalar"));
-        REQUIRE_THROWS(op.addVariable("vector", 5));
-        REQUIRE_THROWS(op.addVariable("matrix", 5, 5));
-
-        Scalar scalar_returned;
-        VectorX vector_returned;
-        MatrixX matrix_returned;
-
-        op.getVariable("scalar", scalar_returned);
-        op.getVariable("vector", vector_returned);
-        op.getVariable("matrix", matrix_returned);
-
-        REQUIRE(scalar == scalar_returned);
-        REQUIRE(vector == vector_returned);
-        REQUIRE(matrix == matrix_returned);
-
-        REQUIRE_THROWS(op.getVariable("imaginary_scalar", scalar_returned));
-        REQUIRE_THROWS(op.getVariable("imaginary_vector", vector_returned));
-        REQUIRE_THROWS(op.getVariable("imaginary_matrix", matrix_returned));
-    }
 }
