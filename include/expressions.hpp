@@ -110,7 +110,7 @@ namespace cvx
         private:
             std::vector<Affine> factors;
         };
-    
+
     } // namespace internal
 
     class Scalar
@@ -261,11 +261,10 @@ namespace cvx
     {
         auto result = m.template cast<Scalar>().eval();
 
-        for (int k = 0; k < result.outerSize(); k++)
-            for (Eigen::SparseMatrix<Scalar>::InnerIterator it(result, k); it; ++it)
-            {
-                it.valueRef() = dynpar(m.valuePtr()[it.index()]);
-            }
+        for (int k = 0; k < result.nonZeros(); k++)
+        {
+            result.valuePtr()[k] = dynpar(m.valuePtr()[k]);
+        }
 
         return result;
     }

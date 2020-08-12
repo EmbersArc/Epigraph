@@ -179,7 +179,7 @@ TEST_CASE("Least Squares")
 
         VectorX x = qp.addVariable("x", 15);
 
-        qp.addCostTerm((par(sparseA) * x - par(b)).squaredNorm());
+        qp.addCostTerm((dynpar(sparseA) * x - par(b)).squaredNorm());
 
         fmt::print("{}\n", qp);
 
