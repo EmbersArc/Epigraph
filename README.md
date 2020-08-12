@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/Status-Beta-orange.svg" /></a>
 <a href="https://shields.io/" alt="">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
-<a href="https://lbesson.mit-license.org/" alt="">
+<a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE" alt="">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" /></a>
 <a href="https://travis-ci.org/github/EmbersArc/Epigraph" alt="">
     <img src="https://api.travis-ci.org/EmbersArc/Epigraph.svg?branch=master" /></a>
@@ -141,7 +141,7 @@ int main()
 See the [tests](tests) for more examples, including the same problem in SOCP form.
 
 ### Problem Formulation
-The following terms may be passed to the contraint functions:
+The following terms may be passed to the constraint functions:
 
 | Function | Allowed expressions |
 | --- | --- |
@@ -157,4 +157,4 @@ With the following expressions:
 | --- | --- |
 | `Affine` | `p1 * x1 + p2 * x2 + ... + c` |
 | `Norm2` | `(Affine1^2  + Affine2^2 + ...)^(1/2)` |
-| `QuadForm` | `x' * P * x` where `P` is Hermitian |
+| `QuadForm` | ``x' * P * x`` where `P` is Hermitian |
