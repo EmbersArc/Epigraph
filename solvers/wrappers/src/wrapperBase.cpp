@@ -1,6 +1,6 @@
 #include "wrapperBase.hpp"
 
-namespace cvx
+namespace cvx::internal
 {
 
     size_t WrapperBase::getNumVariables() const

@@ -8,50 +8,54 @@
 
 namespace cvx
 {
-
-    class Term;
     class Scalar;
 
-    struct VariableSource
+    namespace internal
     {
-        enum class Type
+
+        class Term;
+
+        struct VariableSource
         {
-            Scalar,
-            Vector,
-            Matrix,
+            enum class Type
+            {
+                Scalar,
+                Vector,
+                Matrix,
+            };
+
+            // The pointer gets deleted with the problem.
+            std::vector<double> *solution_ptr = nullptr;
+            size_t solution_idx = 0;
+            std::string name;
+            std::pair<size_t, size_t> index = {0, 0};
+            Type type;
         };
 
-        // The pointer gets deleted with the problem.
-        std::vector<double> *solution_ptr = nullptr;
-        size_t solution_idx = 0;
-        std::string name;
-        std::pair<size_t, size_t> index = {0, 0};
-        Type type;
-    };
+        class Variable
+        {
+        public:
+            Variable() = default;
+            explicit Variable(const std::string &name);
+            Variable(const std::string &name, size_t row);
+            Variable(const std::string &name, size_t row, size_t col);
 
-    class Variable
-    {
-    public:
-        Variable() = default;
-        explicit Variable(const std::string &name);
-        Variable(const std::string &name, size_t row);
-        Variable(const std::string &name, size_t row, size_t col);
+            bool operator==(const Variable &other) const;
 
-        bool operator==(const Variable &other) const;
+            bool isLinkedToSolver() const;
+            void linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx);
+            double getSolution() const;
+            size_t getProblemIndex() const;
+            void unlink();
 
-        bool isLinkedToSolver() const;
-        void linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx);
-        double getSolution() const;
-        size_t getProblemIndex() const;
-        void unlink();
+            friend std::ostream &operator<<(std::ostream &os,
+                                            const Variable &variable);
+            operator Term() const;
+            operator Scalar() const;
 
-        friend std::ostream &operator<<(std::ostream &os,
-                                        const Variable &variable);
-        operator Term() const;
-        operator Scalar() const;
+        private:
+            std::shared_ptr<VariableSource> source;
+        };
 
-    private:
-        std::shared_ptr<VariableSource> source;
-    };
-
+    } // namespace internal
 } // namespace cvx

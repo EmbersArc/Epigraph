@@ -7,7 +7,7 @@
 namespace cvx::eicos
 {
 
-    class EiCOSSolver final : public SOCPWrapperBase
+    class EiCOSSolver final : public internal::SOCPWrapperBase
     {
     public:
         explicit EiCOSSolver(OptimizationProblem &problem);

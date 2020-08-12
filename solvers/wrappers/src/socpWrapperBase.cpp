@@ -1,6 +1,6 @@
 #include "socpWrapperBase.hpp"
 
-namespace cvx
+namespace cvx::internal
 {
 
     SOCPWrapperBase::SOCPWrapperBase(OptimizationProblem &problem)
@@ -10,7 +10,7 @@ namespace cvx
         std::vector<int> cone_dimensions;
 
         // Build equality constraint parameters (b - A * x == 0)
-        for (EqualityConstraint &constraint : problem.equality_constraints)
+        for (internal::EqualityConstraint &constraint : problem.equality_constraints)
         {
             constraint.affine.cleanUp();
             if (constraint.affine.isConstant())
@@ -30,7 +30,7 @@ namespace cvx
         }
 
         // Build positive constraint parameters
-        for (PositiveConstraint &constraint : problem.positive_constraints)
+        for (internal::PositiveConstraint &constraint : problem.positive_constraints)
         {
             constraint.affine.cleanUp();
             if (constraint.affine.isConstant())
@@ -50,7 +50,7 @@ namespace cvx
         }
 
         // Build box constraint parameters
-        for (BoxConstraint &constraint : problem.box_constraints)
+        for (internal::BoxConstraint &constraint : problem.box_constraints)
         {
             // lower <= middle <= upper
 
@@ -88,7 +88,7 @@ namespace cvx
         }
 
         // Build second order cone constraint parameters
-        for (SecondOrderConeConstraint &constraint : problem.second_order_cone_constraints)
+        for (internal::SecondOrderConeConstraint &constraint : problem.second_order_cone_constraints)
         {
             // Affine part
             constraint.affine.cleanUp();
@@ -157,7 +157,7 @@ namespace cvx
         {
             variable.linkToSolver(&solution, getNumVariables());
             variables.push_back(variable);
-            c_params.resize(getNumVariables());
+            c_params.conservativeResize(getNumVariables());
         }
     }
 

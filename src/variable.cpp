@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-namespace cvx
+namespace cvx::internal
 {
     Variable::Variable(const std::string &name)
     {

@@ -7,13 +7,13 @@
 namespace cvx::osqp
 {
 
-    class OSQPSolver final : public QPWrapperBase
+    class OSQPSolver final : public internal::QPWrapperBase
     {
 
     public:
         explicit OSQPSolver(OptimizationProblem &problem);
-        bool solve(bool verbose = false);
-        std::string getResultString() const;
+        bool solve(bool verbose = false) override;
+        std::string getResultString() const override;
         const OSQPSettings &getSettings() const;
         const OSQPInfo &getInfo() const;
         c_int getExitCode() const;

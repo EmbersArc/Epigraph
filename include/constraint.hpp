@@ -1,3 +1,8 @@
+/**
+ * @file constraint.hpp
+ * 
+ */
+
 #pragma once
 
 #include "expressions.hpp"
@@ -6,33 +11,37 @@
 
 namespace cvx
 {
-
-    struct EqualityConstraint
+    namespace internal
     {
-        Affine affine;
-        friend std::ostream &operator<<(std::ostream &os, const EqualityConstraint &constraint);
-    };
 
-    struct PositiveConstraint
-    {
-        Affine affine;
-        friend std::ostream &operator<<(std::ostream &os, const PositiveConstraint &constraint);
-    };
+        struct EqualityConstraint
+        {
+            Affine affine;
+            friend std::ostream &operator<<(std::ostream &os, const EqualityConstraint &constraint);
+        };
 
-    struct BoxConstraint
-    {
-        Affine lower;
-        Affine middle;
-        Affine upper;
-        friend std::ostream &operator<<(std::ostream &os, const BoxConstraint &constraint);
-    };
+        struct PositiveConstraint
+        {
+            Affine affine;
+            friend std::ostream &operator<<(std::ostream &os, const PositiveConstraint &constraint);
+        };
 
-    struct SecondOrderConeConstraint
-    {
-        std::vector<Affine> norm;
-        Affine affine;
-        friend std::ostream &operator<<(std::ostream &os, const SecondOrderConeConstraint &constraint);
-    };
+        struct BoxConstraint
+        {
+            Affine lower;
+            Affine middle;
+            Affine upper;
+            friend std::ostream &operator<<(std::ostream &os, const BoxConstraint &constraint);
+        };
+
+        struct SecondOrderConeConstraint
+        {
+            std::vector<Affine> norm;
+            Affine affine;
+            friend std::ostream &operator<<(std::ostream &os, const SecondOrderConeConstraint &constraint);
+        };
+
+    } // namespace internal
 
     class Constraint
     {
@@ -46,46 +55,61 @@ namespace cvx
         };
 
         Type getType() const;
-        void asEquality(const Affine &affine);
-        void asPositive(const Affine &affine);
-        void asBox(const Affine &lower, const Affine &middle, const Affine &upper);
-        void asSecondOrderCone(const std::vector<Affine> &norm, const Affine &affine);
 
         friend std::ostream &operator<<(std::ostream &os, const Constraint &constraint);
 
-        using constraint_variant_t = std::variant<EqualityConstraint,
-                                                  PositiveConstraint,
-                                                  BoxConstraint,
-                                                  SecondOrderConeConstraint>;
+    private:
+        void asEquality(const internal::Affine &affine);
+        void asPositive(const internal::Affine &affine);
+        void asBox(const internal::Affine &lower, const internal::Affine &middle, const internal::Affine &upper);
+        void asSecondOrderCone(const std::vector<internal::Affine> &norm, const internal::Affine &affine);
+
+        using constraint_variant_t = std::variant<internal::EqualityConstraint,
+                                                  internal::PositiveConstraint,
+                                                  internal::BoxConstraint,
+                                                  internal::SecondOrderConeConstraint>;
         constraint_variant_t data;
+
+    public:
+        friend OptimizationProblem;
+
+        /**
+         * @brief Create an equality constraint: lhs == rhs
+         * 
+         * @param lhs The left hand side
+         * @param rhs The right hand side
+         * @return Constraint The constraint to pass to addConstraint()
+         */
+        friend Constraint equalTo(const Scalar &lhs, const Scalar &rhs);
+
+        /**
+         * @brief Create a greater than or equal constraint: lhs >= rhs
+         * 
+         * @param lhs The left hand side
+         * @param rhs The right hand side
+         * @return Constraint The constraint to pass to addConstraint()
+         */
+        friend Constraint greaterThan(const Scalar &lhs, const Scalar &rhs);
+
+        /**
+         * @brief Create a less than or equal constraint: lhs <= rhs
+         * 
+         * @param lhs The left hand side
+         * @param rhs The right hand side
+         * @return Constraint The constraint to pass to addConstraint()
+         */
+        friend Constraint lessThan(const Scalar &lhs, const Scalar &rhs);
+
+        /**
+         * @brief Create a box constraint: lower <= middle <= upper 
+         * 
+         * @param lower  The lower bound
+         * @param middle The middle term
+         * @param upper  The upper bound
+         * @return Constraint The constraint to pass to addConstraint()
+         */
+        friend Constraint box(const Scalar &lower, const Scalar &middle, const Scalar &upper);
     };
-
-    /**
-     * @brief Create an equality constraint: lhs == rhs
-     * 
-     * @param lhs The left hand side
-     * @param rhs The right hand side
-     * @return Constraint The constraint to pass to addConstraint()
-     */
-    Constraint equalTo(const Scalar &lhs, const Scalar &rhs);
-
-    /**
-     * @brief Create a less than or equal constraint: lhs <= rhs
-     * 
-     * @param lhs The left hand side
-     * @param rhs The right hand side
-     * @return Constraint The constraint to pass to addConstraint()
-     */
-    Constraint lessThan(const Scalar &lhs, const Scalar &rhs);
-
-    /**
-     * @brief Create a greater than or equal constraint: lhs >= rhs
-     * 
-     * @param lhs The left hand side
-     * @param rhs The right hand side
-     * @return Constraint The constraint to pass to addConstraint()
-     */
-    Constraint greaterThan(const Scalar &lhs, const Scalar &rhs);
 
     template <typename Derived>
     std::vector<Constraint> equalTo(const Eigen::MatrixBase<Derived> &lhs, const Scalar &rhs)
@@ -281,16 +305,6 @@ namespace cvx
     {
         return lessThan(rhs, lhs);
     }
-
-    /**
-     * @brief Create a box constraint: lower <= middle <= upper 
-     * 
-     * @param lower  The lower bound
-     * @param middle The middle term
-     * @param upper  The upper bound
-     * @return Constraint The constraint to pass to addConstraint()
-     */
-    Constraint box(const Scalar &lower, const Scalar &middle, const Scalar &upper);
 
     /**
      * @brief Create a box constraint: lower <= middle <= upper 

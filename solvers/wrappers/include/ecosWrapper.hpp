@@ -10,17 +10,13 @@
 
 namespace cvx::ecos
 {
-    static_assert(std::is_same_v<idxint, SuiteSparse_long> and std::is_same_v<idxint, long>,
-                  "Definitions of idxint are not consistent."
-                  "Make sure ECOS is compiled with USE_LONG = 1.");
-
-    class ECOSSolver final : public SOCPWrapperBase
+    class ECOSSolver final : public internal::SOCPWrapperBase
     {
 
     public:
         explicit ECOSSolver(OptimizationProblem &problem);
-        bool solve(bool verbose = false);
-        std::string getResultString() const;
+        bool solve(bool verbose = false) override;
+        std::string getResultString() const override;
         settings &getSettings();
         const stats &getInfo() const;
         idxint getExitCode() const;

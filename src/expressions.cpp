@@ -2,38 +2,56 @@
 
 namespace cvx
 {
-
-    std::ostream &operator<<(std::ostream &os, const Term &term)
+    namespace internal
     {
-        if (not term.parameter.isOne())
+        std::ostream &operator<<(std::ostream &os, const Term &term)
         {
-            os << term.parameter.getValue() << " * ";
+            if (not term.parameter.isOne())
+            {
+                os << term.parameter.getValue() << " * ";
+            }
+            os << term.variable;
+            return os;
         }
-        os << term.variable;
-        return os;
-    }
 
-    std::ostream &operator<<(std::ostream &os, const Affine &affine)
-    {
-        for (size_t i = 0; i < affine.terms.size(); i++)
+        std::ostream &operator<<(std::ostream &os, const Affine &affine)
         {
-            os << affine.terms[i];
-            if (i != affine.terms.size() - 1)
+            for (size_t i = 0; i < affine.terms.size(); i++)
+            {
+                os << affine.terms[i];
+                if (i != affine.terms.size() - 1)
+                    os << " + ";
+            }
+
+            if (not affine.terms.empty() and not affine.constant.isZero())
+            {
                 os << " + ";
+            }
+
+            if (affine.terms.empty() or not affine.constant.isZero())
+            {
+                os << affine.constant;
+            }
+
+            return os;
         }
 
-        if (not affine.terms.empty() and not affine.constant.isZero())
+        std::ostream &operator<<(std::ostream &os, const Product &product)
         {
-            os << " + ";
-        }
+            if (product.factors.size() == 1)
+            {
+                os << "(" << product.factors[0] << ")^2";
+            }
+            else if (product.factors.size() == 2)
+            {
+                os << "(" << product.factors[0] << ") * (" << product.factors[1] << ")";
+            }
 
-        if (affine.terms.empty() or not affine.constant.isZero())
-        {
-            os << affine.constant;
+            return os;
         }
+    } // namespace internal
 
-        return os;
-    }
+    using namespace internal;
 
     std::ostream &operator<<(std::ostream &os, const Scalar &exp)
     {
@@ -67,20 +85,6 @@ namespace cvx
         {
             os << exp.affine;
         }
-        return os;
-    }
-
-    std::ostream &operator<<(std::ostream &os, const Product &product)
-    {
-        if (product.factors.size() == 1)
-        {
-            os << "(" << product.factors[0] << ")^2";
-        }
-        else if (product.factors.size() == 2)
-        {
-            os << "(" << product.factors[0] << ") * (" << product.factors[1] << ")";
-        }
-
         return os;
     }
 

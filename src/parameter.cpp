@@ -4,7 +4,7 @@
 #include <cassert>
 #include <cmath>
 
-namespace cvx
+namespace cvx::internal
 {
 
     ConstantSource::ConstantSource(double const_value)

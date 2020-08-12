@@ -2,7 +2,7 @@
 
 #include "wrapperBase.hpp"
 
-namespace cvx
+namespace cvx::internal
 {
 
     class SOCPWrapperBase : public WrapperBase

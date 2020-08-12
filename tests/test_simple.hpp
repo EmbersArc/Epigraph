@@ -86,6 +86,7 @@ TEST_CASE("Simple Problems")
 TEST_CASE("Least Squares")
 {
     Eigen::MatrixXd A(20, 15);
+    Eigen::SparseMatrix<double> sparseA(20, 15);
     Eigen::VectorXd b(20);
     Eigen::VectorXd x_sol(15);
 
@@ -150,6 +151,8 @@ TEST_CASE("Least Squares")
         -0., -0., 0.49233656, -0.68067814, -0.08450803,
         -0.29736188, 0.417302, 0.78477065, -0., 0.58591043;
 
+    sparseA = A.sparseView();
+
     b << -1.07296428, 0.49515861, -0.9520621, -0.51814555, -1.4614036,
         -0.51634791, 0.3511169, -0.06877046, -1.34776494, 1.47073986,
         0.33722094, 1.00806543, 0.78522692, -0.66486777, -1.94504696,
@@ -176,11 +179,14 @@ TEST_CASE("Least Squares")
 
         VectorX x = qp.addVariable("x", 15);
 
-        qp.addCostTerm((par(A) * x - par(b)).squaredNorm());
+        qp.addCostTerm((par(sparseA) * x - par(b)).squaredNorm());
 
         fmt::print("{}\n", qp);
 
         osqp::OSQPSolver solver(qp);
+
+        fmt::print("{}\n", solver);
+
         solver.solve(true);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
     }

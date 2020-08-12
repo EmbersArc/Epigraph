@@ -2,6 +2,8 @@
 
 namespace cvx
 {
+    using namespace internal;
+
     Scalar OptimizationProblem::addVariable(const std::string &name)
     {
         if (scalar_variables.find(name) != scalar_variables.end())
@@ -195,25 +197,25 @@ namespace cvx
         os << "Subject to\n\n";
 
         os << "Equality Constraints:\n";
-        for (const EqualityConstraint &c : op.equality_constraints)
+        for (const internal::EqualityConstraint &c : op.equality_constraints)
         {
             os << c << "\n\n";
         }
         os << "\n";
         os << "Positive Constraints:\n";
-        for (const PositiveConstraint &c : op.positive_constraints)
+        for (const internal::PositiveConstraint &c : op.positive_constraints)
         {
             os << c << "\n\n";
         }
         os << "\n";
         os << "Box Constraints:\n";
-        for (const BoxConstraint &c : op.box_constraints)
+        for (const internal::BoxConstraint &c : op.box_constraints)
         {
             os << c << "\n\n";
         }
         os << "\n";
         os << "Second Order Cone Constraints:\n";
-        for (const SecondOrderConeConstraint &c : op.second_order_cone_constraints)
+        for (const internal::SecondOrderConeConstraint &c : op.second_order_cone_constraints)
         {
             os << c << "\n\n";
         }

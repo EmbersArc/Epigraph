@@ -1,3 +1,8 @@
+/**
+ * @file expressions.hpp
+ * 
+ */
+
 #pragma once
 
 #include "parameter.hpp"
@@ -32,77 +37,81 @@ namespace Eigen
 
 namespace cvx
 {
-
-    class Affine;
     class Constraint;
-    class Scalar;
     class OptimizationProblem;
-    class SOCPWrapperBase;
-    class QPWrapperBase;
+    class Scalar;
 
-    class Term
+    namespace internal
     {
-    public:
-        Term();
+        class Affine;
+        class SOCPWrapperBase;
+        class QPWrapperBase;
 
-        Parameter parameter;
-        Variable variable;
+        class Term
+        {
+        public:
+            Term();
 
-        bool operator==(const Term &other) const;
-        Term &operator*=(const Parameter &param);
-        Term &operator/=(const Parameter &param);
+            Parameter parameter;
+            Variable variable;
 
-        operator Affine() const;
+            bool operator==(const Term &other) const;
+            Term &operator*=(const Parameter &param);
+            Term &operator/=(const Parameter &param);
 
-        friend std::ostream &operator<<(std::ostream &os, const Term &term);
-        double evaluate() const;
-    };
+            operator Affine() const;
 
-    class Affine
-    {
-    public:
-        bool operator==(const Affine &other) const;
+            friend std::ostream &operator<<(std::ostream &os, const Term &term);
+            double evaluate() const;
+        };
 
-        Parameter constant = Parameter(0.);
-        std::vector<Term> terms;
+        class Affine
+        {
+        public:
+            bool operator==(const Affine &other) const;
 
-        friend std::ostream &operator<<(std::ostream &os, const Affine &affine);
-        double evaluate() const;
-        Affine &operator+=(const Affine &other);
-        Affine &operator-=(const Affine &other);
-        Affine &operator*=(const Parameter &param);
-        Affine &operator/=(const Parameter &param);
-        // Affine operator+(const Affine &other) const;
-        Affine operator-(const Affine &other) const;
-        Affine operator-() const;
+            Parameter constant = Parameter(0.);
+            std::vector<Term> terms;
 
-        void cleanUp();
+            friend std::ostream &operator<<(std::ostream &os, const Affine &affine);
+            double evaluate() const;
+            Affine &operator+=(const Affine &other);
+            Affine &operator-=(const Affine &other);
+            Affine &operator*=(const Parameter &param);
+            Affine &operator/=(const Parameter &param);
+            // Affine operator+(const Affine &other) const;
+            Affine operator-(const Affine &other) const;
+            Affine operator-() const;
 
-        bool isZero() const;
-        bool isConstant() const;
-        bool isFirstOrder() const;
-    };
+            void cleanUp();
 
-    class Product
-    {
-    public:
-        explicit Product(const Affine &term);
-        Product(const Affine &lhs, const Affine &rhs);
-        Affine &firstTerm();
-        Affine &secondTerm();
-        const Affine &firstTerm() const;
-        const Affine &secondTerm() const;
-        void toSquaredTerm();
-        double evaluate() const;
-        bool isSquare() const;
+            bool isZero() const;
+            bool isConstant() const;
+            bool isFirstOrder() const;
+        };
 
-        bool operator==(const Product &other) const;
+        class Product
+        {
+        public:
+            explicit Product(const Affine &term);
+            Product(const Affine &lhs, const Affine &rhs);
+            Affine &firstTerm();
+            Affine &secondTerm();
+            const Affine &firstTerm() const;
+            const Affine &secondTerm() const;
+            void toSquaredTerm();
+            double evaluate() const;
+            bool isSquare() const;
 
-        friend std::ostream &operator<<(std::ostream &os, const Product &product);
+            bool operator==(const Product &other) const;
 
-    private:
-        std::vector<Affine> factors;
-    };
+            friend std::ostream &operator<<(std::ostream &os, const Product &product);
+
+        private:
+            std::vector<Affine> factors;
+        };
+    
+    } // namespace internal
 
     class Scalar
     {
@@ -129,14 +138,14 @@ namespace cvx
         bool isNorm() const;
 
         friend OptimizationProblem;
-        friend SOCPWrapperBase;
-        friend QPWrapperBase;
+        friend internal::SOCPWrapperBase;
+        friend internal::QPWrapperBase;
 
         explicit operator double() const;
 
     private:
-        Affine affine;
-        std::vector<Product> products;
+        internal::Affine affine;
+        std::vector<internal::Product> products;
         bool norm = false;
 
         friend std::ostream &operator<<(std::ostream &os, const Scalar &scalar);
@@ -152,10 +161,11 @@ namespace cvx
         friend Scalar abs2(const Scalar &scalar);
 
         // friend Parameter::operator Scalar() const;
-        friend Variable::operator Scalar() const;
+        friend internal::Variable::operator Scalar() const;
 
         friend Constraint equalTo(const Scalar &lhs, const Scalar &rhs);
         friend Constraint lessThan(const Scalar &lhs, const Scalar &rhs);
+        friend Constraint greaterThan(const Scalar &lhs, const Scalar &rhs);
         friend Constraint box(const Scalar &lower, const Scalar &middle, const Scalar &upper);
     };
 
@@ -300,7 +310,7 @@ namespace cvx
     inline Scalar square(const Scalar &x)
     {
         Scalar new_scalar;
-        new_scalar.products = {Product(x.affine)};
+        new_scalar.products = {internal::Product(x.affine)};
         return new_scalar;
     }
     inline Scalar abs2(const Scalar &x)

@@ -25,7 +25,7 @@ TEST_CASE("getVariableValue")
 
 TEST_CASE("getProblemIndex")
 {
-    Variable variable("x");
+    internal::Variable variable("x");
     REQUIRE_THROWS(variable.getProblemIndex());
 }
 

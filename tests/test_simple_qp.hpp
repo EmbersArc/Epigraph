@@ -1,5 +1,6 @@
-// A very basic QP example
+using namespace cvx;
 
+// A very basic QP example
 TEST_CASE("Simple QP 1")
 {
     // Set up problem data.

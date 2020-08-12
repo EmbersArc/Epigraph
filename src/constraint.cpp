@@ -3,41 +3,46 @@
 namespace cvx
 {
 
-    std::ostream &operator<<(std::ostream &os, const EqualityConstraint &constraint)
+    namespace internal
     {
-        os << constraint.affine << " == 0";
-        return os;
-    }
-
-    std::ostream &operator<<(std::ostream &os, const PositiveConstraint &constraint)
-    {
-        os << "0 <= " << constraint.affine;
-        return os;
-    }
-
-    std::ostream &operator<<(std::ostream &os, const BoxConstraint &constraint)
-    {
-        os << constraint.lower << " <= " << constraint.middle << " <= " << constraint.upper;
-        return os;
-    }
-
-    std::ostream &operator<<(std::ostream &os, const SecondOrderConeConstraint &constraint)
-    {
-        os << "(";
-        for (size_t i = 0; i < constraint.norm.size(); i++)
+        std::ostream &operator<<(std::ostream &os, const EqualityConstraint &constraint)
         {
-            os << "(" << constraint.norm[i] << ")^2";
-            if (i != constraint.norm.size() - 1)
-            {
-                os << " + ";
-            }
+            os << constraint.affine << " == 0";
+            return os;
         }
-        os << ")^(1/2)";
 
-        os << " <= " << constraint.affine;
+        std::ostream &operator<<(std::ostream &os, const PositiveConstraint &constraint)
+        {
+            os << "0 <= " << constraint.affine;
+            return os;
+        }
 
-        return os;
-    }
+        std::ostream &operator<<(std::ostream &os, const BoxConstraint &constraint)
+        {
+            os << constraint.lower << " <= " << constraint.middle << " <= " << constraint.upper;
+            return os;
+        }
+
+        std::ostream &operator<<(std::ostream &os, const SecondOrderConeConstraint &constraint)
+        {
+            os << "(";
+            for (size_t i = 0; i < constraint.norm.size(); i++)
+            {
+                os << "(" << constraint.norm[i] << ")^2";
+                if (i != constraint.norm.size() - 1)
+                {
+                    os << " + ";
+                }
+            }
+            os << ")^(1/2)";
+
+            os << " <= " << constraint.affine;
+
+            return os;
+        }
+    } // namespace internal
+
+    using namespace internal;
 
     std::ostream &operator<<(std::ostream &os, const Constraint &constraint)
     {
@@ -67,7 +72,7 @@ namespace cvx
     // affine == 0
     void Constraint::asEquality(const Affine &affine)
     {
-        EqualityConstraint constraint;
+        internal::EqualityConstraint constraint;
         constraint.affine = affine;
         data = constraint;
     }
@@ -75,7 +80,7 @@ namespace cvx
     // affine >= 0
     void Constraint::asPositive(const Affine &affine)
     {
-        PositiveConstraint constraint;
+        internal::PositiveConstraint constraint;
         constraint.affine = affine;
         data = constraint;
     }
@@ -83,7 +88,7 @@ namespace cvx
     // affine <= affine <= affine
     void Constraint::asBox(const Affine &lower, const Affine &middle, const Affine &upper)
     {
-        BoxConstraint constraint;
+        internal::BoxConstraint constraint;
         constraint.lower = lower;
         constraint.middle = middle;
         constraint.upper = upper;
@@ -93,7 +98,7 @@ namespace cvx
     // norm <= affine
     void Constraint::asSecondOrderCone(const std::vector<Affine> &norm, const Affine &affine)
     {
-        SecondOrderConeConstraint constraint;
+        internal::SecondOrderConeConstraint constraint;
         constraint.norm = norm;
         constraint.affine = affine;
         data = constraint;

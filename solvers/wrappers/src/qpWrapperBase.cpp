@@ -2,7 +2,7 @@
 
 #include <Eigen/Cholesky>
 
-namespace cvx
+namespace cvx::internal
 {
 
     QPWrapperBase::QPWrapperBase(OptimizationProblem &problem)
@@ -11,7 +11,7 @@ namespace cvx
         std::vector<Parameter> l_coeffs, u_coeffs;
 
         // Build equality constraint parameters
-        for (EqualityConstraint &constraint : problem.equality_constraints)
+        for (internal::EqualityConstraint &constraint : problem.equality_constraints)
         {
             constraint.affine.cleanUp();
             if (constraint.affine.isConstant())
@@ -31,7 +31,7 @@ namespace cvx
         }
 
         // Build positive constraint parameters
-        for (PositiveConstraint &constraint : problem.positive_constraints)
+        for (internal::PositiveConstraint &constraint : problem.positive_constraints)
         {
             constraint.affine.cleanUp();
             if (constraint.affine.isConstant())
@@ -51,7 +51,7 @@ namespace cvx
         }
 
         // Build box constraint parameters
-        for (BoxConstraint &constraint : problem.box_constraints)
+        for (internal::BoxConstraint &constraint : problem.box_constraints)
         {
             if (constraint.lower.isConstant() and constraint.upper.isConstant())
             {
@@ -119,8 +119,7 @@ namespace cvx
         // Linear part
         for (Term &term : problem.costFunction.affine.terms)
         {
-            if (term.variable.isLinkedToSolver())
-                q_params(term.variable.getProblemIndex()) += term.parameter;
+            q_params(term.variable.getProblemIndex()) += term.parameter;
         }
 
         // Quadratic part
@@ -195,7 +194,7 @@ namespace cvx
         {
             variable.linkToSolver(&solution, getNumVariables());
             variables.push_back(variable);
-            q_params.resize(getNumVariables());
+            q_params.conservativeResize(getNumVariables());
         }
     }
 

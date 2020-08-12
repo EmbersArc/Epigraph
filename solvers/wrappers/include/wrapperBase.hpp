@@ -5,7 +5,7 @@
 
 #include <Eigen/Sparse>
 
-namespace cvx
+namespace cvx::internal
 {
 
     class WrapperBase
@@ -16,7 +16,7 @@ namespace cvx
         virtual std::string getResultString() const = 0;
         size_t getNumVariables() const;
 
-        ~WrapperBase();
+        virtual ~WrapperBase();
 
     protected:
         using MatrixXp = Eigen::Matrix<Parameter, Eigen::Dynamic, Eigen::Dynamic>;

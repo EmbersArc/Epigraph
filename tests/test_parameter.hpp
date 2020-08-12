@@ -8,10 +8,10 @@ TEST_CASE("Parameter")
     double three = 3.;
 
     { // Constants
-        Parameter p0(zero);
-        Parameter p1(one);
-        Parameter p2(two);
-        Parameter p3(three);
+        internal::Parameter p0(zero);
+        internal::Parameter p1(one);
+        internal::Parameter p2(two);
+        internal::Parameter p3(three);
 
         REQUIRE(p0 == p0);
         REQUIRE(p1 == p1);
@@ -20,13 +20,13 @@ TEST_CASE("Parameter")
         REQUIRE_FALSE(p2 == p0);
         REQUIRE_FALSE(p2 == p1);
 
-        Parameter p0p1 = p0 + p1;
-        Parameter p1p2 = p1 + p2;
-        Parameter p2p3 = p2 + p3;
+        internal::Parameter p0p1 = p0 + p1;
+        internal::Parameter p1p2 = p1 + p2;
+        internal::Parameter p2p3 = p2 + p3;
 
-        Parameter p0t1 = p0 * p1;
-        Parameter p1t2 = p1 * p2;
-        Parameter p2t3 = p2 * p3;
+        internal::Parameter p0t1 = p0 * p1;
+        internal::Parameter p1t2 = p1 * p2;
+        internal::Parameter p2t3 = p2 * p3;
 
         // Addition
         REQUIRE((p0 + p1).getValue() == 1.);
@@ -60,10 +60,10 @@ TEST_CASE("Parameter")
     }
 
     { // Pointers
-        Parameter p0(&zero);
-        Parameter p1(&one);
-        Parameter p2(&two);
-        Parameter p3(&three);
+        internal::Parameter p0(&zero);
+        internal::Parameter p1(&one);
+        internal::Parameter p2(&two);
+        internal::Parameter p3(&three);
 
         REQUIRE(p0 == p0);
         REQUIRE(p1 == p1);
@@ -72,13 +72,13 @@ TEST_CASE("Parameter")
         REQUIRE_FALSE(p2 == p0);
         REQUIRE_FALSE(p2 == p1);
 
-        Parameter p0p1 = p0 + p1;
-        Parameter p1p2 = p1 + p2;
-        Parameter p2p3 = p2 + p3;
+        internal::Parameter p0p1 = p0 + p1;
+        internal::Parameter p1p2 = p1 + p2;
+        internal::Parameter p2p3 = p2 + p3;
 
-        Parameter p0t1 = p0 * p1;
-        Parameter p1t2 = p1 * p2;
-        Parameter p2t3 = p2 * p3;
+        internal::Parameter p0t1 = p0 * p1;
+        internal::Parameter p1t2 = p1 * p2;
+        internal::Parameter p2t3 = p2 * p3;
 
         // Addition
         REQUIRE((p0 + p1).getValue() == 1.);

@@ -3,7 +3,7 @@
 namespace cvx::osqp
 {
 
-    OSQPSolver::OSQPSolver(OptimizationProblem &problem) : QPWrapperBase(problem)
+    OSQPSolver::OSQPSolver(OptimizationProblem &problem) : internal::QPWrapperBase(problem)
     {
         update();
 

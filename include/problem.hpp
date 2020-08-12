@@ -1,3 +1,8 @@
+/**
+ * @file problem.hpp
+ * 
+ */
+
 #pragma once
 
 #include "constraint.hpp"
@@ -6,9 +11,6 @@
 
 namespace cvx
 {
-
-    class SOCPWrapperBase;
-    class QPWrapperBase;
 
     class OptimizationProblem
     {
@@ -129,16 +131,16 @@ namespace cvx
         size_t getNumVariables() const;
 
         friend std::ostream &operator<<(std::ostream &os, const OptimizationProblem &socp);
-        friend SOCPWrapperBase;
-        friend QPWrapperBase;
+        friend internal::SOCPWrapperBase;
+        friend internal::QPWrapperBase;
 
     private:
         Scalar costFunction;
 
-        std::vector<EqualityConstraint> equality_constraints;
-        std::vector<PositiveConstraint> positive_constraints;
-        std::vector<BoxConstraint> box_constraints;
-        std::vector<SecondOrderConeConstraint> second_order_cone_constraints;
+        std::vector<internal::EqualityConstraint> equality_constraints;
+        std::vector<internal::PositiveConstraint> positive_constraints;
+        std::vector<internal::BoxConstraint> box_constraints;
+        std::vector<internal::SecondOrderConeConstraint> second_order_cone_constraints;
 
         std::map<std::string, Scalar> scalar_variables;
         std::map<std::string, VectorX> vector_variables;
