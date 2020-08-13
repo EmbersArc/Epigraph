@@ -183,7 +183,7 @@ namespace cvx
     /**
      * @brief Creates a dynamic parameter.
      * 
-     * @details Internally store pointers to the original values.
+     * @details Internally stores pointers to the original values.
      * 
      * @warning Do not delete the source before the parameter is no longer required.
      * 
@@ -221,7 +221,7 @@ namespace cvx
     /**
      * @brief Creates a dynamic parameter from a dense Eigen type.
      * 
-     * @details Internally store pointers to the original values.
+     * @details Internally stores pointers to the original values.
      * 
      * @warning Do not delete the source before the parameter is no longer required.
      * 
@@ -248,7 +248,7 @@ namespace cvx
     /**
      * @brief Creates a dynamic parameter from a sparse Eigen type.
      * 
-     * @details Internally store pointers to the original values.
+     * @details Internally stores pointers to the original values.
      * 
      * @warning Do not delete the source before the parameter is no longer required.
      * 
