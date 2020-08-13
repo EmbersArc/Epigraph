@@ -60,7 +60,7 @@ target_link_libraries(my_library epigraph)
 
 ### Documentation
 
-While the example below is likely enough to get you started, the full documentation can be found [here](embersarc.github.io).
+While the example below is likely enough to get you started, the full documentation can be found [here](https://embersarc.github.io/Epigraph/).
 
 ### Example
 
