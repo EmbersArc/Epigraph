@@ -119,6 +119,7 @@ namespace cvx::internal
         // Linear part
         for (Term &term : problem.costFunction.affine.terms)
         {
+            addVariable(term.variable);
             q_params(term.variable.getProblemIndex()) += term.parameter;
         }
 
