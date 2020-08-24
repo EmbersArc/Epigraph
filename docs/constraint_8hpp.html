@@ -86,6 +86,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a19ae6dab85befb1637b466555a80dbe1"><td class="memItemLeft" align="right" valign="top">Constraint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="constraint_8hpp.html#a19ae6dab85befb1637b466555a80dbe1">cvx::equalTo</a> (const Scalar &amp;lhs, const Scalar &amp;rhs)</td></tr>
+<tr class="memdesc:a19ae6dab85befb1637b466555a80dbe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an equality constraint: lhs == rhs.  <a href="constraint_8hpp.html#a19ae6dab85befb1637b466555a80dbe1">More...</a><br /></td></tr>
+<tr class="separator:a19ae6dab85befb1637b466555a80dbe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdc34f6fa683a0f38f352295dad8981f"><td class="memItemLeft" align="right" valign="top">Constraint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="constraint_8hpp.html#acdc34f6fa683a0f38f352295dad8981f">cvx::greaterThan</a> (const Scalar &amp;lhs, const Scalar &amp;rhs)</td></tr>
+<tr class="memdesc:acdc34f6fa683a0f38f352295dad8981f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a greater than or equal constraint: lhs &gt;= rhs.  <a href="constraint_8hpp.html#acdc34f6fa683a0f38f352295dad8981f">More...</a><br /></td></tr>
+<tr class="separator:acdc34f6fa683a0f38f352295dad8981f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab66996674d0127fea7f2615269365fe8"><td class="memItemLeft" align="right" valign="top">Constraint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="constraint_8hpp.html#ab66996674d0127fea7f2615269365fe8">cvx::lessThan</a> (const Scalar &amp;lhs, const Scalar &amp;rhs)</td></tr>
+<tr class="memdesc:ab66996674d0127fea7f2615269365fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a less than or equal constraint: lhs &lt;= rhs.  <a href="constraint_8hpp.html#ab66996674d0127fea7f2615269365fe8">More...</a><br /></td></tr>
+<tr class="separator:ab66996674d0127fea7f2615269365fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ea445abc1a5f95514d8a67ba28ad65"><td class="memItemLeft" align="right" valign="top">Constraint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="constraint_8hpp.html#ac6ea445abc1a5f95514d8a67ba28ad65">cvx::box</a> (const Scalar &amp;lower, const Scalar &amp;middle, const Scalar &amp;upper)</td></tr>
+<tr class="memdesc:ac6ea445abc1a5f95514d8a67ba28ad65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a box constraint: lower &lt;= middle &lt;= upper.  <a href="constraint_8hpp.html#ac6ea445abc1a5f95514d8a67ba28ad65">More...</a><br /></td></tr>
+<tr class="separator:ac6ea445abc1a5f95514d8a67ba28ad65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8c695dd723a21fbbf90f424685f7247"><td class="memTemplParams" colspan="2"><a id="ae8c695dd723a21fbbf90f424685f7247"></a>
 template&lt;typename Derived &gt; </td></tr>
 <tr class="memitem:ae8c695dd723a21fbbf90f424685f7247"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; Constraint &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>cvx::equalTo</b> (const Eigen::MatrixBase&lt; Derived &gt; &amp;lhs, const Scalar &amp;rhs)</td></tr>
@@ -133,7 +145,7 @@ template&lt;typename Derived &gt; </td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="aca2addc9b4392c2267258d392de9d831"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca2addc9b4392c2267258d392de9d831">&#9670;&nbsp;</a></span>box() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aca2addc9b4392c2267258d392de9d831">&#9670;&nbsp;</a></span>box() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +200,7 @@ template&lt;typename DerivedLower , typename DerivedMiddle , typename DerivedUpp
 </div>
 </div>
 <a id="addf25d6ed69ccfa6d90497d28384864a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addf25d6ed69ccfa6d90497d28384864a">&#9670;&nbsp;</a></span>box() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#addf25d6ed69ccfa6d90497d28384864a">&#9670;&nbsp;</a></span>box() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,8 +252,53 @@ template&lt;typename Derived &gt; </div>
 
 </div>
 </div>
+<a id="ac6ea445abc1a5f95514d8a67ba28ad65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ea445abc1a5f95514d8a67ba28ad65">&#9670;&nbsp;</a></span>box() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Constraint cvx::box </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lower</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>middle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>upper</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a box constraint: lower &lt;= middle &lt;= upper. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lower</td><td>The lower bound </td></tr>
+    <tr><td class="paramname">middle</td><td>The middle term </td></tr>
+    <tr><td class="paramname">upper</td><td>The upper bound </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Constraint The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
 <a id="a83abda9c447832b598f853078bdb8966"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83abda9c447832b598f853078bdb8966">&#9670;&nbsp;</a></span>equalTo() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83abda9c447832b598f853078bdb8966">&#9670;&nbsp;</a></span>equalTo() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +345,7 @@ template&lt;typename DerivedLhs , typename DerivedRhs &gt; </div>
 </div>
 </div>
 <a id="a430e9773f1927b043bdd2b3bf4dac4b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a430e9773f1927b043bdd2b3bf4dac4b6">&#9670;&nbsp;</a></span>equalTo() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a430e9773f1927b043bdd2b3bf4dac4b6">&#9670;&nbsp;</a></span>equalTo() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,8 +390,46 @@ template&lt;typename Derived &gt; </div>
 
 </div>
 </div>
+<a id="a19ae6dab85befb1637b466555a80dbe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19ae6dab85befb1637b466555a80dbe1">&#9670;&nbsp;</a></span>equalTo() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Constraint cvx::equalTo </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an equality constraint: lhs == rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Constraint The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
 <a id="aaca6a5bd054a7fb42e93b2e7cf143e79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaca6a5bd054a7fb42e93b2e7cf143e79">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca6a5bd054a7fb42e93b2e7cf143e79">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +475,7 @@ template&lt;typename Derived &gt; </div>
 </div>
 </div>
 <a id="ac0e99c4d1f884f47b6c9f87d82c4cf5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0e99c4d1f884f47b6c9f87d82c4cf5b">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0e99c4d1f884f47b6c9f87d82c4cf5b">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,7 +522,7 @@ template&lt;typename DerivedLhs , typename DerivedRhs &gt; </div>
 </div>
 </div>
 <a id="a3d551a3d671699679e8ef965d4c4e807"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d551a3d671699679e8ef965d4c4e807">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d551a3d671699679e8ef965d4c4e807">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,8 +567,46 @@ template&lt;typename Derived &gt; </div>
 
 </div>
 </div>
+<a id="acdc34f6fa683a0f38f352295dad8981f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdc34f6fa683a0f38f352295dad8981f">&#9670;&nbsp;</a></span>greaterThan() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Constraint cvx::greaterThan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a greater than or equal constraint: lhs &gt;= rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Constraint The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
 <a id="a91b384bbdb605f57390341e94eba80a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91b384bbdb605f57390341e94eba80a1">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b384bbdb605f57390341e94eba80a1">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,7 +652,7 @@ template&lt;typename Derived &gt; </div>
 </div>
 </div>
 <a id="a92e44c5dfa714835c1ab825db8da7653"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92e44c5dfa714835c1ab825db8da7653">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e44c5dfa714835c1ab825db8da7653">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -566,7 +699,7 @@ template&lt;typename DerivedLhs , typename DerivedRhs &gt; </div>
 </div>
 </div>
 <a id="a41ba5f4943a13d2265aedbf8de1f45ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41ba5f4943a13d2265aedbf8de1f45ef">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ba5f4943a13d2265aedbf8de1f45ef">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -600,6 +733,44 @@ template&lt;typename Derived &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Constraint The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
+<a id="ab66996674d0127fea7f2615269365fe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab66996674d0127fea7f2615269365fe8">&#9670;&nbsp;</a></span>lessThan() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Constraint cvx::lessThan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a less than or equal constraint: lhs &lt;= rhs. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>

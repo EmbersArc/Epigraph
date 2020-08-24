@@ -70,7 +70,7 @@ $(function() {
 <div class="textblock"><p align="center"><a class="anchor" id="md_README"></a></p>
 <p><img src="img/logo.png" alt="" class="inline"/> </p>
 <p align="center"></p>
-<p><a href="https://shields.io/"><img src="https://img.shields.io/badge/Version-0.3.1-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Status-Beta-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://travis-ci.org/github/EmbersArc/Epigraph"><img src="https://api.travis-ci.org/EmbersArc/Epigraph.svg?branch=master" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/gh/EmbersArc/Epigraph"><img src="https://codecov.io/gh/EmbersArc/Epigraph/branch/master/graph/badge.svg" alt="" style="pointer-events: none;" class="inline"/></a> </p>
+<p><a href="https://shields.io/"><img src="https://img.shields.io/badge/Version-0.3.3-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Status-Beta-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://travis-ci.org/github/EmbersArc/Epigraph"><img src="https://api.travis-ci.org/EmbersArc/Epigraph.svg?branch=master" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/gh/EmbersArc/Epigraph"><img src="https://codecov.io/gh/EmbersArc/Epigraph/branch/master/graph/badge.svg" alt="" style="pointer-events: none;" class="inline"/></a> </p>
 <p>Epigraph is a modern C++ interface to formulate and solve linear, quadratic and second order cone problems. It makes use of Eigen types and operator overloading for straightforward problem formulation.</p>
 <h2><a class="anchor" id="autotoc_md0"></a>
 Features</h2>
@@ -114,7 +114,7 @@ CMake</h3>
 <div class="line">target_link_libraries(my_library epigraph)</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md8"></a>
 Documentation</h3>
-<p>While the example below is likely enough to get you started, the full documentation can be found <a href="embersarc.github.io">here</a>.</p>
+<p>While the example below is likely enough to get you started, the full documentation can be found <a href="https://embersarc.github.io/Epigraph/">here</a>.</p>
 <h3><a class="anchor" id="autotoc_md9"></a>
 Example</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="epigraph_8hpp.html">epigraph.hpp</a>&quot;</span></div>
@@ -160,8 +160,8 @@ Example</h3>
 <div class="line">    VectorX x = op.<a class="code" href="classcvx_1_1OptimizationProblem.html#abfe91b330b443ac84cfd587063aa244f">addVariable</a>(<span class="stringliteral">&quot;x&quot;</span>, n);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Available constraint types are equalTo(), lessThan(), greaterThan() and box()</span></div>
-<div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#af0320ee7149f1e0e28e8427fa6b316f7">addConstraint</a>(<a class="code" href="constraint_8hpp.html#ac0e99c4d1f884f47b6c9f87d82c4cf5b">greaterThan</a>(x, 0.));</div>
-<div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#af0320ee7149f1e0e28e8427fa6b316f7">addConstraint</a>(equalTo(x.sum(), 1.));</div>
+<div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#af0320ee7149f1e0e28e8427fa6b316f7">addConstraint</a>(<a class="code" href="constraint_8hpp.html#acdc34f6fa683a0f38f352295dad8981f">greaterThan</a>(x, 0.));</div>
+<div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#af0320ee7149f1e0e28e8427fa6b316f7">addConstraint</a>(<a class="code" href="constraint_8hpp.html#a19ae6dab85befb1637b466555a80dbe1">equalTo</a>(x.sum(), 1.));</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Make mu dynamic in the cost function so we can change it later</span></div>
 <div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#a75c10fd63c47fffe804f7d3aae574eb5">addCostTerm</a>(x.transpose() * <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(gamma * Sigma) * x - <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(mu).dot(x));</div>
@@ -201,13 +201,13 @@ Problem Formulation</h3>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Function </th><th class="markdownTableHeadNone">Allowed expressions  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>equalTo()</code> </td><td class="markdownTableBodyNone"><code>Affine == Affine</code>  </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#a19ae6dab85befb1637b466555a80dbe1" title="Create an equality constraint: lhs == rhs.">equalTo()</a></code> </td><td class="markdownTableBodyNone"><code>Affine == Affine</code>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#a91b384bbdb605f57390341e94eba80a1" title="Create a less than or equal constraint: lhs &lt;= rhs.">lessThan()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &lt;= Affine</code> or <code>Norm2 + Affine &lt;= Affine</code> (SOCP)  </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#ab66996674d0127fea7f2615269365fe8" title="Create a less than or equal constraint: lhs &lt;= rhs.">lessThan()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &lt;= Affine</code> or <code>Norm2 + Affine &lt;= Affine</code> (SOCP)  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#ac0e99c4d1f884f47b6c9f87d82c4cf5b" title="Create a greater than or equal constraint: lhs &gt;= rhs.">greaterThan()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &gt;= Affine</code> or <code>Affine &gt;= Norm2 + Affine</code> (SOCP)  </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#acdc34f6fa683a0f38f352295dad8981f" title="Create a greater than or equal constraint: lhs &gt;= rhs.">greaterThan()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &gt;= Affine</code> or <code>Affine &gt;= Norm2 + Affine</code> (SOCP)  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#aca2addc9b4392c2267258d392de9d831" title="Create a box constraint: lower &lt;= middle &lt;= upper.">box()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &lt;= Affine &lt;= Affine</code>  </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="constraint_8hpp.html#ac6ea445abc1a5f95514d8a67ba28ad65" title="Create a box constraint: lower &lt;= middle &lt;= upper.">box()</a></code> </td><td class="markdownTableBodyNone"><code>Affine &lt;= Affine &lt;= Affine</code>  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>addCostTerm()</code> </td><td class="markdownTableBodyNone"><code>Affine</code> (SOCP) or <code>QuadForm + Affine</code> (QP)  </td></tr>
 </table>
@@ -225,9 +225,10 @@ Problem Formulation</h3>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <div class="ttc" id="aclasscvx_1_1osqp_1_1OSQPSolver_html"><div class="ttname"><a href="classcvx_1_1osqp_1_1OSQPSolver.html">cvx::osqp::OSQPSolver</a></div><div class="ttdef"><b>Definition:</b> osqpWrapper.hpp:11</div></div>
+<div class="ttc" id="aconstraint_8hpp_html_acdc34f6fa683a0f38f352295dad8981f"><div class="ttname"><a href="constraint_8hpp.html#acdc34f6fa683a0f38f352295dad8981f">cvx::greaterThan</a></div><div class="ttdeci">Constraint greaterThan(const Scalar &amp;lhs, const Scalar &amp;rhs)</div><div class="ttdoc">Create a greater than or equal constraint: lhs &gt;= rhs.</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a684fad62c2a1797e47da4d39361892db"><div class="ttname"><a href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">cvx::par</a></div><div class="ttdeci">Scalar par(double p)</div><div class="ttdoc">Creates a constant parameter.</div></div>
+<div class="ttc" id="aconstraint_8hpp_html_a19ae6dab85befb1637b466555a80dbe1"><div class="ttname"><a href="constraint_8hpp.html#a19ae6dab85befb1637b466555a80dbe1">cvx::equalTo</a></div><div class="ttdeci">Constraint equalTo(const Scalar &amp;lhs, const Scalar &amp;rhs)</div><div class="ttdoc">Create an equality constraint: lhs == rhs.</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a1d984e3625f4b93568f4d23ae1545706"><div class="ttname"><a href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">cvx::dynpar</a></div><div class="ttdeci">Scalar dynpar(double &amp;p)</div><div class="ttdoc">Creates a dynamic parameter.</div></div>
-<div class="ttc" id="aconstraint_8hpp_html_ac0e99c4d1f884f47b6c9f87d82c4cf5b"><div class="ttname"><a href="constraint_8hpp.html#ac0e99c4d1f884f47b6c9f87d82c4cf5b">cvx::greaterThan</a></div><div class="ttdeci">std::vector&lt; Constraint &gt; greaterThan(const Eigen::MatrixBase&lt; DerivedLhs &gt; &amp;lhs, const Eigen::MatrixBase&lt; DerivedRhs &gt; &amp;rhs)</div><div class="ttdoc">Create a greater than or equal constraint: lhs &gt;= rhs.</div><div class="ttdef"><b>Definition:</b> constraint.hpp:276</div></div>
 <div class="ttc" id="aclasscvx_1_1OptimizationProblem_html"><div class="ttname"><a href="classcvx_1_1OptimizationProblem.html">cvx::OptimizationProblem</a></div><div class="ttdef"><b>Definition:</b> problem.hpp:16</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a11d5ec90b597ad187a911b85516205e6"><div class="ttname"><a href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">cvx::eval</a></div><div class="ttdeci">double eval(const Scalar &amp;s)</div><div class="ttdoc">Evaluates the scalar.</div></div>
 <div class="ttc" id="aclasscvx_1_1OptimizationProblem_html_a75c10fd63c47fffe804f7d3aae574eb5"><div class="ttname"><a href="classcvx_1_1OptimizationProblem.html#a75c10fd63c47fffe804f7d3aae574eb5">cvx::OptimizationProblem::addCostTerm</a></div><div class="ttdeci">void addCostTerm(const Scalar &amp;term)</div><div class="ttdoc">Add a cost term to the problem's cost function. This has to be a scalar.</div></div>

@@ -118,6 +118,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isNorm</b> () const</
 <tr class="memitem:aebdfec5be4764b6ddf88a2f938ec399e"><td class="memItemLeft" align="right" valign="top"><a id="aebdfec5be4764b6ddf88a2f938ec399e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator double</b> () const</td></tr>
 <tr class="separator:aebdfec5be4764b6ddf88a2f938ec399e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af58efa5d013c2adf6d1fb9be225ebf27"><td class="memItemLeft" align="right" valign="top"><a id="af58efa5d013c2adf6d1fb9be225ebf27"></a>
+friend&#160;</td><td class="memItemRight" valign="bottom"><b>internal::Variable::operator Scalar</b> () const</td></tr>
+<tr class="separator:af58efa5d013c2adf6d1fb9be225ebf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -139,10 +142,8 @@ Friends</h2></td></tr>
 <tr class="memitem:a17ce5f58ad9f27f58c7c3b8b5f090337"><td class="memItemLeft" align="right" valign="top"><a id="a17ce5f58ad9f27f58c7c3b8b5f090337"></a>
 <a class="el" href="classcvx_1_1Scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
 <tr class="separator:a17ce5f58ad9f27f58c7c3b8b5f090337"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab915bd0151bc15e021ee54021335ad5a"><td class="memItemLeft" align="right" valign="top"><a id="ab915bd0151bc15e021ee54021335ad5a"></a>
-std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
-<tr class="separator:ab915bd0151bc15e021ee54021335ad5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5409e92e2b0fbd066860558342cf852"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvx_1_1Scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvx_1_1Scalar.html#ad5409e92e2b0fbd066860558342cf852">sqrt</a> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
+<tr class="memitem:ad5409e92e2b0fbd066860558342cf852"><td class="memItemLeft" align="right" valign="top"><a id="ad5409e92e2b0fbd066860558342cf852"></a>
+<a class="el" href="classcvx_1_1Scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sqrt</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
 <tr class="separator:ad5409e92e2b0fbd066860558342cf852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0989a1f53cf38731486bc206bd60b69"><td class="memItemLeft" align="right" valign="top"><a id="ab0989a1f53cf38731486bc206bd60b69"></a>
 <a class="el" href="classcvx_1_1Scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><b>square</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
@@ -150,22 +151,25 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
 <tr class="memitem:aa1eab75bc043db6334ba6158b1f44166"><td class="memItemLeft" align="right" valign="top"><a id="aa1eab75bc043db6334ba6158b1f44166"></a>
 <a class="el" href="classcvx_1_1Scalar.html">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><b>abs2</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
 <tr class="separator:aa1eab75bc043db6334ba6158b1f44166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77509f09c0d64707e72245f3da70e9b3"><td class="memItemLeft" align="right" valign="top"><a id="a77509f09c0d64707e72245f3da70e9b3"></a>
-<a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>equalTo</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memitem:a77509f09c0d64707e72245f3da70e9b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvx_1_1Scalar.html#a77509f09c0d64707e72245f3da70e9b3">equalTo</a> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a77509f09c0d64707e72245f3da70e9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an equality constraint: lhs == rhs.  <a href="classcvx_1_1Scalar.html#a77509f09c0d64707e72245f3da70e9b3">More...</a><br /></td></tr>
 <tr class="separator:a77509f09c0d64707e72245f3da70e9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06d28308d4d0900fdfef9beca470144b"><td class="memItemLeft" align="right" valign="top"><a id="a06d28308d4d0900fdfef9beca470144b"></a>
-<a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>lessThan</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memitem:a06d28308d4d0900fdfef9beca470144b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvx_1_1Scalar.html#a06d28308d4d0900fdfef9beca470144b">lessThan</a> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a06d28308d4d0900fdfef9beca470144b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a less than or equal constraint: lhs &lt;= rhs.  <a href="classcvx_1_1Scalar.html#a06d28308d4d0900fdfef9beca470144b">More...</a><br /></td></tr>
 <tr class="separator:a06d28308d4d0900fdfef9beca470144b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a322ba7ac4bb63546e853dd72d5f1295d"><td class="memItemLeft" align="right" valign="top"><a id="a322ba7ac4bb63546e853dd72d5f1295d"></a>
-<a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>greaterThan</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memitem:a322ba7ac4bb63546e853dd72d5f1295d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvx_1_1Scalar.html#a322ba7ac4bb63546e853dd72d5f1295d">greaterThan</a> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a322ba7ac4bb63546e853dd72d5f1295d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a greater than or equal constraint: lhs &gt;= rhs.  <a href="classcvx_1_1Scalar.html#a322ba7ac4bb63546e853dd72d5f1295d">More...</a><br /></td></tr>
 <tr class="separator:a322ba7ac4bb63546e853dd72d5f1295d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf962f0faa89df17b47b718c5ddbaf65"><td class="memItemLeft" align="right" valign="top"><a id="acf962f0faa89df17b47b718c5ddbaf65"></a>
-<a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>box</b> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lower, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;middle, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;upper)</td></tr>
+<tr class="memitem:acf962f0faa89df17b47b718c5ddbaf65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvx_1_1Scalar.html#acf962f0faa89df17b47b718c5ddbaf65">box</a> (const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lower, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;middle, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;upper)</td></tr>
+<tr class="memdesc:acf962f0faa89df17b47b718c5ddbaf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a box constraint: lower &lt;= middle &lt;= upper.  <a href="classcvx_1_1Scalar.html#acf962f0faa89df17b47b718c5ddbaf65">More...</a><br /></td></tr>
 <tr class="separator:acf962f0faa89df17b47b718c5ddbaf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab915bd0151bc15e021ee54021335ad5a"><td class="memItemLeft" align="right" valign="top"><a id="ab915bd0151bc15e021ee54021335ad5a"></a>
+std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar)</td></tr>
+<tr class="separator:ab915bd0151bc15e021ee54021335ad5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ad5409e92e2b0fbd066860558342cf852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5409e92e2b0fbd066860558342cf852">&#9670;&nbsp;</a></span>sqrt</h2>
+<a id="acf962f0faa89df17b47b718c5ddbaf65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf962f0faa89df17b47b718c5ddbaf65">&#9670;&nbsp;</a></span>box</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,11 +178,27 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcvx_1_1Scalar.html">Scalar</a> sqrt </td>
+          <td class="memname"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> box </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
-          <td class="paramname"><em>scalar</em></td><td>)</td>
+          <td class="paramname"><em>lower</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>middle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>upper</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -187,8 +207,155 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Useful to call .norm() on a matrix.</p>
-<p>Possible when only squared expressions are present. </p>
+
+<p>Create a box constraint: lower &lt;= middle &lt;= upper. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lower</td><td>The lower bound </td></tr>
+    <tr><td class="paramname">middle</td><td>The middle term </td></tr>
+    <tr><td class="paramname">upper</td><td>The upper bound </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
+<a id="a77509f09c0d64707e72245f3da70e9b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77509f09c0d64707e72245f3da70e9b3">&#9670;&nbsp;</a></span>equalTo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> equalTo </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create an equality constraint: lhs == rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
+<a id="a322ba7ac4bb63546e853dd72d5f1295d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a322ba7ac4bb63546e853dd72d5f1295d">&#9670;&nbsp;</a></span>greaterThan</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> greaterThan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a greater than or equal constraint: lhs &gt;= rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> The constraint to pass to addConstraint() </dd></dl>
+
+</div>
+</div>
+<a id="a06d28308d4d0900fdfef9beca470144b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d28308d4d0900fdfef9beca470144b">&#9670;&nbsp;</a></span>lessThan</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> lessThan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcvx_1_1Scalar.html">Scalar</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a less than or equal constraint: lhs &lt;= rhs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>The left hand side </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right hand side </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcvx_1_1Constraint.html">Constraint</a> The constraint to pass to addConstraint() </dd></dl>
 
 </div>
 </div>

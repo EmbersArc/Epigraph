@@ -212,110 +212,113 @@ $(function() {
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keyword">explicit</span> <span class="keyword">operator</span> double() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        internal::Affine affine;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        std::vector&lt;internal::Product&gt; products;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordtype">bool</span> norm = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">friend</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> sqrt(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> square(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> abs2(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="comment">// friend internal::Parameter::operator Scalar() const;</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">friend</span> internal::Variable::operator <a class="code" href="classcvx_1_1Scalar.html">Scalar</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="classcvx_1_1Scalar.html#ad5409e92e2b0fbd066860558342cf852">  159</a></span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> <a class="code" href="classcvx_1_1Scalar.html#ad5409e92e2b0fbd066860558342cf852">sqrt</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> square(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> abs2(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="classcvx_1_1Scalar.html#a77509f09c0d64707e72245f3da70e9b3">  153</a></span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> <a class="code" href="classcvx_1_1Scalar.html#a77509f09c0d64707e72245f3da70e9b3">equalTo</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="classcvx_1_1Scalar.html#a06d28308d4d0900fdfef9beca470144b">  154</a></span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> <a class="code" href="classcvx_1_1Scalar.html#a06d28308d4d0900fdfef9beca470144b">lessThan</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="classcvx_1_1Scalar.html#a322ba7ac4bb63546e853dd72d5f1295d">  155</a></span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> <a class="code" href="classcvx_1_1Scalar.html#a322ba7ac4bb63546e853dd72d5f1295d">greaterThan</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classcvx_1_1Scalar.html#acf962f0faa89df17b47b718c5ddbaf65">  156</a></span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> <a class="code" href="classcvx_1_1Scalar.html#acf962f0faa89df17b47b718c5ddbaf65">box</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lower, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;middle, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;upper);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        internal::Affine affine;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        std::vector&lt;internal::Product&gt; products;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordtype">bool</span> norm = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="comment">// friend Parameter::operator Scalar() const;</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">friend</span> internal::Variable::operator <a class="code" href="classcvx_1_1Scalar.html">Scalar</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keyword">friend</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;scalar);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    };</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> equalTo(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> lessThan(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> greaterThan(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lhs, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;rhs);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classcvx_1_1Constraint.html">Constraint</a> box(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;lower, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;middle, <span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;upper);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    };</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">using</span> MatrixX = Eigen::Matrix&lt;cvx::Scalar, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">using</span> VectorX = Eigen::Matrix&lt;cvx::Scalar, Eigen::Dynamic, 1&gt;;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">  181</a></span>&#160;    <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keywordtype">double</span> p);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">  193</a></span>&#160;    <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(<span class="keywordtype">double</span> &amp;p);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a3ecf37c5d19e82c84033075b6bd1284a">  203</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;Scalar&gt;().eval();</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a7c1cb475a8289fb304589123726fc0fc">  216</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keyword">const</span> Eigen::SparseMatrixBase&lt;Derived&gt; &amp;m)</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;Scalar&gt;().eval();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    }</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#ad1f5fff5f3dcb1998584d30c86a9984d">  233</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keyword">auto</span> result = m.template cast&lt;Scalar&gt;().eval();</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> row = 0; row &lt; m.rows(); row++)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> col = 0; col &lt; m.cols(); col++)</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                result.coeffRef(row, col) = <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(m.coeffRef(row, col));</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        }</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#ac392e28960cb2ef1d1c6ca0af1f82601">  260</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(Eigen::SparseMatrix&lt;T&gt; &amp;m)</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keyword">auto</span> result = m.template cast&lt;Scalar&gt;().eval();</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; result.nonZeros(); k++)</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            result.valuePtr()[k] = <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(m.valuePtr()[k]);</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        }</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">  278</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;s);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a2899bc4f698d5dd707dfd5e3f0930960">  288</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    {</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;double&gt;();</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a3f5f881076a6e58c77127f0c989623c8">  301</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> Eigen::SparseMatrixBase&lt;Derived&gt; &amp;m)</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;double&gt;();</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Scalar &amp;conj(<span class="keyword">const</span> Scalar &amp;x) { <span class="keywordflow">return</span> x; }</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Scalar &amp;real(<span class="keyword">const</span> Scalar &amp;x) { <span class="keywordflow">return</span> x; }</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">inline</span> Scalar imag(<span class="keyword">const</span> Scalar &amp;) { <span class="keywordflow">return</span> Scalar(0.); }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">inline</span> Scalar square(<span class="keyword">const</span> Scalar &amp;x)</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">using</span> MatrixX = Eigen::Matrix&lt;cvx::Scalar, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">using</span> VectorX = Eigen::Matrix&lt;cvx::Scalar, Eigen::Dynamic, 1&gt;;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">  175</a></span>&#160;    <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keywordtype">double</span> p);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">  187</a></span>&#160;    <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(<span class="keywordtype">double</span> &amp;p);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a3ecf37c5d19e82c84033075b6bd1284a">  197</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;Scalar&gt;().eval();</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a7c1cb475a8289fb304589123726fc0fc">  210</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(<span class="keyword">const</span> Eigen::SparseMatrixBase&lt;Derived&gt; &amp;m)</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;Scalar&gt;().eval();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#ad1f5fff5f3dcb1998584d30c86a9984d">  227</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keyword">auto</span> result = m.template cast&lt;Scalar&gt;().eval();</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> row = 0; row &lt; m.rows(); row++)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> col = 0; col &lt; m.cols(); col++)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                result.coeffRef(row, col) = <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(m.coeffRef(row, col));</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        }</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#ac392e28960cb2ef1d1c6ca0af1f82601">  254</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(Eigen::SparseMatrix&lt;T&gt; &amp;m)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keyword">auto</span> result = m.template cast&lt;Scalar&gt;().eval();</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; result.nonZeros(); k++)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            result.valuePtr()[k] = <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(m.valuePtr()[k]);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">  272</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> <a class="code" href="classcvx_1_1Scalar.html">Scalar</a> &amp;s);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a2899bc4f698d5dd707dfd5e3f0930960">  282</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt; &amp;m)</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;double&gt;();</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="expressions_8hpp.html#a3f5f881076a6e58c77127f0c989623c8">  295</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(<span class="keyword">const</span> Eigen::SparseMatrixBase&lt;Derived&gt; &amp;m)</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    {</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keywordflow">return</span> m.template cast&lt;double&gt;();</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    }</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Scalar &amp;conj(<span class="keyword">const</span> Scalar &amp;x) { <span class="keywordflow">return</span> x; }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> Scalar &amp;real(<span class="keyword">const</span> Scalar &amp;x) { <span class="keywordflow">return</span> x; }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keyword">inline</span> Scalar imag(<span class="keyword">const</span> Scalar &amp;) { <span class="keywordflow">return</span> Scalar(0.); }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keyword">inline</span> Scalar square(<span class="keyword">const</span> Scalar &amp;x)</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        Scalar new_scalar;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        new_scalar.products = {internal::Product(x.affine)};</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordflow">return</span> new_scalar;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">inline</span> Scalar abs2(<span class="keyword">const</span> Scalar &amp;x)</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        Scalar new_scalar;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        new_scalar.products = {internal::Product(x.affine)};</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordflow">return</span> new_scalar;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    }</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keyword">inline</span> Scalar abs2(<span class="keyword">const</span> Scalar &amp;x)</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordflow">return</span> square(x);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    }</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;} <span class="comment">// namespace cvx</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">return</span> square(x);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;} <span class="comment">// namespace cvx</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclasscvx_1_1Scalar_html_acf962f0faa89df17b47b718c5ddbaf65"><div class="ttname"><a href="classcvx_1_1Scalar.html#acf962f0faa89df17b47b718c5ddbaf65">cvx::Scalar::box</a></div><div class="ttdeci">friend Constraint box(const Scalar &amp;lower, const Scalar &amp;middle, const Scalar &amp;upper)</div><div class="ttdoc">Create a box constraint: lower &lt;= middle &lt;= upper.</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a684fad62c2a1797e47da4d39361892db"><div class="ttname"><a href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">cvx::par</a></div><div class="ttdeci">Scalar par(double p)</div><div class="ttdoc">Creates a constant parameter.</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a1d984e3625f4b93568f4d23ae1545706"><div class="ttname"><a href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">cvx::dynpar</a></div><div class="ttdeci">Scalar dynpar(double &amp;p)</div><div class="ttdoc">Creates a dynamic parameter.</div></div>
-<div class="ttc" id="aclasscvx_1_1Scalar_html_ad5409e92e2b0fbd066860558342cf852"><div class="ttname"><a href="classcvx_1_1Scalar.html#ad5409e92e2b0fbd066860558342cf852">cvx::Scalar::sqrt</a></div><div class="ttdeci">friend Scalar sqrt(const Scalar &amp;scalar)</div></div>
+<div class="ttc" id="aclasscvx_1_1Scalar_html_a06d28308d4d0900fdfef9beca470144b"><div class="ttname"><a href="classcvx_1_1Scalar.html#a06d28308d4d0900fdfef9beca470144b">cvx::Scalar::lessThan</a></div><div class="ttdeci">friend Constraint lessThan(const Scalar &amp;lhs, const Scalar &amp;rhs)</div><div class="ttdoc">Create a less than or equal constraint: lhs &lt;= rhs.</div></div>
+<div class="ttc" id="aclasscvx_1_1Scalar_html_a77509f09c0d64707e72245f3da70e9b3"><div class="ttname"><a href="classcvx_1_1Scalar.html#a77509f09c0d64707e72245f3da70e9b3">cvx::Scalar::equalTo</a></div><div class="ttdeci">friend Constraint equalTo(const Scalar &amp;lhs, const Scalar &amp;rhs)</div><div class="ttdoc">Create an equality constraint: lhs == rhs.</div></div>
 <div class="ttc" id="aclasscvx_1_1Constraint_html"><div class="ttname"><a href="classcvx_1_1Constraint.html">cvx::Constraint</a></div><div class="ttdef"><b>Definition:</b> constraint.hpp:47</div></div>
 <div class="ttc" id="aclasscvx_1_1OptimizationProblem_html"><div class="ttname"><a href="classcvx_1_1OptimizationProblem.html">cvx::OptimizationProblem</a></div><div class="ttdef"><b>Definition:</b> problem.hpp:16</div></div>
 <div class="ttc" id="aexpressions_8hpp_html_a11d5ec90b597ad187a911b85516205e6"><div class="ttname"><a href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">cvx::eval</a></div><div class="ttdeci">double eval(const Scalar &amp;s)</div><div class="ttdoc">Evaluates the scalar.</div></div>
+<div class="ttc" id="aclasscvx_1_1Scalar_html_a322ba7ac4bb63546e853dd72d5f1295d"><div class="ttname"><a href="classcvx_1_1Scalar.html#a322ba7ac4bb63546e853dd72d5f1295d">cvx::Scalar::greaterThan</a></div><div class="ttdeci">friend Constraint greaterThan(const Scalar &amp;lhs, const Scalar &amp;rhs)</div><div class="ttdoc">Create a greater than or equal constraint: lhs &gt;= rhs.</div></div>
 <div class="ttc" id="aclasscvx_1_1Scalar_html"><div class="ttname"><a href="classcvx_1_1Scalar.html">cvx::Scalar</a></div><div class="ttdef"><b>Definition:</b> expressions.hpp:117</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
