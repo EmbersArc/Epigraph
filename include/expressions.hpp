@@ -143,30 +143,24 @@ namespace cvx
 
         explicit operator double() const;
 
-    private:
-        internal::Affine affine;
-        std::vector<internal::Product> products;
-        bool norm = false;
-
-        friend std::ostream &operator<<(std::ostream &os, const Scalar &scalar);
-
-        /**
-         * Useful to call .norm() on a matrix.
-         * 
-         * Possible when only squared expressions are present.
-         * 
-         */
         friend Scalar sqrt(const Scalar &scalar);
         friend Scalar square(const Scalar &scalar);
         friend Scalar abs2(const Scalar &scalar);
 
-        // friend Parameter::operator Scalar() const;
+        // friend internal::Parameter::operator Scalar() const;
         friend internal::Variable::operator Scalar() const;
 
         friend Constraint equalTo(const Scalar &lhs, const Scalar &rhs);
         friend Constraint lessThan(const Scalar &lhs, const Scalar &rhs);
         friend Constraint greaterThan(const Scalar &lhs, const Scalar &rhs);
         friend Constraint box(const Scalar &lower, const Scalar &middle, const Scalar &upper);
+
+    private:
+        internal::Affine affine;
+        std::vector<internal::Product> products;
+        bool norm = false;
+
+        friend std::ostream &operator<<(std::ostream &os, const Scalar &scalar);
     };
 
     using MatrixX = Eigen::Matrix<cvx::Scalar, Eigen::Dynamic, Eigen::Dynamic>;
