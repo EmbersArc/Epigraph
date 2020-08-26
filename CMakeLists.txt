@@ -3,7 +3,7 @@ project(epigraph)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(epigraph SHARED ${EPIGRAPH_SOURCES})
+add_library(epigraph SHARED)
 target_include_directories(epigraph PUBLIC include solvers/wrappers/include)
 target_include_directories(epigraph SYSTEM PUBLIC solvers)
 target_sources(epigraph PRIVATE
