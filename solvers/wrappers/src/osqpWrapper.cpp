@@ -154,6 +154,9 @@ namespace cvx::osqp
     OSQPSolver::~OSQPSolver()
     {
         osqp_cleanup(workspace);
+
+        if (data.A) c_free(data.A);
+        if (data.P) c_free(data.P);
     }
 
 } // namespace cvx::osqp
