@@ -12,11 +12,11 @@ namespace cvx::internal
     {
 
     public:
+        WrapperBase() = default;
+        virtual ~WrapperBase();
         virtual bool solve(bool verbose = false) = 0;
         virtual std::string getResultString() const = 0;
         size_t getNumVariables() const;
-
-        virtual ~WrapperBase();
 
     protected:
         using MatrixXp = Eigen::Matrix<Parameter, Eigen::Dynamic, Eigen::Dynamic>;
@@ -27,6 +27,7 @@ namespace cvx::internal
         virtual void addVariable(Variable &variable) = 0;
 
     private:
+        WrapperBase(const WrapperBase &);
     };
 
-} // namespace cvx
+} // namespace cvx::internal
