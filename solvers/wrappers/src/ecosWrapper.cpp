@@ -39,6 +39,7 @@ namespace cvx::ecos
 
         if (work == nullptr)
         {
+            cleanUp();
             throw std::runtime_error("ECOS failed to set up problem.");
         }
     }
@@ -103,11 +104,6 @@ namespace cvx::ecos
         }
     }
 
-    ECOSSolver::~ECOSSolver()
-    {
-        ECOS_cleanup(work, 0);
-    }
-
     settings &ECOSSolver::getSettings()
     {
         return *work->stgs;
@@ -140,6 +136,16 @@ namespace cvx::ecos
         *current_b = eval(b_params);
 
         alternate_memory = !alternate_memory;
+    }
+
+    void ECOSSolver::cleanUp()
+    {
+        ECOS_cleanup(work, 0);
+    }
+
+    ECOSSolver::~ECOSSolver()
+    {
+        cleanUp();
     }
 
 } // namespace cvx::ecos

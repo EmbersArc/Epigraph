@@ -24,6 +24,7 @@ namespace cvx::ecos
 
     private:
         void update();
+        void cleanUp();
 
         idxint exitflag = ECOS_UNSOLVED;
 

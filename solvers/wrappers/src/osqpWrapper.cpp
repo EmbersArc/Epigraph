@@ -29,6 +29,7 @@ namespace cvx::osqp
 
         if (exitflag != 0)
         {
+            cleanUp();
             throw std::runtime_error("OSQP failed to set up the problem.");
         }
     }
@@ -151,12 +152,19 @@ namespace cvx::osqp
         osqp_update_warm_start(workspace, c_int(warm_start));
     }
 
-    OSQPSolver::~OSQPSolver()
+    void OSQPSolver::cleanUp()
     {
         osqp_cleanup(workspace);
 
-        if (data.A) c_free(data.A);
-        if (data.P) c_free(data.P);
+        if (data.A)
+            c_free(data.A);
+        if (data.P)
+            c_free(data.P);
+    }
+
+    OSQPSolver::~OSQPSolver()
+    {
+        cleanUp();
     }
 
 } // namespace cvx::osqp

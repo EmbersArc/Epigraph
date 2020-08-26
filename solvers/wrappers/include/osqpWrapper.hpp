@@ -55,6 +55,7 @@ namespace cvx::osqp
         OSQPSettings settings;
 
         void update();
+        void cleanUp();
     };
 
 } // namespace cvx::osqp
