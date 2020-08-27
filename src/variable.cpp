@@ -43,10 +43,22 @@ namespace cvx::internal
         return source->solution_ptr != nullptr;
     }
 
-    void Variable::linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx)
+    bool Variable::linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx)
     {
-        source->solution_ptr = solution_ptr;
-        source->solution_idx = solution_idx;
+        if (isLinkedToSolver())
+        {
+            if (this->source->solution_ptr != solution_ptr)
+            {
+                throw std::runtime_error("Linking variables to multiple solvers is not supported.");
+            }
+            return false;
+        }
+        else
+        {
+            source->solution_ptr = solution_ptr;
+            source->solution_idx = solution_idx;
+            return true;
+        }
     }
 
     double Variable::getSolution() const
@@ -93,4 +105,4 @@ namespace cvx::internal
         return os;
     }
 
-} // namespace cvx
+} // namespace cvx::internal

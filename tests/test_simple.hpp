@@ -189,6 +189,9 @@ TEST_CASE("Least Squares")
 
         solver.solve(true);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
+
+        // try to add problem to a new solver
+        REQUIRE_THROWS(osqp::OSQPSolver(qp));
     }
     {
         OptimizationProblem qp;
@@ -205,5 +208,8 @@ TEST_CASE("Least Squares")
         eicos::EiCOSSolver solver(qp);
         solver.solve(true);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
+
+        // try to add problem to a new solver
+        REQUIRE_THROWS(eicos::EiCOSSolver(qp));
     }
 }

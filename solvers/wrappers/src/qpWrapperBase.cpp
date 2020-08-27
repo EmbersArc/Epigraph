@@ -191,9 +191,9 @@ namespace cvx::internal
 
     void QPWrapperBase::addVariable(Variable &variable)
     {
-        if (not variable.isLinkedToSolver())
+        const bool was_linked = variable.linkToSolver(&solution, getNumVariables());
+        if (was_linked)
         {
-            variable.linkToSolver(&solution, getNumVariables());
             variables.push_back(variable);
             q_params.conservativeResize(getNumVariables());
         }
@@ -240,4 +240,4 @@ namespace cvx::internal
         }
     }
 
-} // namespace cvx
+} // namespace cvx::internal
