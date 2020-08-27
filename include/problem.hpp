@@ -7,8 +7,6 @@
 
 #include "constraint.hpp"
 
-#include <map>
-
 namespace cvx
 {
 
