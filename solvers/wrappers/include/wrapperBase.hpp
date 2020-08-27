@@ -1,9 +1,6 @@
-
 #pragma once
 
 #include "problem.hpp"
-
-#include <Eigen/Sparse>
 
 namespace cvx::internal
 {
@@ -28,6 +25,7 @@ namespace cvx::internal
 
     private:
         WrapperBase(const WrapperBase &);
+        static size_t solver_count;
     };
 
 } // namespace cvx::internal
