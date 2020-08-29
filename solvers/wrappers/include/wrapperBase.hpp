@@ -19,7 +19,7 @@ namespace cvx::internal
         using MatrixXp = Eigen::Matrix<Parameter, Eigen::Dynamic, Eigen::Dynamic>;
         using VectorXp = Eigen::Matrix<Parameter, Eigen::Dynamic, 1>;
         std::vector<Variable> variables;
-        std::vector<double> solution;
+        std::shared_ptr<std::vector<double>> solution = std::make_shared<std::vector<double>>();
 
         virtual void addVariable(Variable &variable) = 0;
 

@@ -25,7 +25,7 @@ namespace cvx
             };
 
             // The pointer gets deleted with the problem.
-            std::vector<double> *solution_ptr = nullptr;
+            std::shared_ptr<std::vector<double>> solution_ptr = nullptr;
             size_t solution_idx = 0;
             std::string name;
             std::pair<size_t, size_t> index = {0, 0};
@@ -43,7 +43,7 @@ namespace cvx
             bool operator==(const Variable &other) const;
 
             bool isLinkedToSolver() const;
-            bool linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx);
+            bool linkToSolver(std::shared_ptr<std::vector<double>> solution_ptr, size_t solution_idx);
             double getSolution() const;
             size_t getProblemIndex() const;
             void unlink();

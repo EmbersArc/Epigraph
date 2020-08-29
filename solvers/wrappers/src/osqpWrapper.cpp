@@ -56,8 +56,8 @@ namespace cvx::osqp
 
         exitflag = osqp_solve(workspace);
 
-        solution = std::vector<double>(workspace->solution->x,
-                                       workspace->solution->x + getNumVariables());
+        *solution = std::vector<double>(workspace->solution->x,
+                                        workspace->solution->x + getNumVariables());
 
         return exitflag == 0;
     }

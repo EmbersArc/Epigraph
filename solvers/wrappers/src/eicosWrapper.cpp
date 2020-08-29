@@ -29,8 +29,8 @@ namespace cvx::eicos
         exitflag = solver->solve(verbose);
 
         // copy solution
-        solution = std::vector<double>(solver->solution().data(),
-                                       solver->solution().data() + solver->solution().size());
+        *solution = std::vector<double>(solver->solution().data(),
+                                        solver->solution().data() + solver->solution().size());
 
         return exitflag != EiCOS::exitcode::fatal;
     }

@@ -43,7 +43,7 @@ namespace cvx::internal
         return source->solution_ptr != nullptr;
     }
 
-    bool Variable::linkToSolver(std::vector<double> *solution_ptr, size_t solution_idx)
+    bool Variable::linkToSolver(std::shared_ptr<std::vector<double>> solution_ptr, size_t solution_idx)
     {
         if (isLinkedToSolver())
         {

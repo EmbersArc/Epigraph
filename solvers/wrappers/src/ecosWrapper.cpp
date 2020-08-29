@@ -59,7 +59,7 @@ namespace cvx::ecos
 
         exitflag = ECOS_solve(work);
 
-        solution = std::vector<double>(work->x, work->x + getNumVariables());
+        *solution = std::vector<double>(work->x, work->x + getNumVariables());
 
         if (exitflag == ECOS_SIGINT)
         {

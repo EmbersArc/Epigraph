@@ -181,7 +181,7 @@ namespace cvx::internal
         l_params = Eigen::Map<VectorXp>(l_coeffs.data(), l_coeffs.size());
         u_params = Eigen::Map<VectorXp>(u_coeffs.data(), u_coeffs.size());
 
-        solution.resize(getNumVariables());
+        solution->resize(getNumVariables());
     }
 
     size_t QPWrapperBase::getNumInequalityConstraints() const
@@ -191,7 +191,7 @@ namespace cvx::internal
 
     void QPWrapperBase::addVariable(Variable &variable)
     {
-        const bool was_linked = variable.linkToSolver(&solution, getNumVariables());
+        const bool was_linked = variable.linkToSolver(solution, getNumVariables());
         if (was_linked)
         {
             variables.push_back(variable);

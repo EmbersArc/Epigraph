@@ -148,12 +148,12 @@ namespace cvx::internal
         h_params = Eigen::Map<VectorXp>(h_coeffs.data(), h_coeffs.size());
         soc_dims = Eigen::Map<Eigen::VectorXi>(cone_dimensions.data(), cone_dimensions.size());
 
-        solution.resize(getNumVariables());
+        solution->resize(getNumVariables());
     }
 
     void SOCPWrapperBase::addVariable(Variable &variable)
     {
-        const bool was_linked = variable.linkToSolver(&solution, getNumVariables());
+        const bool was_linked = variable.linkToSolver(solution, getNumVariables());
         if (was_linked)
         {
             variables.push_back(variable);
