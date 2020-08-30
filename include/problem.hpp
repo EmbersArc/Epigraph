@@ -13,6 +13,8 @@ namespace cvx
     class OptimizationProblem
     {
     public:
+        OptimizationProblem() = default;
+
         /**
          * @brief Creates and returns a variable.
          * 
@@ -133,6 +135,8 @@ namespace cvx
         friend internal::QPWrapperBase;
 
     private:
+        OptimizationProblem(const OptimizationProblem &other);
+
         Scalar costFunction;
 
         std::vector<internal::EqualityConstraint> equality_constraints;
