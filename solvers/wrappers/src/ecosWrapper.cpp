@@ -5,12 +5,6 @@ namespace cvx::ecos
 
     ECOSSolver::ECOSSolver(OptimizationProblem &problem) : SOCPWrapperBase(problem)
     {
-        // ! Should get fixed soon
-        if (A_params.nonZeros() == 0 or G_params.nonZeros() == 0)
-        {
-            throw std::runtime_error("ECOS does not support problems without both equality and inequality constraints. This should be resolved soon, use EiCOS in the meantime.");
-        }
-
         update();
 
         cone_constraint_dimensions = soc_dims.cast<idxint>();
@@ -27,15 +21,15 @@ namespace cvx::ecos
             getNumCones(),
             cone_constraint_dimensions.data(),
             0,
-            current_G->data(),
+            G.data(),
             G_col_ind.data(),
             G_row_ind.data(),
-            current_A->data(),
+            A.data(),
             A_col_ind.data(),
             A_row_ind.data(),
-            current_c->data(),
-            current_h->data(),
-            current_b->data());
+            c.data(),
+            h.data(),
+            b.data());
 
         if (work == nullptr)
         {
@@ -51,11 +45,11 @@ namespace cvx::ecos
         update();
 
         ECOS_updateData(work,
-                        current_G->data(),
-                        current_A->data(),
-                        current_c->data(),
-                        current_h->data(),
-                        current_b->data());
+                        G.data(),
+                        A.data(),
+                        c.data(),
+                        h.data(),
+                        b.data());
 
         exitflag = ECOS_solve(work);
 
@@ -121,21 +115,12 @@ namespace cvx::ecos
 
     void ECOSSolver::update()
     {
-        // Awkward switching between memory locations
-        current_G = alternate_memory ? &G1 : &G2;
-        current_A = alternate_memory ? &A1 : &A2;
-        current_c = alternate_memory ? &c1 : &c2;
-        current_h = alternate_memory ? &h1 : &h2;
-        current_b = alternate_memory ? &b1 : &b2;
-
         // The signs for A and G must be flipped because they are negative in the ECOS interface
-        *current_G = -eval(Eigen::Map<VectorXp>(G_params.valuePtr(), G_params.nonZeros()));
-        *current_A = -eval(Eigen::Map<VectorXp>(A_params.valuePtr(), A_params.nonZeros()));
-        *current_c = eval(c_params);
-        *current_h = eval(h_params);
-        *current_b = eval(b_params);
-
-        alternate_memory = !alternate_memory;
+        G = -eval(Eigen::Map<VectorXp>(G_params.valuePtr(), G_params.nonZeros()));
+        A = -eval(Eigen::Map<VectorXp>(A_params.valuePtr(), A_params.nonZeros()));
+        c = eval(c_params);
+        h = eval(h_params);
+        b = eval(b_params);
     }
 
     void ECOSSolver::cleanUp()

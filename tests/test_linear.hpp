@@ -18,23 +18,21 @@ TEST_CASE("Linear")
     op.addConstraint(lessThan(par(A) * x, par(b)));
     op.addCostTerm(par(c).dot(x));
 
-    // ! Fails right now, waiting for fix
     {
-        REQUIRE_THROWS(ecos::ECOSSolver(op));
-        // ecos::ECOSSolver solver(op);
+        ecos::ECOSSolver solver(op);
 
-        // solver.solve(true);
+        solver.solve(true);
 
-        // Eigen::VectorXd x_eval = eval(x);
-        // const double optval_eval = solver.getInfo().pcost;
+        Eigen::VectorXd x_eval = eval(x);
+        const double optval_eval = solver.getInfo().pcost;
 
-        // // generated with CVXPY
-        // Eigen::VectorXd x_sol(n);
-        // x_sol << -1.10378318, -0.14861315, -0.93044404, 0.01510552, 0.64782787, -1.17145192, 1.10413269, 0.84810568, 0.47081493, 0.89445169;
-        // const double optval_sol = -15.220912604892906;
+        // generated with CVXPY
+        Eigen::VectorXd x_sol(n);
+        x_sol << -1.10378318, -0.14861315, -0.93044404, 0.01510552, 0.64782787, -1.17145192, 1.10413269, 0.84810568, 0.47081493, 0.89445169;
+        const double optval_sol = -15.220912604892906;
 
-        // REQUIRE(optval_eval == Approx(optval_sol).margin(1e-7));
-        // REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-7));
+        REQUIRE(optval_eval == Approx(optval_sol).margin(1e-7));
+        REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-7));
     }
     {
         eicos::EiCOSSolver solver(op);
