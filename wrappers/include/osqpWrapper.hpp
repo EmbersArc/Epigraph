@@ -2,7 +2,7 @@
 
 #include "qpWrapperBase.hpp"
 
-#include "osqp/include/osqp.h"
+#include "osqp.h"
 
 namespace cvx::osqp
 {

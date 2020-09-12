@@ -52,7 +52,7 @@ TEST_CASE("Constraint")
         }
 
         {
-            eicos::EiCOSSolver solver(op);
+            ecos::ECOSSolver solver(op);
 
             solver.solve(true);
 

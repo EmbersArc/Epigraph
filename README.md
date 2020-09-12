@@ -39,7 +39,6 @@ The solvers are included as submodules for convenience. Note that some solvers h
 
 ### SOCP
 * [ECOS](https://github.com/embotech/ecos) `-DENABLE_ECOS=TRUE`. GPLv3 License.
-* [EiCOS](https://github.com/embersarc/eicos) `-DENABLE_EICOS=TRUE`. MIT License.
 
 ## Usage
 
@@ -53,7 +52,6 @@ To use Epigraph with a cmake project, simply enable the desired solvers, include
 ```
 set(ENABLE_OSQP TRUE)
 set(ENABLE_ECOS TRUE)
-set(ENABLE_EICOS TRUE)
 add_subdirectory(Epigraph)
 target_link_libraries(my_library epigraph)
 ```

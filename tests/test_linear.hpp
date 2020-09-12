@@ -35,7 +35,7 @@ TEST_CASE("Linear")
         REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-7));
     }
     {
-        eicos::EiCOSSolver solver(op);
+        ecos::ECOSSolver solver(op);
 
         solver.solve(true);
 

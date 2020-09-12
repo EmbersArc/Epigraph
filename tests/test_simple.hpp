@@ -13,7 +13,7 @@ TEST_CASE("Simple Problems")
         op.addConstraint(lessThan(x.norm(), 5.));
         op.addCostTerm(-x.sum());
 
-        eicos::EiCOSSolver solver(op);
+        ecos::ECOSSolver solver(op);
 
         solver.solve(true);
 
@@ -35,7 +35,7 @@ TEST_CASE("Simple Problems")
         op.addConstraint(lessThan(sqrt(x(0) * x(0) + x(1) * x(1) + par(2.)), 5.));
         op.addCostTerm(-x.sum());
 
-        eicos::EiCOSSolver solver(op);
+        ecos::ECOSSolver solver(op);
 
         solver.solve(true);
 
@@ -58,7 +58,7 @@ TEST_CASE("Simple Problems")
         op.addConstraint(lessThan(lhs, 5.));
         op.addCostTerm(-x.sum());
 
-        eicos::EiCOSSolver solver(op);
+        ecos::ECOSSolver solver(op);
 
         solver.solve(true);
 
@@ -79,7 +79,7 @@ TEST_CASE("Simple Problems")
 
         op.addCostTerm(x(0) * x(1));
 
-        REQUIRE_THROWS(eicos::EiCOSSolver(op));
+        REQUIRE_THROWS(ecos::ECOSSolver(op));
     }
 }
 
@@ -205,11 +205,11 @@ TEST_CASE("Least Squares")
 
         fmt::print("{}\n", qp);
 
-        eicos::EiCOSSolver solver(qp);
+        ecos::ECOSSolver solver(qp);
         solver.solve(true);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
 
         // try to add problem to a new solver
-        REQUIRE_THROWS(eicos::EiCOSSolver(qp));
+        REQUIRE_THROWS(ecos::ECOSSolver(qp));
     }
 }

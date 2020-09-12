@@ -2,10 +2,7 @@
 
 #include "socpWrapperBase.hpp"
 
-#define DCTRLC = 1
-#define DLONG
-#define LDL_LONG
-#include "ecos/include/ecos.h"
+#include "ecos.h"
 #define ECOS_UNSOLVED (-10)
 
 namespace cvx::ecos

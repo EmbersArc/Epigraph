@@ -9,10 +9,11 @@
 
 #ifdef ENABLE_ECOS
 #include "ecosWrapper.hpp"
-#endif
-
-#ifdef ENABLE_EICOS
-#include "eicosWrapper.hpp"
+#undef CTRLC
+#undef DEBUG
+#undef DELTA
+#undef DLONG
+#undef PROFILING
 #endif
 
 #ifdef ENABLE_OSQP
