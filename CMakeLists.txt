@@ -38,16 +38,17 @@ if(ENABLE_OSQP)
   else()
     message("Using OSQP from subdirectory.")
     if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/osqp
+      RESULT_VARIABLE GIT_SUBMOD_RESULT)
+      if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+        message(FATAL_ERROR "Failed to load the OSQP submodule with ${GIT_SUBMOD_RESULT}.")
+      endif()
+      add_subdirectory(solvers/osqp)
+      target_link_libraries(epigraph osqp)
+    else()
       message(FATAL_ERROR "Git is not available or configured incorrectly.")
     endif()
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/osqp
-    RESULT_VARIABLE GIT_SUBMOD_RESULT)
-    if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-      message(FATAL_ERROR "Failed to load the OSQP submodule with ${GIT_SUBMOD_RESULT}.")
-    endif()
-    add_subdirectory(solvers/osqp)
-    target_link_libraries(epigraph osqp)
   endif()
 
   target_sources(epigraph PRIVATE wrappers/src/osqpWrapper.cpp)
@@ -66,16 +67,17 @@ if(ENABLE_ECOS)
   else()
     message("Using ECOS from subdirectory.")
     if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+      execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/ecos
+      RESULT_VARIABLE GIT_SUBMOD_RESULT)
+      if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+        message(FATAL_ERROR "Failed to load the ECOS submodule with ${GIT_SUBMOD_RESULT}.")
+      endif()
+      add_subdirectory(solvers/ecos)
+      target_link_libraries(epigraph ecos)
+    else()
       message(FATAL_ERROR "Git is not available or configured incorrectly.")
     endif()
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/ecos
-    RESULT_VARIABLE GIT_SUBMOD_RESULT)
-    if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-      message(FATAL_ERROR "Failed to load the ECOS submodule with ${GIT_SUBMOD_RESULT}.")
-    endif()
-    add_subdirectory(solvers/ecos)
-    target_link_libraries(epigraph ecos)
   endif()
 
   target_sources(epigraph PRIVATE wrappers/src/ecosWrapper.cpp)
