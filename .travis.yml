@@ -1,6 +1,8 @@
 language: cpp
 os: linux
 dist: bionic
+git:
+  submodules: false
 
 compiler:
   - gcc
