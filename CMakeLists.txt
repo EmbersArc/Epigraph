@@ -4,8 +4,7 @@ project(epigraph)
 set(CMAKE_CXX_STANDARD 17)
 
 add_library(epigraph SHARED)
-target_include_directories(epigraph PUBLIC include solvers/wrappers/include)
-target_include_directories(epigraph SYSTEM PUBLIC solvers)
+target_include_directories(epigraph PUBLIC include wrappers/include)
 target_sources(epigraph PRIVATE
     src/parameter.cpp
     src/variable.cpp
@@ -13,10 +12,9 @@ target_sources(epigraph PRIVATE
     src/constraint.cpp
     src/problem.cpp
 
-    solvers/wrappers/src/wrapperBase.cpp
-
-    solvers/wrappers/src/socpWrapperBase.cpp
-    solvers/wrappers/src/qpWrapperBase.cpp
+    wrappers/src/wrapperBase.cpp
+    wrappers/src/socpWrapperBase.cpp
+    wrappers/src/qpWrapperBase.cpp
 )
 
 # ==== Solvers ====
@@ -25,18 +23,32 @@ target_sources(epigraph PRIVATE
 # Note that enabling certain solvers automatically alters the license.
 # Set ENABLE_OSQP to TRUE to enable OSQP solver support. Apache-2.0 License.
 # Set ENABLE_ECOS to TRUE to enable ECOS solver support. GPLv3 License.
-# Set ENABLE_EICOS to TRUE to enable EiCOS solver support. MIT License.
+find_package(Git QUIET)
 
-if(NOT ENABLE_OSQP AND NOT ENABLE_ECOS AND NOT ENABLE_EICOS)
+if(NOT ENABLE_OSQP AND NOT ENABLE_ECOS)
   message(FATAL_ERROR "Epigraph: No solvers enabled. Set the appropriate variables for the desired solvers and re-run cmake.")
 endif()
 
 # OSQP
 if(ENABLE_OSQP)
-  target_sources(epigraph PRIVATE solvers/wrappers/src/osqpWrapper.cpp)
+  find_package(osqp QUIET)
+  if(osqp_FOUND)
+    message("Using installed OSQP.")
+    target_link_libraries(epigraph osqp::osqp)
+  else()
+    message("Using OSQP from subdirectory.")
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/osqp
+    RESULT_VARIABLE GIT_SUBMOD_RESULT)
+    if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+      message(FATAL_ERROR "Failed to load the OSQP submodule with ${GIT_SUBMOD_RESULT}.")
+    endif()
+    add_subdirectory(solvers/osqp)
+    target_link_libraries(epigraph osqp)
+  endif()
+
+  target_sources(epigraph PRIVATE wrappers/src/osqpWrapper.cpp)
   target_compile_definitions(epigraph PUBLIC ENABLE_OSQP)
-  add_subdirectory(solvers/osqp)
-  target_link_libraries(epigraph osqp)
   message("Epigraph: OSQP enabled.")
 else()
   message("Epigraph: OSQP disabled.")
@@ -44,27 +56,27 @@ endif()
 
 # ECOS
 if(ENABLE_ECOS)
-  target_sources(epigraph PRIVATE solvers/wrappers/src/ecosWrapper.cpp)
+  find_package(ecos QUIET)
+  if(ecos_FOUND)
+    message("Using installed ECOS.")
+    target_link_libraries(epigraph ecos::ecos)
+  else()
+    message("Using ECOS from subdirectory.")
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/ecos
+    RESULT_VARIABLE GIT_SUBMOD_RESULT)
+    if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+      message(FATAL_ERROR "Failed to load the ECOS submodule with ${GIT_SUBMOD_RESULT}.")
+    endif()
+    add_subdirectory(solvers/ecos)
+    target_link_libraries(epigraph ecos)
+  endif()
+
+  target_sources(epigraph PRIVATE wrappers/src/ecosWrapper.cpp)
   target_compile_definitions(epigraph PUBLIC ENABLE_ECOS)
-  execute_process(COMMAND make shared
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos)
-  target_include_directories(epigraph SYSTEM PUBLIC solvers/ecos/external/SuiteSparse_config)
-  target_link_libraries(epigraph
-        ${CMAKE_CURRENT_LIST_DIR}/solvers/ecos/libecos.so)
   message("Epigraph: ECOS enabled.")
 else()
   message("Epigraph: ECOS disabled.")
-endif()
-
-# EiCOS
-if(ENABLE_EICOS)
-  target_sources(epigraph PRIVATE solvers/wrappers/src/eicosWrapper.cpp)
-  target_compile_definitions(epigraph PUBLIC ENABLE_EICOS)
-  add_subdirectory(solvers/eicos)
-  target_link_libraries(epigraph eicos)
-  message("Epigraph: EiCOS enabled.")
-else()
-  message("Epigraph: EiCOS disabled.")
 endif()
 
 set(DEBUG_OPTIONS -Wall -Wextra -Wpedantic)
@@ -78,10 +90,7 @@ find_package(Catch2)
 option(ENABLE_TESTING "Build tests. Requires Catch2 and fmt to be installed."
        FALSE)
 if(Catch2_FOUND AND ENABLE_TESTING)
-  if(NOT
-     (ENABLE_OSQP
-      AND ENABLE_ECOS
-      AND ENABLE_EICOS))
+  if(NOT (ENABLE_OSQP AND ENABLE_ECOS))
     message(FATAL_ERROR "Epigraph: Enable all solvers to enable testing.")
   endif()
 
