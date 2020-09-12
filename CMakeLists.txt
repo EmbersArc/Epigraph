@@ -79,8 +79,17 @@ else()
   message("Epigraph: ECOS disabled.")
 endif()
 
-set(DEBUG_OPTIONS -Wall -Wextra -Wpedantic)
-set(RELEASE_OPTIONS -O2)
+# Set compiler flags
+set(DEBUG_OPTIONS "")
+set(RELEASE_OPTIONS "")
+
+if(MSVC)
+    list(APPEND DEBUG_OPTIONS "/Od" "/Wall")
+    list(APPEND RELEASE_OPTIONS "/O2")
+else()
+    list(APPEND DEBUG_OPTIONS "-O0" "-Wall" "-Wextra")
+    list(APPEND RELEASE_OPTIONS "-O3")
+endif()
 
 find_package(Eigen3 REQUIRED NO_MODULE)
 target_link_libraries(epigraph Eigen3::Eigen)
