@@ -37,6 +37,9 @@ if(ENABLE_OSQP)
     target_link_libraries(epigraph osqp::osqp)
   else()
     message("Using OSQP from subdirectory.")
+    if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+      message(FATAL_ERROR "Git is not available or configured incorrectly.")
+    endif()
     execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/osqp
     RESULT_VARIABLE GIT_SUBMOD_RESULT)
@@ -62,6 +65,9 @@ if(ENABLE_ECOS)
     target_link_libraries(epigraph ecos::ecos)
   else()
     message("Using ECOS from subdirectory.")
+    if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+      message(FATAL_ERROR "Git is not available or configured incorrectly.")
+    endif()
     execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/solvers/ecos
     RESULT_VARIABLE GIT_SUBMOD_RESULT)
