@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scalar_24',['Scalar',['../classcvx_1_1Scalar.html',1,'cvx']]]
+  ['scalar_21',['Scalar',['../classcvx_1_1Scalar.html',1,'cvx']]]
 ];

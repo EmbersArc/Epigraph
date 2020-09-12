@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ecossolver_26',['ECOSSolver',['../classcvx_1_1ecos_1_1ECOSSolver.html',1,'cvx::ecos']]],
-  ['eicossolver_27',['EiCOSSolver',['../classcvx_1_1eicos_1_1EiCOSSolver.html',1,'cvx::eicos']]]
+  ['numtraits_3c_20cvx_3a_3ascalar_20_3e_23',['NumTraits&lt; cvx::Scalar &gt;',['../structEigen_1_1NumTraits_3_01cvx_1_1Scalar_01_4.html',1,'Eigen']]]
 ];
