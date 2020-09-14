@@ -64,8 +64,7 @@ While the example below is likely enough to get you started, the full documentat
 ```cpp
 #include "epigraph.hpp"
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
+#include <iostream>
 
 // This example solves the portfolio optimization problem in QP form
 
@@ -75,8 +74,6 @@ int main()
 {
     size_t n = 5; // Assets
     size_t m = 2; // Factors
-
-    fmt::print("Running with assets: {}, factors: {}\n", n, m);
 
     // Set up problem data.
     double gamma = 0.5;          // risk aversion parameter
@@ -112,21 +109,23 @@ int main()
     qp.addCostTerm(x.transpose() * par(gamma * Sigma) * x - dynpar(mu).dot(x));
 
     // Print the problem formulation for inspection
-    fmt::print("{}\n", qp);
+    std::cout << qp << "\n";
 
     // Create and initialize the solver instance.
     osqp::OSQPSolver solver(qp);
 
     // Print the canonical problem formulation for inspection
-    fmt::print("{}\n", solver);
+    std::cout << solver << "\n";
 
     // Solve problem and show solver output
     const bool verbose = true;
     solver.solve(verbose);
 
-    fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
+    std::cout << "Solver message:  " << solver.getResultString() << "\n";
+    std::cout << "Solver exitcode: " << solver.getExitCode() << "\n";
+
     // Call eval() to get the variable values
-    fmt::print("Solution 1:\n {}\n", eval(x));
+    std::cout << "Solution:\n" << eval(x) << "\n";
 
     // Update data
     mu.setRandom();
@@ -136,8 +135,7 @@ int main()
     // OSQP will warm start automatically
     solver.solve(verbose);
 
-    fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
-    fmt::print("Solution 2:\n {}\n", eval(x));
+    std::cout << "Solution after changing the cost function:\n" << eval(x) << "\n";
 }
 ```
 See the [tests](tests) for more examples, including the same problem in SOCP form.
