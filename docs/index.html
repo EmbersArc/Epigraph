@@ -116,8 +116,7 @@ Documentation</h3>
 Example</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="epigraph_8hpp.html">epigraph.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;fmt/format.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;fmt/ostream.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// This example solves the portfolio optimization problem in QP form</span></div>
 <div class="line"> </div>
@@ -127,8 +126,6 @@ Example</h3>
 <div class="line">{</div>
 <div class="line">    <span class="keywordtype">size_t</span> n = 5; <span class="comment">// Assets</span></div>
 <div class="line">    <span class="keywordtype">size_t</span> m = 2; <span class="comment">// Factors</span></div>
-<div class="line"> </div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;Running with assets: {}, factors: {}\n&quot;</span>, n, m);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Set up problem data.</span></div>
 <div class="line">    <span class="keywordtype">double</span> gamma = 0.5;          <span class="comment">// risk aversion parameter</span></div>
@@ -164,21 +161,23 @@ Example</h3>
 <div class="line">    qp.<a class="code" href="classcvx_1_1OptimizationProblem.html#a75c10fd63c47fffe804f7d3aae574eb5">addCostTerm</a>(x.transpose() * <a class="code" href="expressions_8hpp.html#a684fad62c2a1797e47da4d39361892db">par</a>(gamma * Sigma) * x - <a class="code" href="expressions_8hpp.html#a1d984e3625f4b93568f4d23ae1545706">dynpar</a>(mu).dot(x));</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Print the problem formulation for inspection</span></div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;{}\n&quot;</span>, qp);</div>
+<div class="line">    std::cout &lt;&lt; qp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Create and initialize the solver instance.</span></div>
 <div class="line">    osqp::OSQPSolver solver(qp);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Print the canonical problem formulation for inspection</span></div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;{}\n&quot;</span>, solver);</div>
+<div class="line">    std::cout &lt;&lt; solver &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Solve problem and show solver output</span></div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">bool</span> verbose = <span class="keyword">true</span>;</div>
 <div class="line">    solver.solve(verbose);</div>
 <div class="line"> </div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;Solver result: {} ({})\n&quot;</span>, solver.getResultString(), solver.getExitCode());</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Solver message:  &quot;</span> &lt;&lt; solver.getResultString() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Solver exitcode: &quot;</span> &lt;&lt; solver.getExitCode() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"> </div>
 <div class="line">    <span class="comment">// Call eval() to get the variable values</span></div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;Solution 1:\n {}\n&quot;</span>, <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(x));</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Solution:\n&quot;</span> &lt;&lt; <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(x) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Update data</span></div>
 <div class="line">    mu.setRandom();</div>
@@ -188,8 +187,7 @@ Example</h3>
 <div class="line">    <span class="comment">// OSQP will warm start automatically</span></div>
 <div class="line">    solver.solve(verbose);</div>
 <div class="line"> </div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;Solver result: {} ({})\n&quot;</span>, solver.getResultString(), solver.getExitCode());</div>
-<div class="line">    fmt::print(<span class="stringliteral">&quot;Solution 2:\n {}\n&quot;</span>, <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(x));</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Solution after changing the cost function:\n&quot;</span> &lt;&lt; <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(x) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>See the [tests](tests) for more examples, including the same problem in SOCP form.</p>
 <h3><a class="anchor" id="autotoc_md10"></a>
