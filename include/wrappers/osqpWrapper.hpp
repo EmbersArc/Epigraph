@@ -34,6 +34,7 @@ namespace cvx::osqp
         void setCheckTermination(c_int interval);
         void setWarmStart(bool warm_start);
 
+        void printSummary() const;
         ~OSQPSolver();
 
     private:

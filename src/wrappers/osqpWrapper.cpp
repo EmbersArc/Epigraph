@@ -153,6 +153,11 @@ namespace cvx::osqp
         osqp_update_warm_start(workspace, c_int(warm_start));
     }
 
+    void OSQPSolver::printSummary() const
+    {
+        print_summary(workspace);
+    }
+
     void OSQPSolver::cleanUp()
     {
         osqp_cleanup(workspace);
