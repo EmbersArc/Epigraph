@@ -19,11 +19,6 @@ before_install:
   - cmake -BEigen/build -HEigen -DBUILD_TESTING=OFF
   - sudo env "PATH=$PATH" cmake --build Eigen/build --target install
 
-  # Latest FMT
-  - git clone https://github.com/fmtlib/fmt fmt
-  - cmake -Bfmt/build -Hfmt -DFMT_TEST=OFF -DFMT_DOC=OFF -DBUILD_SHARED_LIBS=TRUE
-  - sudo env "PATH=$PATH" cmake --build fmt/build --target install
-
 script:
   - cmake -H. -Bbuild -DCMAKE_BUILD_TYPE:STRING=Debug -DENABLE_COVERAGE:BOOL=TRUE -DENABLE_TESTING:BOOL=TRUE -DENABLE_OSQP:BOOL=TRUE -DENABLE_ECOS:BOOL=TRUE
   - cmake --build build --config Debug --target run_tests -- -j$(nproc)

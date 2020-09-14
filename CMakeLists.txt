@@ -104,7 +104,7 @@ target_link_libraries(epigraph Eigen3::Eigen)
 
 # ==== Testing ====
 find_package(Catch2)
-option(ENABLE_TESTING "Build tests. Requires Catch2 and fmt to be installed."
+option(ENABLE_TESTING "Build tests. Requires Catch2 to be installed."
        FALSE)
 if(Catch2_FOUND AND ENABLE_TESTING)
   if(NOT (ENABLE_OSQP AND ENABLE_ECOS))
@@ -115,13 +115,6 @@ if(Catch2_FOUND AND ENABLE_TESTING)
   add_executable(run_tests tests/run_tests.cpp)
   target_link_libraries(run_tests epigraph)
   message("Epigraph: Testing is enabled.")
-
-  # fmt
-  find_package(fmt REQUIRED)
-  if(${fmt_FOUND})
-    message(STATUS "Epigraph: Found fmt.")
-    target_link_libraries(run_tests fmt::fmt)
-  endif()
 
   # Coverage
   if(CMAKE_COMPILER_IS_GNUCXX)

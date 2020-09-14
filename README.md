@@ -27,8 +27,7 @@ Epigraph is a modern C++ interface to formulate and solve linear, quadratic and 
 
 ## Dependencies
 
-* [Eigen](http://eigen.tuxfamily.org)
-* [fmt](https://github.com/fmtlib/fmt) (optional, only for tests)
+* [Eigen](http://eigen.tuxfamily.org) 3.3.7
 
 ## Supported Solvers
 
@@ -122,7 +121,8 @@ int main()
     fmt::print("{}\n", solver);
 
     // Solve problem and show solver output
-    solver.solve(true);
+    const bool verbose = true;
+    solver.solve(verbose);
 
     fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
     // Call eval() to get the variable values
@@ -134,7 +134,7 @@ int main()
 
     // Solve again
     // OSQP will warm start automatically
-    solver.solve(true);
+    solver.solve(verbose);
 
     fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
     fmt::print("Solution 2:\n {}\n", eval(x));
