@@ -24,6 +24,7 @@ namespace cvx::osqp
         data.u = u.data();
 
         osqp_set_default_settings(&settings);
+        settings.verbose = false;
 
         exitflag = osqp_setup(&workspace, &data, &settings);
 
