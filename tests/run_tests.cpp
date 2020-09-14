@@ -3,9 +3,6 @@
 
 #include "epigraph.hpp"
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-
 
 // Tests
 #include "test_constraint.hpp"

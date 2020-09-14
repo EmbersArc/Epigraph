@@ -40,11 +40,10 @@ TEST_CASE("Constraint")
         op.addConstraint(box(lhs, mid, rhs));
         op.addCostTerm(par(Eigen::VectorXd::Random(6).cwiseAbs()).dot(x));
 
-        fmt::print("{}\n", op);
         {
             osqp::OSQPSolver solver(op);
 
-            solver.solve(true);
+            solver.solve(false);
 
             REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
             REQUIRE(eval(mid) <= eval(rhs) + 1e-3);
@@ -54,7 +53,7 @@ TEST_CASE("Constraint")
         {
             ecos::ECOSSolver solver(op);
 
-            solver.solve(true);
+            solver.solve(false);
 
             REQUIRE(eval(lhs) <= eval(mid) + 1e-3);
             REQUIRE(eval(mid) <= eval(rhs) + 1e-3);

@@ -1,5 +1,4 @@
 #include <array>
-#include <chrono>
 
 using namespace cvx;
 
@@ -66,35 +65,20 @@ TEST_CASE("Simple SOCP")
     // Here we use dynamic parameter. This allows changing it without reformulating the problem.
     socp.addCostTerm(dynpar(f).transpose() * x);
 
-    // Print the problem for inspection.
-    fmt::print("{}\n\n", socp);
-
     // Create the solver instance.
     ecos::ECOSSolver solver(socp);
 
-    auto t = std::chrono::high_resolution_clock::now();
-    auto t_setup = std::chrono::duration_cast<std::chrono::microseconds>(t - t0).count();
-    fmt::print("Setup duration: {}μs.\n\n", t_setup);
-
     // Solve the problem and show solver output.
     t0 = std::chrono::high_resolution_clock::now();
-    const bool success = solver.solve(true);
+    const bool success = solver.solve(false);
     if (not success)
     {
         // This should not happen in this example.
         throw std::runtime_error("Solver returned a critical error.");
     }
-    fmt::print("Solver message: {}\n\n", solver.getResultString());
-
-    t = std::chrono::high_resolution_clock::now();
-    auto t_solve = std::chrono::duration_cast<std::chrono::microseconds>(t - t0).count();
-    fmt::print("Solver duration: {}μs.\n\n", t_solve);
 
     // Get Solution.
     Eigen::Matrix<double, n, 1> x_eval = eval(x);
-
-    // Print the first solution.
-    fmt::print("First solution:\n{}\n\n", x_eval);
 
     // Test the constraints
     for (size_t i = 0; i < m; i++)
@@ -114,7 +98,4 @@ TEST_CASE("Simple SOCP")
         REQUIRE((A[i] * x_eval + b[i]).norm() <= Approx(c[i].dot(x_eval) + d[i]).margin(1e-6));
     }
     REQUIRE((F * x_eval - g).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-8));
-
-    // Print the new solution.
-    fmt::print("Solution after changing the cost function:\n{}\n\n", x_eval);
 }

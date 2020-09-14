@@ -21,7 +21,7 @@ TEST_CASE("Linear")
     {
         ecos::ECOSSolver solver(op);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().pcost;
@@ -37,7 +37,7 @@ TEST_CASE("Linear")
     {
         ecos::ECOSSolver solver(op);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().pcost;
@@ -56,7 +56,7 @@ TEST_CASE("Linear")
         solver.setEpsRel(1e-5);
         solver.setPolish(true);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().obj_val;

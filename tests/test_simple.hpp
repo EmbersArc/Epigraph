@@ -15,7 +15,7 @@ TEST_CASE("Simple Problems")
 
         ecos::ECOSSolver solver(op);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().pcost;
@@ -37,7 +37,7 @@ TEST_CASE("Simple Problems")
 
         ecos::ECOSSolver solver(op);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().pcost;
@@ -60,7 +60,7 @@ TEST_CASE("Simple Problems")
 
         ecos::ECOSSolver solver(op);
 
-        solver.solve(true);
+        solver.solve(false);
 
         Eigen::VectorXd x_eval = eval(x);
         const double optval_eval = solver.getInfo().pcost;
@@ -181,13 +181,9 @@ TEST_CASE("Least Squares")
 
         qp.addCostTerm((dynpar(sparseA) * x - par(b)).squaredNorm());
 
-        fmt::print("{}\n", qp);
-
         osqp::OSQPSolver solver(qp);
 
-        fmt::print("{}\n", solver);
-
-        solver.solve(true);
+        solver.solve(false);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
 
         // try to add problem to a new solver
@@ -203,10 +199,8 @@ TEST_CASE("Least Squares")
         qp.addConstraint(lessThan((par(A) * x - par(b)).norm(), s));
         qp.addCostTerm(s);
 
-        fmt::print("{}\n", qp);
-
         ecos::ECOSSolver solver(qp);
-        solver.solve(true);
+        solver.solve(false);
         REQUIRE((eval(x) - x_sol).cwiseAbs().maxCoeff() < 1e-5);
 
         // try to add problem to a new solver

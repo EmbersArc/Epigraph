@@ -7,8 +7,6 @@ TEST_CASE("Portfolio SOCP")
     const size_t n = 5; // Assets
     const size_t m = 2; // Factors
 
-    fmt::print("Running with assets: {}, factors: {}\n", n, m);
-
     // Set up problem data.
     double gamma = 0.5;          // risk aversion parameter
     Eigen::VectorXd mu(n);       // vector of expected returns
@@ -55,15 +53,11 @@ TEST_CASE("Portfolio SOCP")
     // Create the solver instance.
     cvx::ecos::ECOSSolver solver(socp);
 
-    fmt::print("{}\n", solver);
-
-    solver.solve(true);
-    fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
+    solver.solve(false);
     {
         const Eigen::VectorXd x_eval = eval(x);
         Eigen::VectorXd x_sol(n);
         x_sol << 0.24424712, 0., 0.01413456, 0.25067381, 0.4909445;
-        fmt::print("Solution 1:\n {}\n", x_eval);
         REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-4));
         REQUIRE(x_eval.minCoeff() >= 0.);
         REQUIRE(x_eval.sum() == Approx(1.));
@@ -75,13 +69,11 @@ TEST_CASE("Portfolio SOCP")
     mu << 0.967399, 0.514226, 0.725537, 0.608354, 0.686642;
 
     // Solve again
-    solver.solve(true);
-    fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
+    solver.solve(false);
     {
         const Eigen::VectorXd x_eval = eval(x);
         Eigen::VectorXd x_sol(n);
         x_sol << 4.38579051e-01, 3.04375987e-23, 2.00025310e-01, 1.17002001e-01, 2.44393639e-01;
-        fmt::print("Solution 2:\n {}\n", x_eval);
         REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-4));
         REQUIRE(x_eval.minCoeff() >= 0.);
         REQUIRE(x_eval.sum() == Approx(1.));

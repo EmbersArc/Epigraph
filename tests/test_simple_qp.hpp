@@ -31,25 +31,12 @@ TEST_CASE("Simple QP 1")
     solver.setAlpha(1.0);
 
     // Solve the problem and show solver output.
-    solver.solve(true);
-
-    fmt::print("{}", qp);
-    fmt::print("{}", solver);
+    solver.solve(false);
 
     Eigen::VectorXd x_val = eval(x);
     Eigen::Vector2d x_sol(0.3, 0.7);
 
-    const double cost = x_val.transpose() * P * x_val + q.dot(x_val);
-
-    fmt::print("Solution:\n {}\n", x_val);
-    fmt::print("Cost:    \n {}\n", cost);
-
     REQUIRE(x_val.isApprox(x_sol, 1e-5));
-
-    // ! The order in which the variables are added to the problem may vary, so this test fails randomly.
-    // auto test_stream = std::ostringstream();
-    // test_stream << solver;
-    // REQUIRE(test_stream.str() == "Quadratic problem\nMinimize 0.5x'Px + q'x\nSubject to l <= Ax <= u\nWith:\n\nP:\n4 1\n1 2\n\nq:\n1\n1\n\nA:\n1 1\n1 0\n0 1\n\nl:\n1\n0\n0\n\nu:\n  1\n0.7\n0.7");
 }
 
 TEST_CASE("Simple QP 2")
@@ -63,10 +50,7 @@ TEST_CASE("Simple QP 2")
 
     osqp::OSQPSolver solver(qp);
 
-    fmt::print("{}\n", qp);
-    fmt::print("{}\n", solver);
-
-    solver.solve(true);
+    solver.solve(false);
 
     Eigen::Vector3d x_eval = eval(x);
 
@@ -195,7 +179,7 @@ TEST_CASE("Simple QP 3")
     solver.setEpsAbs(1e-5);
     solver.setEpsRel(1e-5);
     
-    solver.solve(true);
+    solver.solve(false);
 
     Eigen::VectorXd x_eval = eval(x);
 
@@ -216,8 +200,6 @@ TEST_CASE("Non-convex QP")
     M.diagonal() << -3, -2, -1;
 
     qp.addCostTerm(x.transpose() * par(M) * x);
-
-    fmt::print("{}\n", qp);
 
     REQUIRE_THROWS(osqp::OSQPSolver(qp));
 }

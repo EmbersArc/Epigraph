@@ -42,7 +42,6 @@ TEST_CASE("MPC QP")
     qp.addCostTerm(x.squaredNorm() + u.squaredNorm());
 
     // Print the problem for inspection
-    fmt::print("{}", qp);
 
     // Create and initialize the solver instance.
     osqp::OSQPSolver solver(qp);
@@ -50,13 +49,9 @@ TEST_CASE("MPC QP")
     solver.setAlpha(1.);
 
     // Solve the problem and get the solution
-    solver.solve(true);
-    fmt::print("Solver result: {} ({})\n", solver.getResultString(), solver.getExitCode());
+    solver.solve(false);
     Eigen::MatrixXd x_sol = eval(x);
     Eigen::MatrixXd u_sol = eval(u);
-
-    fmt::print("X:\n {}\n\n", x_sol);
-    fmt::print("U:\n {}\n\n", u_sol);
 
     // Check solution
     for (size_t t = 0; t < T; t++)
