@@ -3,6 +3,8 @@
 
 #include "epigraph.hpp"
 
+#include <iostream>
+
 
 // Tests
 #include "test_constraint.hpp"

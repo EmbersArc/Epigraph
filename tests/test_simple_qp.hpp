@@ -33,8 +33,16 @@ TEST_CASE("Simple QP 1")
     // Solve the problem and show solver output.
     solver.solve(false);
 
+    std::cout << qp << "\n";
+    std::cout << solver << "\n";
+
     Eigen::VectorXd x_val = eval(x);
     Eigen::Vector2d x_sol(0.3, 0.7);
+
+    const double cost = x_val.transpose() * P * x_val + q.dot(x_val);
+
+    std::cout << "Solution: " << x_val << "\n";
+    std::cout << "Cost:     " << cost << "\n";
 
     REQUIRE(x_val.isApprox(x_sol, 1e-5));
 }
@@ -51,6 +59,9 @@ TEST_CASE("Simple QP 2")
     osqp::OSQPSolver solver(qp);
 
     solver.solve(false);
+
+    std::cout << qp << "\n";
+    std::cout << solver << "\n";
 
     Eigen::Vector3d x_eval = eval(x);
 
@@ -178,7 +189,7 @@ TEST_CASE("Simple QP 3")
     solver.setPolish(true);
     solver.setEpsAbs(1e-5);
     solver.setEpsRel(1e-5);
-    
+
     solver.solve(false);
 
     Eigen::VectorXd x_eval = eval(x);
@@ -201,5 +212,6 @@ TEST_CASE("Non-convex QP")
 
     qp.addCostTerm(x.transpose() * par(M) * x);
 
+    std::cout << qp << "\n";
     REQUIRE_THROWS(osqp::OSQPSolver(qp));
 }

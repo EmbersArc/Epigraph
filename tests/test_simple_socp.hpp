@@ -65,6 +65,9 @@ TEST_CASE("Simple SOCP")
     // Here we use dynamic parameter. This allows changing it without reformulating the problem.
     socp.addCostTerm(dynpar(f).transpose() * x);
 
+    // Print the problem for inspection.
+    std::cout << socp << "\n";
+
     // Create the solver instance.
     ecos::ECOSSolver solver(socp);
 
@@ -77,9 +80,12 @@ TEST_CASE("Simple SOCP")
         throw std::runtime_error("Solver returned a critical error.");
     }
 
+    std::cout << "Solver message: " << solver.getResultString() << "\n";
+
     // Get Solution.
     Eigen::Matrix<double, n, 1> x_eval = eval(x);
-
+    // Print the first solution.
+    std::cout << "First solution:\n" << x_eval << "\n\n";
     // Test the constraints
     for (size_t i = 0; i < m; i++)
     {
@@ -98,4 +104,6 @@ TEST_CASE("Simple SOCP")
         REQUIRE((A[i] * x_eval + b[i]).norm() <= Approx(c[i].dot(x_eval) + d[i]).margin(1e-6));
     }
     REQUIRE((F * x_eval - g).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-8));
+
+    std::cout << "Solution after changing the cost function:\n" << x_eval << "\n\n";
 }
