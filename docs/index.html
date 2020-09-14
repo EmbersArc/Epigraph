@@ -70,7 +70,7 @@ $(function() {
 <div class="textblock"><p align="center"><a class="anchor" id="md_README"></a></p>
 <p><img src="img/logo.png" alt="" class="inline"/> </p>
 <p align="center"></p>
-<p><a href="https://shields.io/"><img src="https://img.shields.io/badge/Version-0.3.4-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Status-Beta-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://travis-ci.org/github/EmbersArc/Epigraph"><img src="https://api.travis-ci.org/EmbersArc/Epigraph.svg?branch=master" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/gh/EmbersArc/Epigraph"><img src="https://codecov.io/gh/EmbersArc/Epigraph/branch/master/graph/badge.svg" alt="" style="pointer-events: none;" class="inline"/></a> </p>
+<p><a href="https://shields.io/"><img src="https://img.shields.io/badge/Version-0.4.0-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Status-Beta-orange.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://shields.io/"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://travis-ci.org/github/EmbersArc/Epigraph"><img src="https://api.travis-ci.org/EmbersArc/Epigraph.svg?branch=master" alt="" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/gh/EmbersArc/Epigraph"><img src="https://codecov.io/gh/EmbersArc/Epigraph/branch/master/graph/badge.svg" alt="" style="pointer-events: none;" class="inline"/></a> </p>
 <p>Epigraph is a modern C++ interface to formulate and solve linear, quadratic and second order cone problems. It makes use of Eigen types and operator overloading for straightforward problem formulation.</p>
 <h2><a class="anchor" id="autotoc_md0"></a>
 Features</h2>
@@ -83,8 +83,7 @@ Features</h2>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Dependencies</h2>
 <ul>
-<li><a href="http://eigen.tuxfamily.org">Eigen</a></li>
-<li><a href="https://github.com/fmtlib/fmt">fmt</a> (optional, only for tests)</li>
+<li><a href="http://eigen.tuxfamily.org">Eigen</a> 3.3.7</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Supported Solvers</h2>
@@ -174,7 +173,8 @@ Example</h3>
 <div class="line">    fmt::print(<span class="stringliteral">&quot;{}\n&quot;</span>, solver);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Solve problem and show solver output</span></div>
-<div class="line">    solver.solve(<span class="keyword">true</span>);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">bool</span> verbose = <span class="keyword">true</span>;</div>
+<div class="line">    solver.solve(verbose);</div>
 <div class="line"> </div>
 <div class="line">    fmt::print(<span class="stringliteral">&quot;Solver result: {} ({})\n&quot;</span>, solver.getResultString(), solver.getExitCode());</div>
 <div class="line">    <span class="comment">// Call eval() to get the variable values</span></div>
@@ -186,7 +186,7 @@ Example</h3>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Solve again</span></div>
 <div class="line">    <span class="comment">// OSQP will warm start automatically</span></div>
-<div class="line">    solver.solve(<span class="keyword">true</span>);</div>
+<div class="line">    solver.solve(verbose);</div>
 <div class="line"> </div>
 <div class="line">    fmt::print(<span class="stringliteral">&quot;Solver result: {} ({})\n&quot;</span>, solver.getResultString(), solver.getExitCode());</div>
 <div class="line">    fmt::print(<span class="stringliteral">&quot;Solution 2:\n {}\n&quot;</span>, <a class="code" href="expressions_8hpp.html#a11d5ec90b597ad187a911b85516205e6">eval</a>(x));</div>
