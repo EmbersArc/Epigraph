@@ -41,11 +41,6 @@ The solvers are included as submodules for convenience. Note that some solvers h
 
 ## Usage
 
-### Download
-```
-git clone --recurse-submodules https://github.com/EmbersArc/Epigraph
-```
-
 ### CMake
 To use Epigraph with a cmake project, simply enable the desired solvers, include the subdirectory and link the library.
 ```
