@@ -1,6 +1,6 @@
 #pragma once
 
-#include "socpWrapperBase.hpp"
+#include "wrappers/socpWrapperBase.hpp"
 
 #include "ecos.h"
 #define ECOS_UNSOLVED (-10)

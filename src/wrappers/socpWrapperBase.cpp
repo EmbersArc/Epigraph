@@ -1,4 +1,4 @@
-#include "socpWrapperBase.hpp"
+#include "wrappers/socpWrapperBase.hpp"
 
 namespace cvx::internal
 {

@@ -1,4 +1,4 @@
-#include "osqpWrapper.hpp"
+#include "wrappers/osqpWrapper.hpp"
 
 namespace cvx::osqp
 {

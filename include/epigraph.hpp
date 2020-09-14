@@ -8,7 +8,7 @@
 #pragma once
 
 #ifdef ENABLE_ECOS
-#include "ecosWrapper.hpp"
+#include "wrappers/ecosWrapper.hpp"
 #undef CTRLC
 #undef DEBUG
 #undef DELTA
@@ -17,5 +17,5 @@
 #endif
 
 #ifdef ENABLE_OSQP
-#include "osqpWrapper.hpp"
+#include "wrappers/osqpWrapper.hpp"
 #endif

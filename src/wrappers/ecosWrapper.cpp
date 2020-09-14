@@ -1,4 +1,4 @@
-#include "ecosWrapper.hpp"
+#include "wrappers/ecosWrapper.hpp"
 
 namespace cvx::ecos
 {

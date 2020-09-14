@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qpWrapperBase.hpp"
+#include "wrappers/qpWrapperBase.hpp"
 
 #include "osqp.h"
 

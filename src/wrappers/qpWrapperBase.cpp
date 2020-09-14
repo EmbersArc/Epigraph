@@ -1,4 +1,4 @@
-#include "qpWrapperBase.hpp"
+#include "wrappers/qpWrapperBase.hpp"
 
 #include <Eigen/Cholesky>
 

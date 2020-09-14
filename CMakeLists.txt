@@ -4,7 +4,7 @@ project(epigraph)
 set(CMAKE_CXX_STANDARD 17)
 
 add_library(epigraph SHARED)
-target_include_directories(epigraph PUBLIC include wrappers/include)
+target_include_directories(epigraph PUBLIC include)
 target_sources(epigraph PRIVATE
     src/parameter.cpp
     src/variable.cpp
@@ -12,9 +12,9 @@ target_sources(epigraph PRIVATE
     src/constraint.cpp
     src/problem.cpp
 
-    wrappers/src/wrapperBase.cpp
-    wrappers/src/socpWrapperBase.cpp
-    wrappers/src/qpWrapperBase.cpp
+    src/wrappers/wrapperBase.cpp
+    src/wrappers/socpWrapperBase.cpp
+    src/wrappers/qpWrapperBase.cpp
 )
 
 # ==== Solvers ====
@@ -51,7 +51,7 @@ if(ENABLE_OSQP)
     endif()
   endif()
 
-  target_sources(epigraph PRIVATE wrappers/src/osqpWrapper.cpp)
+  target_sources(epigraph PRIVATE src/wrappers/osqpWrapper.cpp)
   target_compile_definitions(epigraph PUBLIC ENABLE_OSQP)
   message("Epigraph: OSQP enabled.")
 else()
@@ -80,7 +80,7 @@ if(ENABLE_ECOS)
     endif()
   endif()
 
-  target_sources(epigraph PRIVATE wrappers/src/ecosWrapper.cpp)
+  target_sources(epigraph PRIVATE src/wrappers/ecosWrapper.cpp)
   target_compile_definitions(epigraph PUBLIC ENABLE_ECOS)
   message("Epigraph: ECOS enabled.")
 else()
