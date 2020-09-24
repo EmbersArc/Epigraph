@@ -27,7 +27,7 @@ Epigraph is a modern C++ interface to formulate and solve linear, quadratic and 
 
 ## Dependencies
 
-* [Eigen](http://eigen.tuxfamily.org) 3.3.7
+* [Eigen](http://eigen.tuxfamily.org)
 
 ## Supported Solvers
 

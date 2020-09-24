@@ -87,6 +87,9 @@ namespace cvx
 
             bool operator==(const Parameter &other) const;
 
+            // required for eigen < 3.3.7
+            bool operator==(const int const_value) const;
+
             Parameter operator+(const Parameter &other) const;
             Parameter operator-(const Parameter &other) const;
             Parameter operator-() const;

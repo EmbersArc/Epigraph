@@ -147,6 +147,11 @@ namespace cvx::internal
         return compare_sources(this->source, other.source);
     }
 
+    bool Parameter::operator==(const int const_value) const
+    {
+        return compare_sources(this->source, Parameter(const_value).source);
+    }
+
     Parameter::operator double() const
     {
         return getValue();
