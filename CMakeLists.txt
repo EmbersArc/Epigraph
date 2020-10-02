@@ -100,7 +100,12 @@ else()
 endif()
 
 find_package(Eigen3 REQUIRED NO_MODULE)
-target_link_libraries(epigraph Eigen3::Eigen)
+if(TARGET Eigen3::Eigen)
+    target_link_libraries(epigraph Eigen3::Eigen)
+else()
+    # Conan uses the package name for the target name
+    target_link_libraries(epigraph Eigen3::Eigen3)
+endif()
 
 # ==== Testing ====
 find_package(Catch2)
