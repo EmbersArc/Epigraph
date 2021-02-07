@@ -10,12 +10,12 @@ compiler:
 
 before_install:
   # Latest Catch2
-  - git clone https://github.com/catchorg/Catch2.git Catch2
+  - git clone --depth 1 --branch v2.x https://github.com/catchorg/Catch2.git Catch2
   - cmake -BCatch2/build -HCatch2 -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF
   - sudo env "PATH=$PATH" cmake --build Catch2/build --target install
 
   # Latest Eigen
-  - git clone https://gitlab.com/libeigen/eigen.git Eigen
+  - git clone --depth 1 https://gitlab.com/libeigen/eigen.git Eigen
   - cmake -BEigen/build -HEigen -DBUILD_TESTING=OFF
   - sudo env "PATH=$PATH" cmake --build Eigen/build --target install
 
