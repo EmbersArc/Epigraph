@@ -52,7 +52,7 @@ target_link_libraries(my_library epigraph)
 
 ### Documentation
 
-While the example below is likely enough to get you started, the full documentation can be found [here](https://embersarc.github.io/Epigraph/).
+While the example below is likely enough to get you started, more explanation is provided below. The full reference can be found [here](https://embersarc.github.io/Epigraph/).
 
 ### Example
 
@@ -134,6 +134,30 @@ int main()
 }
 ```
 See the [tests](tests) for more examples, including the same problem in SOCP form.
+
+### Variables
+Variables are created by directly adding them to a problem:
+```cpp
+    OptimizationProblem qp;
+    cvx::Scalar scalar_var = qp.addVariable("x");
+    cvx::VectorX vector_var = qp.addVariable("x", n);
+    cvx::MatrixX matrix_var = qp.addVariable("x", n, m);
+```
+They contain the solution values after the problem has been solved successfully. Those values can be retrieved with the `eval` function, or by casting the value to a `double`.
+```cpp
+    double scalar_sol = cvx::eval(scalar_var);
+    Eigen::VectorXd vector_sol = cvx::eval(vector_var);
+    Eigen::MatrixXd matrix_sol = cvx::eval(matrix_var);
+```
+
+### Parameters
+There are three kinds of parameters:
+#### Constant
+A value that can't be changed after instantiating the solver. Use the `par` function to turn scalars or Eigen types into constant parameters.
+#### Dynamic
+A value that *can* be changed after instantiating the solver. Use the `dynpar` function to turn scalars or Eigen types into dynamic parameters. Internally, this stores a pointer to the original data and will fetch the data each time the problem is solved. Important: Do not move or let this data go out of scope before the solver instance.
+#### Operation
+This parameter type is created when using the operations `+`, `-`, `*` or `/` with dynamic parameters. This records the operations and will later execute them again to build the new problem based on the changed dynamic parameters. Using said operations with constant parameters will again yield constant parameters and not result in any additional computations.
 
 ### Problem Formulation
 The following terms may be passed to the constraint functions:
