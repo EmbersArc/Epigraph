@@ -4,9 +4,7 @@
 
 <p align="center">
 <a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Version-0.4.1-orange.svg" /></a>
-<a href="https://shields.io/" alt="">
-    <img src="https://img.shields.io/badge/Status-Beta-orange.svg" /></a>
+    <img src="https://img.shields.io/badge/Version-0.4.2-green.svg" /></a>
 <a href="https://shields.io/" alt="">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
 <a href="https://github.com/EmbersArc/Epigraph/blob/master/LICENSE" alt="">
