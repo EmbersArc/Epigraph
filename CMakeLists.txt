@@ -108,7 +108,7 @@ else()
 endif()
 
 # ==== Testing ====
-find_package(Catch2)
+find_package(Catch2 QUIET)
 option(ENABLE_TESTING "Build tests. Requires Catch2 to be installed."
        FALSE)
 if(Catch2_FOUND AND ENABLE_TESTING)
