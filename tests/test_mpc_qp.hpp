@@ -65,4 +65,5 @@ TEST_CASE("MPC QP")
     REQUIRE(x_sol.minCoeff() >= Approx(-5.).margin(1e-3));
     REQUIRE(u_sol.maxCoeff() <= Approx(2.).margin(1e-3));
     REQUIRE(u_sol.minCoeff() >= Approx(-2.).margin(1e-3));
+    REQUIRE(solver.isFeasible(1e-8));
 }

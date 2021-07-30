@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-
 // Tests
 #include "test_constraint.hpp"
 

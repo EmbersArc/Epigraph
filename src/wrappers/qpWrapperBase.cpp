@@ -240,4 +240,13 @@ namespace cvx::internal
         }
     }
 
+    bool QPWrapperBase::isFeasible(double tolerance) const
+    {
+        Eigen::SparseMatrix<double> A = eval(A_params);
+        Eigen::VectorXd l = eval(l_params);
+        Eigen::VectorXd u = eval(u_params);
+        Eigen::VectorXd Ax = A * Eigen::Map<Eigen::VectorXd>((*solution).data(), (*solution).size());
+        return ((Ax - l).array() > -tolerance).all() && ((Ax - u).array() < tolerance).all();
+    }
+
 } // namespace cvx::internal

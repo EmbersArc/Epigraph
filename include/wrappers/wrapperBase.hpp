@@ -14,6 +14,7 @@ namespace cvx::internal
         virtual bool solve(bool verbose = false) = 0;
         virtual std::string getResultString() const = 0;
         size_t getNumVariables() const;
+        virtual bool isFeasible(double tolerance) const = 0;
 
     protected:
         using MatrixXp = Eigen::Matrix<Parameter, Eigen::Dynamic, Eigen::Dynamic>;

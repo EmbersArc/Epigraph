@@ -74,6 +74,8 @@ TEST_CASE("Simple SOCP")
     // Solve the problem and show solver output.
     t0 = std::chrono::high_resolution_clock::now();
     const bool success = solver.solve(false);
+    REQUIRE(solver.isFeasible(1e-8));
+
     if (not success)
     {
         // This should not happen in this example.
@@ -85,7 +87,8 @@ TEST_CASE("Simple SOCP")
     // Get Solution.
     Eigen::Matrix<double, n, 1> x_eval = eval(x);
     // Print the first solution.
-    std::cout << "First solution:\n" << x_eval << "\n\n";
+    std::cout << "First solution:\n"
+              << x_eval << "\n\n";
     // Test the constraints
     for (size_t i = 0; i < m; i++)
     {
@@ -96,6 +99,7 @@ TEST_CASE("Simple SOCP")
     // Change the problem parameters and solve again.
     f.setRandom();
     solver.solve(false);
+    REQUIRE(solver.isFeasible(1e-8));
     x_eval = eval(x);
 
     // Test the constraints again
@@ -105,5 +109,6 @@ TEST_CASE("Simple SOCP")
     }
     REQUIRE((F * x_eval - g).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-8));
 
-    std::cout << "Solution after changing the cost function:\n" << x_eval << "\n\n";
+    std::cout << "Solution after changing the cost function:\n"
+              << x_eval << "\n\n";
 }

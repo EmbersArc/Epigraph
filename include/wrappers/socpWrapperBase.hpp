@@ -16,6 +16,8 @@ namespace cvx::internal
         size_t getNumPositiveConstraints() const;
         size_t getNumCones() const;
 
+        bool isFeasible(double tolerance) const final override;
+
         friend std::ostream &operator<<(std::ostream &os, const SOCPWrapperBase &wrapper);
 
     protected:

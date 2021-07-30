@@ -13,6 +13,8 @@ namespace cvx::internal
 
         bool isConvex() const;
 
+        bool isFeasible(double tolerance) const final override;
+
         size_t getNumInequalityConstraints() const;
 
         friend std::ostream &operator<<(std::ostream &os, const QPWrapperBase &wrapper);

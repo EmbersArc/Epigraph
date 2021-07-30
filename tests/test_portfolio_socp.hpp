@@ -77,5 +77,6 @@ TEST_CASE("Portfolio SOCP")
         REQUIRE((x_eval - x_sol).cwiseAbs().maxCoeff() == Approx(0.).margin(1e-4));
         REQUIRE(x_eval.minCoeff() >= 0.);
         REQUIRE(x_eval.sum() == Approx(1.));
+        REQUIRE(solver.isFeasible(1e-8));
     }
 }

@@ -209,4 +209,39 @@ namespace cvx::internal
         return os;
     }
 
+    bool SOCPWrapperBase::isFeasible(double tolerance) const
+    {
+        Eigen::MatrixXd G = eval(G_params);
+        Eigen::VectorXd h = eval(h_params);
+        Eigen::MatrixXd A = -eval(A_params);
+        Eigen::VectorXd b = eval(b_params);
+        Eigen::VectorXd x = Eigen::Map<Eigen::VectorXd>((*solution).data(), (*solution).size());
+
+        if ((A * x - b).cwiseAbs().maxCoeff() > tolerance)
+        {
+            return false;
+        }
+
+        const size_t n_var = this->getNumVariables();
+        const size_t n_pc = this->getNumPositiveConstraints();
+        const size_t n_cones = this->getNumCones();
+
+        if (((G.topRows(n_pc) * x + h.head(n_pc)).array() < -tolerance).any())
+        {
+            return false;
+        }
+
+        size_t k = n_pc;
+        for (size_t i = 0; i < n_cones; i++)
+        {
+            if ((G.block(k + 1, 0, soc_dims[i] - 1, n_var) * x + h.segment(k + 1, soc_dims[i] - 1)).norm() - (G.row(k) * x + h(k)) > tolerance)
+            {
+                return false;
+            }
+            k += soc_dims[i];
+        }
+
+        return true;
+    }
+
 } // namespace cvx
